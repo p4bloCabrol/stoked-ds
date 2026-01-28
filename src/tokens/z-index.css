@@ -1,0 +1,14 @@
+:root {
+  /* ===== Z-Index Scale ===== */
+  --stoked-z-base: 0;
+  --stoked-z-docked: 10;
+  --stoked-z-dropdown: 1000;
+  --stoked-z-sticky: 1100;
+  --stoked-z-banner: 1200;
+  --stoked-z-overlay: 1300;
+  --stoked-z-modal: 1400;
+  --stoked-z-popover: 1500;
+  --stoked-z-tooltip: 1600;
+  --stoked-z-toast: 1700;
+  --stoked-z-max: 9999;
+}

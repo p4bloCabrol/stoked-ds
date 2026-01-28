@@ -1,0 +1,26 @@
+:root {
+  /* ===== Duration ===== */
+  --stoked-duration-instant: 0ms;
+  --stoked-duration-fast: 100ms;
+  --stoked-duration-normal: 200ms;
+  --stoked-duration-slow: 300ms;
+  --stoked-duration-slower: 500ms;
+
+  /* ===== Easing ===== */
+  --stoked-easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --stoked-easing-in: cubic-bezier(0.4, 0, 1, 1);
+  --stoked-easing-out: cubic-bezier(0, 0, 0.2, 1);
+  --stoked-easing-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --stoked-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ===== Transition Presets ===== */
+  --stoked-transition-colors: color var(--stoked-duration-normal) var(--stoked-easing-default),
+    background-color var(--stoked-duration-normal) var(--stoked-easing-default),
+    border-color var(--stoked-duration-normal) var(--stoked-easing-default),
+    box-shadow var(--stoked-duration-normal) var(--stoked-easing-default);
+
+  --stoked-transition-transform: transform var(--stoked-duration-normal)
+    var(--stoked-easing-default);
+
+  --stoked-transition-all: all var(--stoked-duration-normal) var(--stoked-easing-default);
+}

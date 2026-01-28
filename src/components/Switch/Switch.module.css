@@ -1,0 +1,127 @@
+.wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--stoked-spacing-3);
+}
+
+.wrapper[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--stoked-color-border);
+  border: none;
+  border-radius: var(--stoked-radius-full);
+  cursor: pointer;
+  transition: background-color var(--stoked-duration-normal) var(--stoked-easing-default);
+}
+
+/* Size variants */
+.wrapper[data-size='sm'] .switch {
+  width: 2rem;
+  height: 1.125rem;
+  padding: 2px;
+}
+
+.wrapper[data-size='md'] .switch {
+  width: 2.75rem;
+  height: 1.5rem;
+  padding: 3px;
+}
+
+.wrapper[data-size='lg'] .switch {
+  width: 3.5rem;
+  height: 2rem;
+  padding: 4px;
+}
+
+/* Thumb */
+.thumb {
+  display: block;
+  background-color: white;
+  border-radius: var(--stoked-radius-full);
+  box-shadow: var(--stoked-shadow-sm);
+  transition: transform var(--stoked-duration-normal) var(--stoked-easing-default);
+}
+
+.wrapper[data-size='sm'] .thumb {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.wrapper[data-size='md'] .thumb {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.wrapper[data-size='lg'] .thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Checked state */
+.switch[data-checked] {
+  background-color: var(--stoked-color-primary);
+}
+
+.wrapper[data-size='sm'] .switch[data-checked] .thumb {
+  transform: translateX(0.875rem);
+}
+
+.wrapper[data-size='md'] .switch[data-checked] .thumb {
+  transform: translateX(1.25rem);
+}
+
+.wrapper[data-size='lg'] .switch[data-checked] .thumb {
+  transform: translateX(1.5rem);
+}
+
+/* Hover state */
+.switch:not(:disabled):hover {
+  background-color: var(--stoked-color-border-strong);
+}
+
+.switch[data-checked]:not(:disabled):hover {
+  background-color: var(--stoked-color-primary-hover);
+}
+
+/* Focus state */
+.switch:focus-visible {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.switch:disabled {
+  cursor: not-allowed;
+}
+
+/* Content */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stoked-spacing-0-5);
+}
+
+.label {
+  font-size: var(--stoked-text-base);
+  font-weight: var(--stoked-font-medium);
+  color: var(--stoked-color-text);
+  cursor: pointer;
+  line-height: var(--stoked-leading-tight);
+}
+
+.wrapper[data-disabled] .label {
+  cursor: not-allowed;
+}
+
+.description {
+  font-size: var(--stoked-text-sm);
+  color: var(--stoked-color-text-muted);
+  line-height: var(--stoked-leading-normal);
+}

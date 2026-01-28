@@ -1,0 +1,18 @@
+:root {
+  /* ===== Border Radius (matching Stoked) ===== */
+  --stoked-radius-none: 0;
+  --stoked-radius-sm: 0.25rem; /* 4px - subtle, minimal */
+  --stoked-radius-md: 0.375rem; /* 6px */
+  --stoked-radius-lg: 0.5rem; /* 8px - standard buttons, inputs */
+  --stoked-radius-xl: 0.75rem; /* 12px - cards, containers */
+  --stoked-radius-2xl: 1rem; /* 16px - large cards, modals */
+  --stoked-radius-3xl: 1.5rem; /* 24px */
+  --stoked-radius-full: 9999px; /* circular - avatars, badges */
+
+  /* ===== Border Widths ===== */
+  --stoked-border-width-0: 0;
+  --stoked-border-width-thin: 1px;
+  --stoked-border-width-medium: 2px;
+  --stoked-border-width-thick: 3px;
+  --stoked-border-width-heavy: 4px;
+}

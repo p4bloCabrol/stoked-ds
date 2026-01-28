@@ -1,0 +1,171 @@
+.container {
+  position: fixed;
+  z-index: var(--stoked-z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--stoked-spacing-3);
+  padding: var(--stoked-spacing-4);
+  pointer-events: none;
+}
+
+/* Position variants */
+.container[data-position='top'] {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.container[data-position='top-left'] {
+  top: 0;
+  left: 0;
+  align-items: flex-start;
+}
+
+.container[data-position='top-right'] {
+  top: 0;
+  right: 0;
+  align-items: flex-end;
+}
+
+.container[data-position='bottom'] {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.container[data-position='bottom-left'] {
+  bottom: 0;
+  left: 0;
+  align-items: flex-start;
+  flex-direction: column-reverse;
+}
+
+.container[data-position='bottom-right'] {
+  bottom: 0;
+  right: 0;
+  align-items: flex-end;
+  flex-direction: column-reverse;
+}
+
+/* Toast */
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--stoked-spacing-3);
+  min-width: 300px;
+  max-width: 400px;
+  padding: var(--stoked-spacing-4);
+  background-color: var(--stoked-color-surface);
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  border-radius: var(--stoked-radius-lg);
+  box-shadow: var(--stoked-shadow-lg);
+  pointer-events: auto;
+  animation: slideIn var(--stoked-duration-normal) var(--stoked-easing-out);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Status colors */
+.toast[data-status='info'] {
+  border-left: 4px solid var(--stoked-color-primary);
+}
+
+.toast[data-status='info'] .icon {
+  color: var(--stoked-color-primary);
+}
+
+.toast[data-status='success'] {
+  border-left: 4px solid var(--stoked-color-success);
+}
+
+.toast[data-status='success'] .icon {
+  color: var(--stoked-color-success);
+}
+
+.toast[data-status='warning'] {
+  border-left: 4px solid var(--stoked-color-warning);
+}
+
+.toast[data-status='warning'] .icon {
+  color: var(--stoked-color-warning);
+}
+
+.toast[data-status='error'] {
+  border-left: 4px solid var(--stoked-color-danger);
+}
+
+.toast[data-status='error'] .icon {
+  color: var(--stoked-color-danger);
+}
+
+/* Icon */
+.icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-weight: var(--stoked-font-semibold);
+  font-size: var(--stoked-text-base);
+  color: var(--stoked-color-text);
+  line-height: var(--stoked-leading-tight);
+}
+
+.description {
+  font-size: var(--stoked-text-sm);
+  color: var(--stoked-color-text-secondary);
+  margin-top: var(--stoked-spacing-1);
+  line-height: var(--stoked-leading-normal);
+}
+
+/* Close button */
+.closeButton {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--stoked-radius-sm);
+  color: var(--stoked-color-text-muted);
+  cursor: pointer;
+  transition: color var(--stoked-duration-fast) var(--stoked-easing-default);
+}
+
+.closeButton:hover {
+  color: var(--stoked-color-text);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.closeButton svg {
+  width: 100%;
+  height: 100%;
+}

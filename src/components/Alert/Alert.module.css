@@ -1,0 +1,191 @@
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--stoked-spacing-3);
+  padding: var(--stoked-spacing-4);
+  border-radius: var(--stoked-radius-lg);
+  position: relative;
+}
+
+/* Icon */
+.icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-weight: var(--stoked-font-semibold);
+  font-size: var(--stoked-text-base);
+  line-height: var(--stoked-leading-tight);
+}
+
+.description {
+  font-size: var(--stoked-text-base);
+  line-height: var(--stoked-leading-normal);
+  margin-top: var(--stoked-spacing-1);
+}
+
+.title + .description {
+  margin-top: var(--stoked-spacing-1);
+}
+
+/* Dismiss button */
+.dismiss {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--stoked-radius-sm);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity var(--stoked-duration-fast) var(--stoked-easing-default);
+}
+
+.dismiss:hover {
+  opacity: 1;
+}
+
+.dismiss:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.dismiss svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== Subtle Variant ===== */
+.alert[data-variant='subtle'][data-status='info'] {
+  background-color: var(--stoked-color-primary-light);
+  color: var(--stoked-color-primary);
+}
+
+.alert[data-variant='subtle'][data-status='success'] {
+  background-color: var(--stoked-color-success-light);
+  color: var(--stoked-color-success);
+}
+
+.alert[data-variant='subtle'][data-status='warning'] {
+  background-color: var(--stoked-color-warning-light);
+  color: var(--stoked-color-warning);
+}
+
+.alert[data-variant='subtle'][data-status='error'] {
+  background-color: var(--stoked-color-danger-light);
+  color: var(--stoked-color-danger);
+}
+
+.alert[data-variant='subtle'] .title,
+.alert[data-variant='subtle'] .description {
+  color: var(--stoked-color-text);
+}
+
+/* ===== Solid Variant ===== */
+.alert[data-variant='solid'][data-status='info'] {
+  background-color: var(--stoked-color-primary);
+  color: white;
+}
+
+.alert[data-variant='solid'][data-status='success'] {
+  background-color: var(--stoked-color-success);
+  color: white;
+}
+
+.alert[data-variant='solid'][data-status='warning'] {
+  background-color: var(--stoked-color-warning);
+  color: white;
+}
+
+.alert[data-variant='solid'][data-status='error'] {
+  background-color: var(--stoked-color-danger);
+  color: white;
+}
+
+.alert[data-variant='solid'] .title,
+.alert[data-variant='solid'] .description {
+  color: white;
+}
+
+/* ===== Outline Variant ===== */
+.alert[data-variant='outline'] {
+  background-color: transparent;
+  border: var(--stoked-border-width-thin) solid;
+}
+
+.alert[data-variant='outline'][data-status='info'] {
+  border-color: var(--stoked-color-primary);
+  color: var(--stoked-color-primary);
+}
+
+.alert[data-variant='outline'][data-status='success'] {
+  border-color: var(--stoked-color-success);
+  color: var(--stoked-color-success);
+}
+
+.alert[data-variant='outline'][data-status='warning'] {
+  border-color: var(--stoked-color-warning);
+  color: var(--stoked-color-warning);
+}
+
+.alert[data-variant='outline'][data-status='error'] {
+  border-color: var(--stoked-color-danger);
+  color: var(--stoked-color-danger);
+}
+
+.alert[data-variant='outline'] .title,
+.alert[data-variant='outline'] .description {
+  color: var(--stoked-color-text);
+}
+
+/* ===== Left Accent Variant ===== */
+.alert[data-variant='left-accent'] {
+  background-color: var(--stoked-color-surface);
+  border-left: 4px solid;
+  border-radius: 0 var(--stoked-radius-lg) var(--stoked-radius-lg) 0;
+}
+
+.alert[data-variant='left-accent'][data-status='info'] {
+  border-left-color: var(--stoked-color-primary);
+  color: var(--stoked-color-primary);
+}
+
+.alert[data-variant='left-accent'][data-status='success'] {
+  border-left-color: var(--stoked-color-success);
+  color: var(--stoked-color-success);
+}
+
+.alert[data-variant='left-accent'][data-status='warning'] {
+  border-left-color: var(--stoked-color-warning);
+  color: var(--stoked-color-warning);
+}
+
+.alert[data-variant='left-accent'][data-status='error'] {
+  border-left-color: var(--stoked-color-danger);
+  color: var(--stoked-color-danger);
+}
+
+.alert[data-variant='left-accent'] .title,
+.alert[data-variant='left-accent'] .description {
+  color: var(--stoked-color-text);
+}

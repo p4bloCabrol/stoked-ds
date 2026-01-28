@@ -1,0 +1,137 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--stoked-z-modal);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--stoked-spacing-8);
+  background-color: var(--stoked-color-surface-overlay);
+  backdrop-filter: blur(4px);
+  overflow-y: auto;
+  animation: fadeIn var(--stoked-duration-normal) var(--stoked-easing-out);
+}
+
+.overlay[data-centered] {
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  background-color: var(--stoked-color-background);
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  border-radius: var(--stoked-radius-xl);
+  box-shadow: var(--stoked-shadow-2xl);
+  animation: slideIn var(--stoked-duration-normal) var(--stoked-easing-out);
+  outline: none;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Size variants */
+.modal[data-size='sm'] {
+  max-width: 24rem;
+}
+
+.modal[data-size='md'] {
+  max-width: 28rem;
+}
+
+.modal[data-size='lg'] {
+  max-width: 36rem;
+}
+
+.modal[data-size='xl'] {
+  max-width: 48rem;
+}
+
+.modal[data-size='full'] {
+  max-width: calc(100vw - var(--stoked-spacing-8));
+  max-height: calc(100vh - var(--stoked-spacing-8));
+}
+
+/* Close button */
+.closeButton {
+  position: absolute;
+  top: var(--stoked-spacing-4);
+  right: var(--stoked-spacing-4);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--stoked-radius-md);
+  color: var(--stoked-color-text-muted);
+  cursor: pointer;
+  transition: var(--stoked-transition-colors);
+}
+
+.closeButton:hover {
+  background-color: var(--stoked-color-surface);
+  color: var(--stoked-color-text);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.closeButton svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Header */
+.header {
+  padding: var(--stoked-spacing-6);
+  padding-right: var(--stoked-spacing-12);
+  border-bottom: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+}
+
+.header h2,
+.header h3 {
+  margin: 0;
+  font-size: var(--stoked-text-lg);
+  font-weight: var(--stoked-font-semibold);
+  color: var(--stoked-color-text);
+}
+
+/* Body */
+.body {
+  padding: var(--stoked-spacing-6);
+  color: var(--stoked-color-text-secondary);
+  font-size: var(--stoked-text-base);
+  line-height: var(--stoked-leading-relaxed);
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--stoked-spacing-3);
+  padding: var(--stoked-spacing-4) var(--stoked-spacing-6);
+  border-top: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+}

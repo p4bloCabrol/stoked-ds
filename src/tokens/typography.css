@@ -1,0 +1,47 @@
+:root {
+  /* ===== Font Families (matching Stoked) ===== */
+  --stoked-font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --stoked-font-display: 'Manrope', var(--stoked-font-sans);
+  --stoked-font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo,
+    Consolas, monospace;
+
+  /* ===== Font Sizes ===== */
+  --stoked-text-xs: 0.625rem; /* 10px */
+  --stoked-text-sm: 0.75rem; /* 12px */
+  --stoked-text-base: 0.875rem; /* 14px */
+  --stoked-text-md: 1rem; /* 16px */
+  --stoked-text-lg: 1.125rem; /* 18px */
+  --stoked-text-xl: 1.25rem; /* 20px */
+  --stoked-text-2xl: 1.5rem; /* 24px */
+  --stoked-text-3xl: 1.875rem; /* 30px */
+  --stoked-text-4xl: 2.25rem; /* 36px */
+  --stoked-text-5xl: 3rem; /* 48px */
+
+  /* ===== Line Heights ===== */
+  --stoked-leading-none: 1;
+  --stoked-leading-tight: 1.25;
+  --stoked-leading-snug: 1.375;
+  --stoked-leading-normal: 1.5;
+  --stoked-leading-relaxed: 1.625;
+  --stoked-leading-loose: 2;
+
+  /* ===== Font Weights ===== */
+  --stoked-font-thin: 100;
+  --stoked-font-extralight: 200;
+  --stoked-font-light: 300;
+  --stoked-font-normal: 400;
+  --stoked-font-medium: 500;
+  --stoked-font-semibold: 600;
+  --stoked-font-bold: 700;
+  --stoked-font-extrabold: 800;
+  --stoked-font-black: 900;
+
+  /* ===== Letter Spacing ===== */
+  --stoked-tracking-tighter: -0.05em;
+  --stoked-tracking-tight: -0.025em;
+  --stoked-tracking-normal: 0;
+  --stoked-tracking-wide: 0.025em;
+  --stoked-tracking-wider: 0.05em;
+  --stoked-tracking-widest: 0.1em;
+}

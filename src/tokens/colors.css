@@ -1,0 +1,112 @@
+:root {
+  /* ===== Primitive Color Scale - Slate (matching Stoked) ===== */
+  --stoked-slate-50: #f8fafc;
+  --stoked-slate-100: #f1f5f9;
+  --stoked-slate-200: #e2e8f0;
+  --stoked-slate-300: #cbd5e1;
+  --stoked-slate-400: #94a3b8;
+  --stoked-slate-500: #64748b;
+  --stoked-slate-600: #475569;
+  --stoked-slate-700: #334155;
+  --stoked-slate-800: #1e293b;
+  --stoked-slate-900: #0f172a;
+  --stoked-slate-950: #020617;
+
+  /* ===== Brand Colors ===== */
+  --stoked-primary-50: #eff6ff;
+  --stoked-primary-100: #dbeafe;
+  --stoked-primary-200: #bfdbfe;
+  --stoked-primary-300: #93c5fd;
+  --stoked-primary-400: #60a5fa;
+  --stoked-primary-500: #137fec;
+  --stoked-primary-600: #1170d4;
+  --stoked-primary-700: #0e5bb3;
+  --stoked-primary-800: #0c4a91;
+  --stoked-primary-900: #0a3d77;
+
+  /* ===== Semantic Colors ===== */
+  --stoked-success-50: #f0fdf4;
+  --stoked-success-100: #dcfce7;
+  --stoked-success-500: #10b981;
+  --stoked-success-600: #059669;
+  --stoked-success-700: #047857;
+
+  --stoked-warning-50: #fffbeb;
+  --stoked-warning-100: #fef3c7;
+  --stoked-warning-500: #f59e0b;
+  --stoked-warning-600: #d97706;
+  --stoked-warning-700: #b45309;
+
+  --stoked-danger-50: #fff1f2;
+  --stoked-danger-100: #ffe4e6;
+  --stoked-danger-500: #f43f5e;
+  --stoked-danger-600: #e11d48;
+  --stoked-danger-700: #be123c;
+
+  /* ===== Semantic Token Aliases (Dark Mode Default) ===== */
+  --stoked-color-primary: var(--stoked-primary-500);
+  --stoked-color-primary-hover: var(--stoked-primary-400);
+  --stoked-color-primary-active: var(--stoked-primary-600);
+  --stoked-color-primary-light: rgba(19, 127, 236, 0.1);
+  --stoked-color-primary-muted: rgba(19, 127, 236, 0.3);
+
+  --stoked-color-success: var(--stoked-success-500);
+  --stoked-color-success-hover: var(--stoked-success-600);
+  --stoked-color-success-light: rgba(16, 185, 129, 0.1);
+
+  --stoked-color-warning: var(--stoked-warning-500);
+  --stoked-color-warning-hover: var(--stoked-warning-600);
+  --stoked-color-warning-light: rgba(245, 158, 11, 0.1);
+
+  --stoked-color-danger: var(--stoked-danger-500);
+  --stoked-color-danger-hover: var(--stoked-danger-600);
+  --stoked-color-danger-light: rgba(244, 63, 94, 0.1);
+
+  /* ===== Surface & Background (Dark Mode Default) ===== */
+  --stoked-color-background: #101922;
+  --stoked-color-background-alt: #0a0f14;
+  --stoked-color-surface: #1e293b;
+  --stoked-color-surface-raised: #16202b;
+  --stoked-color-surface-overlay: rgba(0, 0, 0, 0.5);
+
+  /* ===== Border Colors ===== */
+  --stoked-color-border: #334155;
+  --stoked-color-border-muted: #283039;
+  --stoked-color-border-strong: #475569;
+
+  /* ===== Text Colors ===== */
+  --stoked-color-text: #f8fafc;
+  --stoked-color-text-secondary: #94a3b8;
+  --stoked-color-text-muted: #64748b;
+  --stoked-color-text-disabled: #475569;
+  --stoked-color-text-inverse: #0f172a;
+
+  /* ===== Focus Ring ===== */
+  --stoked-color-focus-ring: var(--stoked-primary-500);
+  --stoked-color-focus-ring-offset: var(--stoked-color-background);
+}
+
+/* ===== Light Theme ===== */
+[data-theme='light'] {
+  --stoked-color-primary: var(--stoked-primary-500);
+  --stoked-color-primary-hover: var(--stoked-primary-600);
+  --stoked-color-primary-active: var(--stoked-primary-700);
+
+  --stoked-color-background: #f6f7f8;
+  --stoked-color-background-alt: #ffffff;
+  --stoked-color-surface: #ffffff;
+  --stoked-color-surface-raised: #ffffff;
+  --stoked-color-surface-overlay: rgba(0, 0, 0, 0.3);
+
+  --stoked-color-border: #e2e8f0;
+  --stoked-color-border-muted: #f1f5f9;
+  --stoked-color-border-strong: #cbd5e1;
+
+  --stoked-color-text: #0f172a;
+  --stoked-color-text-secondary: #475569;
+  --stoked-color-text-muted: #64748b;
+  --stoked-color-text-disabled: #94a3b8;
+  --stoked-color-text-inverse: #f8fafc;
+
+  --stoked-color-focus-ring-offset: var(--stoked-color-background);
+}

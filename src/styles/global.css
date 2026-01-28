@@ -1,0 +1,42 @@
+/* Import design tokens */
+@import '../tokens/index.css';
+
+/* Import reset */
+@import './reset.css';
+
+/* Base styles */
+html {
+  font-family: var(--stoked-font-sans);
+  font-size: 16px;
+  color: var(--stoked-color-text);
+  background-color: var(--stoked-color-background);
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* Custom scrollbar (matching Stoked style) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--stoked-color-border);
+  border-radius: var(--stoked-radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--stoked-color-border-strong);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--stoked-color-border) transparent;
+}

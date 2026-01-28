@@ -1,0 +1,128 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stoked-spacing-1-5);
+}
+
+.wrapper[data-full-width] {
+  width: 100%;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: var(--stoked-spacing-1);
+  font-size: var(--stoked-text-base);
+  font-weight: var(--stoked-font-semibold);
+  color: var(--stoked-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--stoked-tracking-wide);
+}
+
+.required {
+  color: var(--stoked-color-danger);
+}
+
+.selectWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  width: 100%;
+  font-family: var(--stoked-font-sans);
+  font-size: var(--stoked-text-base);
+  color: var(--stoked-color-text);
+  background-color: #1c2127;
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  border-radius: var(--stoked-radius-lg);
+  cursor: pointer;
+  appearance: none;
+  transition: var(--stoked-transition-colors);
+}
+
+/* Size variants */
+.wrapper[data-size='sm'] .select {
+  height: var(--stoked-spacing-8);
+  padding: var(--stoked-spacing-2) var(--stoked-spacing-8) var(--stoked-spacing-2)
+    var(--stoked-spacing-3);
+  font-size: var(--stoked-text-sm);
+}
+
+.wrapper[data-size='md'] .select {
+  height: var(--stoked-spacing-10);
+  padding: var(--stoked-spacing-3) var(--stoked-spacing-10) var(--stoked-spacing-3)
+    var(--stoked-spacing-4);
+  font-size: var(--stoked-text-base);
+}
+
+.wrapper[data-size='lg'] .select {
+  height: var(--stoked-spacing-12);
+  padding: var(--stoked-spacing-3-5) var(--stoked-spacing-12) var(--stoked-spacing-3-5)
+    var(--stoked-spacing-5);
+  font-size: var(--stoked-text-md);
+}
+
+/* Focus state */
+.select:focus {
+  outline: none;
+  border-color: var(--stoked-color-primary);
+  box-shadow: 0 0 0 2px var(--stoked-color-primary-light);
+}
+
+/* Error state */
+.wrapper[data-error] .select {
+  border-color: var(--stoked-color-danger);
+  background-color: rgba(244, 63, 94, 0.05);
+}
+
+.wrapper[data-error] .select:focus {
+  border-color: var(--stoked-color-danger);
+  box-shadow: 0 0 0 2px var(--stoked-color-danger-light);
+}
+
+/* Disabled state */
+.wrapper[data-disabled] .select {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--stoked-color-surface);
+}
+
+.wrapper[data-disabled] .label {
+  opacity: 0.5;
+}
+
+/* Dropdown icon */
+.icon {
+  position: absolute;
+  right: var(--stoked-spacing-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--stoked-color-text-muted);
+  pointer-events: none;
+}
+
+/* Helper and error text */
+.helperText {
+  font-size: var(--stoked-text-sm);
+  color: var(--stoked-color-text-muted);
+}
+
+.errorText {
+  font-size: var(--stoked-text-sm);
+  color: var(--stoked-color-danger);
+}
+
+/* Light theme adjustments */
+[data-theme='light'] .select {
+  background-color: var(--stoked-color-surface);
+}
+
+/* Option styling (limited browser support) */
+.select option {
+  background-color: var(--stoked-color-surface);
+  color: var(--stoked-color-text);
+  padding: var(--stoked-spacing-2);
+}
