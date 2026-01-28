@@ -144,10 +144,12 @@ const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
         aria-labelledby={buttonId}
         className={cn(styles.panel, className)}
         data-state={isExpanded ? 'open' : 'closed'}
-        hidden={!isExpanded}
+        aria-hidden={!isExpanded}
         {...rest}
       >
-        <div className={styles.panelContent}>{children}</div>
+        <div className={styles.panelContent}>
+          <div className={styles.panelInner}>{children}</div>
+        </div>
       </div>
     );
   }

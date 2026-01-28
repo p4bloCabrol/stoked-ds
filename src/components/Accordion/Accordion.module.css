@@ -65,29 +65,24 @@
   color: var(--stoked-color-text-muted);
 }
 
-/* Panel */
+/* Panel - using CSS Grid for smooth height animation */
 .panel {
-  overflow: hidden;
-  transition:
-    max-height var(--stoked-duration-normal) var(--stoked-easing-default),
-    opacity var(--stoked-duration-normal) var(--stoked-easing-default);
-}
-
-.panel[data-state='closed'] {
-  max-height: 0;
-  opacity: 0;
-  visibility: hidden;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--stoked-duration-normal) var(--stoked-easing-out);
 }
 
 .panel[data-state='open'] {
-  max-height: 1000px;
-  opacity: 1;
-  visibility: visible;
+  grid-template-rows: 1fr;
 }
 
 .panelContent {
-  padding: 0 var(--stoked-spacing-5) var(--stoked-spacing-4) var(--stoked-spacing-5);
+  overflow: hidden;
   color: var(--stoked-color-text-secondary);
   font-size: var(--stoked-text-sm);
   line-height: var(--stoked-leading-relaxed);
+}
+
+.panelInner {
+  padding: 0 var(--stoked-spacing-5) var(--stoked-spacing-4) var(--stoked-spacing-5);
 }
