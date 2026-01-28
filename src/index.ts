@@ -46,3 +46,44 @@ export type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps, Mo
 
 export { ToastProvider, useToast } from './components/Toast';
 export type { Toast, ToastOptions, ToastPosition, ToastStatus, ToastProviderProps } from './components/Toast';
+
+// Data Display Components
+export { Card, CardHeader, CardBody, CardFooter, CardImage } from './components/Card';
+export type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps, CardImageProps, CardVariant } from './components/Card';
+
+export { Accordion, AccordionItem, AccordionButton, AccordionPanel } from './components/Accordion';
+export type { AccordionProps, AccordionItemProps, AccordionButtonProps, AccordionPanelProps } from './components/Accordion';
+
+export { Tabs, TabList, Tab, TabPanels, TabPanel } from './components/Tabs';
+export type { TabsProps, TabListProps, TabProps, TabPanelsProps, TabPanelProps, TabsVariant, TabsSize } from './components/Tabs';
+
+export {
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableFoot,
+  TableRow,
+  TableHeaderCell,
+  TableCell,
+  TableCaption,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+} from './components/Table';
+export type {
+  TableProps,
+  TableHeadProps,
+  TableBodyProps,
+  TableFootProps,
+  TableRowProps,
+  TableHeaderCellProps,
+  TableCellProps,
+  TableCaptionProps,
+  TableContainerProps,
+  TableVariant,
+  TableSize,
+} from './components/Table';

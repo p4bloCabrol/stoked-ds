@@ -1,0 +1,148 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tab List */
+.tabList {
+  display: flex;
+  gap: var(--stoked-spacing-1);
+}
+
+.tabList[data-variant='line'] {
+  border-bottom: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  gap: 0;
+}
+
+.tabList[data-variant='enclosed'] {
+  background-color: var(--stoked-color-surface-secondary);
+  padding: var(--stoked-spacing-1);
+  border-radius: var(--stoked-radius-lg);
+  gap: var(--stoked-spacing-1);
+}
+
+.tabList[data-variant='pills'] {
+  gap: var(--stoked-spacing-2);
+}
+
+.tabList[data-fitted='true'] {
+  width: 100%;
+}
+
+.tabList[data-fitted='true'] .tab {
+  flex: 1;
+}
+
+/* Tab */
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--stoked-spacing-2);
+  padding: var(--stoked-spacing-2) var(--stoked-spacing-4);
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-weight: var(--stoked-font-medium);
+  color: var(--stoked-color-text-secondary);
+  cursor: pointer;
+  transition:
+    color var(--stoked-duration-fast) var(--stoked-easing-default),
+    background-color var(--stoked-duration-fast) var(--stoked-easing-default),
+    border-color var(--stoked-duration-fast) var(--stoked-easing-default);
+  white-space: nowrap;
+}
+
+/* Tab Sizes */
+.tab[data-size='sm'] {
+  padding: var(--stoked-spacing-1) var(--stoked-spacing-3);
+  font-size: var(--stoked-text-sm);
+}
+
+.tab[data-size='md'] {
+  padding: var(--stoked-spacing-2) var(--stoked-spacing-4);
+  font-size: var(--stoked-text-base);
+}
+
+.tab[data-size='lg'] {
+  padding: var(--stoked-spacing-3) var(--stoked-spacing-5);
+  font-size: var(--stoked-text-lg);
+}
+
+/* Line Variant */
+.tab[data-variant='line'] {
+  position: relative;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+
+.tab[data-variant='line']:hover:not(:disabled) {
+  color: var(--stoked-color-text);
+}
+
+.tab[data-variant='line'][aria-selected='true'] {
+  color: var(--stoked-color-primary);
+  border-bottom-color: var(--stoked-color-primary);
+}
+
+/* Enclosed Variant */
+.tab[data-variant='enclosed'] {
+  border-radius: var(--stoked-radius-md);
+}
+
+.tab[data-variant='enclosed']:hover:not(:disabled) {
+  background-color: var(--stoked-color-surface-hover);
+}
+
+.tab[data-variant='enclosed'][aria-selected='true'] {
+  background-color: var(--stoked-color-surface);
+  color: var(--stoked-color-text);
+  box-shadow: var(--stoked-shadow-sm);
+}
+
+/* Pills Variant */
+.tab[data-variant='pills'] {
+  border-radius: var(--stoked-radius-full);
+}
+
+.tab[data-variant='pills']:hover:not(:disabled) {
+  background-color: var(--stoked-color-surface-hover);
+}
+
+.tab[data-variant='pills'][aria-selected='true'] {
+  background-color: var(--stoked-color-primary);
+  color: var(--stoked-color-primary-contrast);
+}
+
+/* Focus state */
+.tab:focus-visible {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.tab:disabled {
+  color: var(--stoked-color-text-muted);
+  cursor: not-allowed;
+}
+
+/* Tab Panels */
+.tabPanels {
+  margin-top: var(--stoked-spacing-4);
+}
+
+/* Tab Panel */
+.tabPanel {
+  outline: none;
+}
+
+.tabPanel:focus-visible {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--stoked-radius-md);
+}
+
+.tabPanel[hidden] {
+  display: none;
+}
