@@ -34,3 +34,7 @@ stitch relevans design files/
 
 # Windows artifacts
 nul
+
+# Claude Code context
+CLAUDE.md
+.claude/
