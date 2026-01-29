@@ -63,6 +63,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id={id}
             disabled={disabled}
             required={required}
+            aria-required={required || undefined}
             aria-invalid={hasError || undefined}
             aria-describedby={describedBy || undefined}
             className={styles.input}

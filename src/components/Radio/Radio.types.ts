@@ -15,6 +15,8 @@ export interface RadioGroupProps {
   size?: RadioSize;
   /** Whether the group is disabled */
   disabled?: boolean;
+  /** Whether the group has an error */
+  error?: boolean;
   /** Orientation of the group */
   orientation?: 'horizontal' | 'vertical';
   /** Children (Radio components) */

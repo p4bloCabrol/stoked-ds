@@ -12,6 +12,7 @@ function RadioGroup({
   onValueChange,
   size = 'md',
   disabled = false,
+  error = false,
   orientation = 'vertical',
   children,
   className,
@@ -37,8 +38,10 @@ function RadioGroup({
     >
       <div
         role="radiogroup"
+        aria-invalid={error || undefined}
         className={cn(styles.group, className)}
         data-orientation={orientation}
+        data-error={error || undefined}
       >
         {children}
       </div>

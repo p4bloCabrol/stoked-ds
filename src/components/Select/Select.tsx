@@ -59,6 +59,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             id={id}
             disabled={disabled}
             required={required}
+            aria-required={required || undefined}
             aria-invalid={hasError || undefined}
             aria-describedby={describedBy || undefined}
             className={styles.select}

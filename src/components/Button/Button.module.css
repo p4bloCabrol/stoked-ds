@@ -41,7 +41,7 @@
 /* ===== Solid Variants ===== */
 .button[data-variant='solid'][data-color='primary'] {
   background-color: var(--stoked-color-primary);
-  color: white;
+  color: var(--stoked-color-text-inverse);
   box-shadow: var(--stoked-shadow-primary);
 }
 
@@ -57,7 +57,7 @@
 
 .button[data-variant='solid'][data-color='danger'] {
   background-color: var(--stoked-color-danger);
-  color: white;
+  color: var(--stoked-color-text-inverse);
   box-shadow: var(--stoked-shadow-danger);
 }
 
@@ -71,7 +71,7 @@
 
 .button[data-variant='solid'][data-color='success'] {
   background-color: var(--stoked-color-success);
-  color: white;
+  color: var(--stoked-color-text-inverse);
   box-shadow: var(--stoked-shadow-success);
 }
 

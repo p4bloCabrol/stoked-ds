@@ -39,16 +39,6 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
       }
     }, [disabled, isChecked, setIsChecked]);
 
-    const handleKeyDown = useCallback(
-      (event: React.KeyboardEvent) => {
-        if (event.key === ' ' || event.key === 'Enter') {
-          event.preventDefault();
-          handleClick();
-        }
-      },
-      [handleClick]
-    );
-
     return (
       <div
         className={cn(styles.wrapper, className)}
@@ -64,7 +54,6 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
           aria-describedby={descriptionId}
           disabled={disabled}
           onClick={handleClick}
-          onKeyDown={handleKeyDown}
           className={styles.switch}
           data-checked={isChecked || undefined}
           {...rest}

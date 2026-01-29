@@ -23,7 +23,6 @@ function Tooltip({
   const [isVisible, setIsVisible] = useState(false);
   const showTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const triggerRef = useRef<HTMLElement>(null);
   const tooltipId = useId('tooltip');
 
   const clearTimeouts = useCallback(() => {
@@ -66,7 +65,6 @@ function Tooltip({
   }, [clearTimeouts]);
 
   const trigger = cloneElement(children as ReactElement, {
-    ref: triggerRef,
     onMouseEnter: (e: React.MouseEvent) => {
       show();
       (children.props as { onMouseEnter?: (e: React.MouseEvent) => void }).onMouseEnter?.(e);

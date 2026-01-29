@@ -1,4 +1,4 @@
-import { forwardRef, createContext } from 'react';
+import { forwardRef } from 'react';
 import { cn } from '../../utils/cn';
 import type {
   TableProps,
@@ -12,9 +12,6 @@ import type {
   TableContainerProps,
 } from './Table.types';
 import styles from './Table.module.css';
-
-// Context to pass table props to children
-const TableContext = createContext<{ size: 'sm' | 'md' | 'lg' }>({ size: 'md' });
 
 const TableContainer = forwardRef<HTMLDivElement, TableContainerProps>(
   function TableContainer({ className, children, ...rest }, ref) {
@@ -31,17 +28,15 @@ const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
   ref
 ) {
   return (
-    <TableContext.Provider value={{ size }}>
-      <table
-        ref={ref}
-        className={cn(styles.table, className)}
-        data-variant={variant}
-        data-size={size}
-        {...rest}
-      >
-        {children}
-      </table>
-    </TableContext.Provider>
+    <table
+      ref={ref}
+      className={cn(styles.table, className)}
+      data-variant={variant}
+      data-size={size}
+      {...rest}
+    >
+      {children}
+    </table>
   );
 });
 

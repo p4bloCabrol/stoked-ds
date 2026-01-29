@@ -36,18 +36,18 @@
 
 /* Size variants */
 .wrapper[data-size='sm'] .checkbox {
-  width: 1rem;
-  height: 1rem;
+  width: var(--stoked-spacing-4);
+  height: var(--stoked-spacing-4);
 }
 
 .wrapper[data-size='md'] .checkbox {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: var(--stoked-spacing-5);
+  height: var(--stoked-spacing-5);
 }
 
 .wrapper[data-size='lg'] .checkbox {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: var(--stoked-spacing-6);
+  height: var(--stoked-spacing-6);
 }
 
 /* Checked state */
@@ -66,7 +66,7 @@
 .checkIcon {
   width: 75%;
   height: 75%;
-  color: white;
+  color: var(--stoked-color-text-inverse);
   opacity: 0;
   transform: scale(0.8);
   transition: opacity var(--stoked-duration-fast) var(--stoked-easing-default),

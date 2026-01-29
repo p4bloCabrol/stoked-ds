@@ -34,7 +34,7 @@
   font-family: var(--stoked-font-sans);
   font-size: var(--stoked-text-base);
   color: var(--stoked-color-text);
-  background-color: #1c2127;
+  background-color: var(--stoked-color-surface-raised);
   border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
   border-radius: var(--stoked-radius-lg);
   transition: var(--stoked-transition-colors);
@@ -83,7 +83,7 @@
 /* Error state */
 .wrapper[data-error] .input {
   border-color: var(--stoked-color-danger);
-  background-color: rgba(244, 63, 94, 0.05);
+  background-color: var(--stoked-color-danger-light);
 }
 
 .wrapper[data-error] .input:focus {
