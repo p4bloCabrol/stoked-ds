@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { AnimatePresence } from 'framer-motion';
 import { ToastContext } from './ToastContext';
 import { ToastItem } from './ToastItem';
 import type { Toast, ToastOptions, ToastProviderProps } from './Toast.types';
@@ -85,9 +86,11 @@ function ToastProvider({
       {typeof document !== 'undefined' &&
         createPortal(
           <div className={styles.container} data-position={position}>
-            {toasts.map((t) => (
-              <ToastItem key={t.id} toast={t} onClose={() => removeToast(t.id)} />
-            ))}
+            <AnimatePresence mode="popLayout">
+              {toasts.map((t) => (
+                <ToastItem key={t.id} toast={t} onClose={() => removeToast(t.id)} />
+              ))}
+            </AnimatePresence>
           </div>,
           document.body
         )}

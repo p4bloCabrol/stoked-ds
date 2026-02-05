@@ -9,20 +9,10 @@
   background-color: var(--stoked-color-surface-overlay);
   backdrop-filter: blur(4px);
   overflow-y: auto;
-  animation: fadeIn var(--stoked-duration-normal) var(--stoked-easing-out);
 }
 
 .overlay[data-centered] {
   align-items: center;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .modal {
@@ -32,19 +22,7 @@
   border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
   border-radius: var(--stoked-radius-xl);
   box-shadow: var(--stoked-shadow-2xl);
-  animation: slideIn var(--stoked-duration-normal) var(--stoked-easing-out);
   outline: none;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
 }
 
 /* Size variants */

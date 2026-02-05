@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+import { motion } from 'framer-motion';
 import type { Toast, ToastStatus } from './Toast.types';
 import styles from './Toast.module.css';
 
@@ -24,20 +26,37 @@ const statusIcons: Record<ToastStatus, JSX.Element> = {
   ),
 };
 
+// Animation variants
+const toastVariants = {
+  initial: { opacity: 0, y: -20, scale: 0.95 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: -20, scale: 0.95 },
+};
+
 interface ToastItemProps {
   toast: Toast;
   onClose: () => void;
 }
 
-function ToastItem({ toast, onClose }: ToastItemProps) {
+const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(
+  { toast, onClose },
+  ref
+) {
   const { title, description, status = 'info', isClosable, icon } = toast;
 
   return (
-    <div
+    <motion.div
+      ref={ref}
       role="alert"
       aria-live="polite"
       className={styles.toast}
       data-status={status}
+      variants={toastVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      layout
     >
       <span className={styles.icon}>{icon || statusIcons[status]}</span>
       <div className={styles.content}>
@@ -56,9 +75,9 @@ function ToastItem({ toast, onClose }: ToastItemProps) {
           </svg>
         </button>
       )}
-    </div>
+    </motion.div>
   );
-}
+});
 
 ToastItem.displayName = 'ToastItem';
 export { ToastItem };

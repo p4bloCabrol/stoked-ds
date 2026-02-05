@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type {
   CardProps,
@@ -8,6 +9,13 @@ import type {
   CardImageProps,
 } from './Card.types';
 import styles from './Card.module.css';
+
+// Spring animation config for hover
+const springTransition = {
+  type: 'spring' as const,
+  stiffness: 400,
+  damping: 25,
+};
 
 const Card = forwardRef<HTMLElement, CardProps>(function Card(
   {
@@ -20,6 +28,36 @@ const Card = forwardRef<HTMLElement, CardProps>(function Card(
   },
   ref
 ) {
+  const isInteractive = isClickable || isHoverable;
+
+  // Use motion.article for interactive cards
+  if (isInteractive) {
+    // Filter out incompatible props for motion component
+    const { onAnimationStart, onDrag, onDragEnd, onDragStart, ...motionRest } =
+      rest as CardProps & HTMLMotionProps<'article'>;
+
+    return (
+      <motion.article
+        ref={ref}
+        className={cn(styles.card, className)}
+        data-variant={variant}
+        data-clickable={isClickable || undefined}
+        data-hoverable={isHoverable || undefined}
+        data-animated="true"
+        tabIndex={isClickable ? 0 : undefined}
+        whileHover={{
+          y: -4,
+          scale: 1.01,
+        }}
+        whileTap={isClickable ? { scale: 0.99 } : undefined}
+        transition={springTransition}
+        {...motionRest}
+      >
+        {children}
+      </motion.article>
+    );
+  }
+
   return (
     <article
       ref={ref}

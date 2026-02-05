@@ -1,26 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel } from './Accordion';
+import { Accordion, AccordionItem } from './Accordion';
 
-const TestAccordion = ({ allowMultiple = false, defaultIndex, onChange }: {
+const TestAccordion = ({
+  allowMultiple = false,
+  defaultIndex,
+}: {
   allowMultiple?: boolean;
   defaultIndex?: number | number[];
-  onChange?: (index: number | number[]) => void;
 }) => (
-  <Accordion allowMultiple={allowMultiple} defaultIndex={defaultIndex} onChange={onChange}>
-    <AccordionItem>
-      <AccordionButton>Section 1</AccordionButton>
-      <AccordionPanel>Content 1</AccordionPanel>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionButton>Section 2</AccordionButton>
-      <AccordionPanel>Content 2</AccordionPanel>
-    </AccordionItem>
-    <AccordionItem>
-      <AccordionButton>Section 3</AccordionButton>
-      <AccordionPanel>Content 3</AccordionPanel>
-    </AccordionItem>
+  <Accordion allowMultiple={allowMultiple} defaultIndex={defaultIndex}>
+    <AccordionItem title="Section 1">Content 1</AccordionItem>
+    <AccordionItem title="Section 2">Content 2</AccordionItem>
+    <AccordionItem title="Section 3">Content 3</AccordionItem>
   </Accordion>
 );
 
@@ -40,100 +33,101 @@ describe('Accordion', () => {
     });
   });
 
-  it('should expand panel when button is clicked', async () => {
+  it('should expand panel when header is clicked', async () => {
     const user = userEvent.setup();
     render(<TestAccordion />);
 
-    const button = screen.getByText('Section 1');
-    await user.click(button);
+    const header = screen.getByText('Section 1').closest('[role="button"]')!;
+    await user.click(header);
 
-    expect(button).toHaveAttribute('aria-expanded', 'true');
+    expect(header).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('should collapse other panels when one is expanded (single mode)', async () => {
     const user = userEvent.setup();
     render(<TestAccordion />);
 
-    await user.click(screen.getByText('Section 1'));
-    expect(screen.getByText('Section 1')).toHaveAttribute('aria-expanded', 'true');
+    const header1 = screen.getByText('Section 1').closest('[role="button"]')!;
+    const header2 = screen.getByText('Section 2').closest('[role="button"]')!;
 
-    await user.click(screen.getByText('Section 2'));
-    expect(screen.getByText('Section 1')).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.getByText('Section 2')).toHaveAttribute('aria-expanded', 'true');
+    await user.click(header1);
+    expect(header1).toHaveAttribute('aria-expanded', 'true');
+
+    await user.click(header2);
+    expect(header1).toHaveAttribute('aria-expanded', 'false');
+    expect(header2).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('should allow multiple panels open when allowMultiple is true', async () => {
     const user = userEvent.setup();
     render(<TestAccordion allowMultiple />);
 
-    await user.click(screen.getByText('Section 1'));
-    await user.click(screen.getByText('Section 2'));
+    const header1 = screen.getByText('Section 1').closest('[role="button"]')!;
+    const header2 = screen.getByText('Section 2').closest('[role="button"]')!;
 
-    expect(screen.getByText('Section 1')).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByText('Section 2')).toHaveAttribute('aria-expanded', 'true');
+    await user.click(header1);
+    await user.click(header2);
+
+    expect(header1).toHaveAttribute('aria-expanded', 'true');
+    expect(header2).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('should respect defaultIndex', () => {
     render(<TestAccordion defaultIndex={1} />);
-    expect(screen.getByText('Section 2')).toHaveAttribute('aria-expanded', 'true');
+    const header = screen.getByText('Section 2').closest('[role="button"]')!;
+    expect(header).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('should respect multiple defaultIndex with allowMultiple', () => {
     render(<TestAccordion allowMultiple defaultIndex={[0, 2]} />);
-    expect(screen.getByText('Section 1')).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByText('Section 2')).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.getByText('Section 3')).toHaveAttribute('aria-expanded', 'true');
-  });
+    const header1 = screen.getByText('Section 1').closest('[role="button"]')!;
+    const header2 = screen.getByText('Section 2').closest('[role="button"]')!;
+    const header3 = screen.getByText('Section 3').closest('[role="button"]')!;
 
-  it('should call onChange when item is toggled', async () => {
-    const user = userEvent.setup();
-    const onChange = vi.fn();
-    render(<TestAccordion onChange={onChange} />);
-
-    await user.click(screen.getByText('Section 1'));
-    expect(onChange).toHaveBeenCalledWith(0);
+    expect(header1).toHaveAttribute('aria-expanded', 'true');
+    expect(header2).toHaveAttribute('aria-expanded', 'false');
+    expect(header3).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('should have correct aria attributes', () => {
     render(<TestAccordion defaultIndex={0} />);
-    const button = screen.getByText('Section 1');
-    const panelId = button.getAttribute('aria-controls');
+    const header = screen.getByText('Section 1').closest('[role="button"]')!;
+    const panelId = header.getAttribute('aria-controls');
     const panel = document.getElementById(panelId!);
 
-    expect(button).toHaveAttribute('aria-expanded', 'true');
+    expect(header).toHaveAttribute('aria-expanded', 'true');
     expect(panel).toHaveAttribute('role', 'region');
-    expect(panel).toHaveAttribute('aria-labelledby', button.id);
+    expect(panel).toHaveAttribute('aria-labelledby', header.id);
   });
 });
 
-describe('AccordionItem with isDisabled', () => {
-  it('should disable button when isDisabled is true', () => {
+describe('AccordionItem with disabled', () => {
+  it('should have aria-disabled when disabled is true', () => {
     render(
       <Accordion>
-        <AccordionItem isDisabled>
-          <AccordionButton>Disabled Section</AccordionButton>
-          <AccordionPanel>Content</AccordionPanel>
+        <AccordionItem title="Disabled Section" disabled>
+          Content
         </AccordionItem>
       </Accordion>
     );
 
-    expect(screen.getByText('Disabled Section')).toBeDisabled();
+    const header = screen.getByText('Disabled Section').closest('[role="button"]')!;
+    expect(header).toHaveAttribute('aria-disabled', 'true');
   });
 
   it('should not toggle when disabled item is clicked', async () => {
     const user = userEvent.setup();
     render(
       <Accordion>
-        <AccordionItem isDisabled>
-          <AccordionButton>Disabled Section</AccordionButton>
-          <AccordionPanel>Content</AccordionPanel>
+        <AccordionItem title="Disabled Section" disabled>
+          Content
         </AccordionItem>
       </Accordion>
     );
 
-    const button = screen.getByText('Disabled Section');
-    await user.click(button);
-    expect(button).toHaveAttribute('aria-expanded', 'false');
+    const header = screen.getByText('Disabled Section').closest('[role="button"]')!;
+    await user.click(header);
+    expect(header).toHaveAttribute('aria-expanded', 'false');
   });
 });
 
@@ -142,21 +136,21 @@ describe('Accordion keyboard navigation', () => {
     const user = userEvent.setup();
     render(<TestAccordion />);
 
-    const button = screen.getByText('Section 1');
-    button.focus();
+    const header = screen.getByText('Section 1').closest('[role="button"]') as HTMLElement;
+    header.focus();
     await user.keyboard('{Enter}');
 
-    expect(button).toHaveAttribute('aria-expanded', 'true');
+    expect(header).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('should toggle with Space key', async () => {
     const user = userEvent.setup();
     render(<TestAccordion />);
 
-    const button = screen.getByText('Section 1');
-    button.focus();
+    const header = screen.getByText('Section 1').closest('[role="button"]') as HTMLElement;
+    header.focus();
     await user.keyboard(' ');
 
-    expect(button).toHaveAttribute('aria-expanded', 'true');
+    expect(header).toHaveAttribute('aria-expanded', 'true');
   });
 });

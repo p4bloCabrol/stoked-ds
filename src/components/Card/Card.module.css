@@ -32,9 +32,15 @@
   box-shadow: var(--stoked-shadow-lg);
 }
 
-.card[data-variant='elevated'][data-hoverable='true']:hover,
-.card[data-variant='elevated'][data-clickable='true']:hover {
+/* CSS-only hover for non-animated cards */
+.card[data-variant='elevated'][data-hoverable='true']:not([data-animated]):hover,
+.card[data-variant='elevated'][data-clickable='true']:not([data-animated]):hover {
   transform: translateY(-2px);
+  box-shadow: var(--stoked-shadow-xl);
+}
+
+/* Animated cards use framer-motion for transform, CSS for shadow */
+.card[data-animated='true']:hover {
   box-shadow: var(--stoked-shadow-xl);
 }
 

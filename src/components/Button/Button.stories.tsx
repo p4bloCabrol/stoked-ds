@@ -22,6 +22,7 @@ const meta = {
     loading: { control: 'boolean' },
     disabled: { control: 'boolean' },
     fullWidth: { control: 'boolean' },
+    ripple: { control: 'boolean' },
     onClick: { action: 'clicked' },
   },
   args: {
@@ -127,6 +128,27 @@ export const WithIcons: Story = {
         }
       >
         Next
+      </Button>
+    </div>
+  ),
+};
+
+export const WithRipple: Story = {
+  name: 'With Ripple Effect',
+  args: { ripple: true, children: 'Click me!' },
+  render: (args) => (
+    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+      <Button {...args} variant="solid" color="primary">
+        Primary
+      </Button>
+      <Button {...args} variant="solid" color="success">
+        Success
+      </Button>
+      <Button {...args} variant="outline" color="primary">
+        Outline
+      </Button>
+      <Button {...args} variant="ghost" color="primary">
+        Ghost
       </Button>
     </div>
   ),

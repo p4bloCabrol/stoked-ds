@@ -12,6 +12,7 @@
 .tabList[data-variant='line'] {
   border-bottom: var(--stoked-border-width-thin) solid var(--stoked-color-border);
   gap: 0;
+  position: relative;
 }
 
 .tabList[data-variant='enclosed'] {
@@ -72,8 +73,6 @@
 /* Line Variant */
 .tab[data-variant='line'] {
   position: relative;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
   border-radius: 0;
 }
 
@@ -83,7 +82,15 @@
 
 .tab[data-variant='line'][aria-selected='true'] {
   color: var(--stoked-color-primary);
-  border-bottom-color: var(--stoked-color-primary);
+}
+
+/* Animated indicator for line variant */
+.indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: var(--stoked-color-primary);
+  border-radius: 1px 1px 0 0;
 }
 
 /* Enclosed Variant */

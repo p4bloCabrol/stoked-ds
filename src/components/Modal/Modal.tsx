@@ -1,8 +1,20 @@
 import { useEffect, useRef, useCallback, type KeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from './Modal.types';
 import styles from './Modal.module.css';
+
+// Animation variants
+const overlayVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const modalVariants = {
+  hidden: { opacity: 0, scale: 0.95, y: -10 },
+  visible: { opacity: 1, scale: 1, y: 0 },
+};
 
 function Modal({
   isOpen,
@@ -95,41 +107,53 @@ function Modal({
     return () => document.removeEventListener('keydown', handleTabKey);
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const modalContent = (
-    <div
-      className={styles.overlay}
-      onClick={handleOverlayClick}
-      data-centered={isCentered || undefined}
-    >
-      <div
-        ref={modalRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        aria-describedby={ariaDescribedBy}
-        tabIndex={-1}
-        className={styles.modal}
-        data-size={size}
-        onKeyDown={handleKeyDown}
-      >
-        {showCloseButton && (
-          <button
-            type="button"
-            className={styles.closeButton}
-            onClick={onClose}
-            aria-label="Close modal"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className={styles.overlay}
+          onClick={handleOverlayClick}
+          data-centered={isCentered || undefined}
+          variants={overlayVariants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          transition={{ duration: 0.2 }}
+        >
+          <motion.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
+            tabIndex={-1}
+            className={styles.modal}
+            data-size={size}
+            onKeyDown={handleKeyDown}
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-            </svg>
-          </button>
-        )}
-        {children}
-      </div>
-    </div>
+            {showCloseButton && (
+              <button
+                type="button"
+                className={styles.closeButton}
+                onClick={onClose}
+                aria-label="Close modal"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+              </button>
+            )}
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 
   return createPortal(modalContent, document.body);

@@ -1,4 +1,5 @@
-import { forwardRef, useState, Children, isValidElement, cloneElement, useRef, useCallback, type KeyboardEvent } from 'react';
+import { forwardRef, useState, Children, isValidElement, cloneElement, useRef, useCallback, useLayoutEffect, useEffect, type KeyboardEvent } from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import { useId } from '../../utils/useId';
 import { TabsContext, useTabs } from './TabsContext';
@@ -10,6 +11,9 @@ import type {
   TabPanelProps,
 } from './Tabs.types';
 import styles from './Tabs.module.css';
+
+// Use useLayoutEffect on client, useEffect on server
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 const Tabs = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
   {
@@ -53,8 +57,26 @@ const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList(
   { className, children, ...rest },
   ref
 ) {
-  const { variant, isFitted, setSelectedIndex, baseId } = useTabs();
+  const { variant, isFitted, setSelectedIndex, selectedIndex, baseId } = useTabs();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
+
+  // Update indicator position when selected tab changes
+  useIsomorphicLayoutEffect(() => {
+    if (variant !== 'line') return;
+
+    const selectedTab = tabRefs.current[selectedIndex];
+    if (selectedTab) {
+      const parentRect = selectedTab.parentElement?.getBoundingClientRect();
+      const tabRect = selectedTab.getBoundingClientRect();
+      if (parentRect) {
+        setIndicatorStyle({
+          left: tabRect.left - parentRect.left,
+          width: tabRect.width,
+        });
+      }
+    }
+  }, [selectedIndex, variant]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent, currentIndex: number, totalTabs: number) => {
@@ -126,6 +148,22 @@ const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList(
       {...rest}
     >
       {tabs}
+      {variant === 'line' && (
+        <motion.div
+          className={styles.indicator}
+          layoutId="tab-indicator"
+          initial={false}
+          animate={{
+            left: indicatorStyle.left,
+            width: indicatorStyle.width,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 500,
+            damping: 35,
+          }}
+        />
+      )}
     </div>
   );
 });

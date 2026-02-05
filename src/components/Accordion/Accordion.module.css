@@ -1,12 +1,13 @@
 .accordion {
   display: flex;
   flex-direction: column;
+  width: 100%;
   border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
   border-radius: var(--stoked-radius-lg);
   overflow: hidden;
 }
 
-/* Accordion Item */
+/* Item */
 .item {
   border-bottom: var(--stoked-border-width-thin) solid var(--stoked-color-border);
 }
@@ -15,8 +16,8 @@
   border-bottom: none;
 }
 
-/* Accordion Button */
-.button {
+/* Header - clickable area */
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,74 +25,73 @@
   padding: var(--stoked-spacing-4) var(--stoked-spacing-5);
   background-color: transparent;
   border: none;
+  cursor: pointer;
+  transition: background-color var(--stoked-duration-fast) var(--stoked-easing-default);
+  outline: none;
+}
+
+.header:hover {
+  background-color: var(--stoked-color-surface-hover);
+}
+
+.header:focus-visible {
+  background-color: var(--stoked-color-surface-hover);
+  box-shadow: inset 0 0 0 2px var(--stoked-color-focus-ring);
+}
+
+.item[data-disabled] .header {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.item[data-disabled] .header:hover {
+  background-color: transparent;
+}
+
+/* Title */
+.title {
   font-family: inherit;
   font-size: var(--stoked-text-base);
   font-weight: var(--stoked-font-medium);
   color: var(--stoked-color-text);
   text-align: left;
-  cursor: pointer;
-  transition: background-color var(--stoked-duration-fast) var(--stoked-easing-default);
 }
 
-.button:hover:not(:disabled) {
-  background-color: var(--stoked-color-surface-hover);
-}
-
-.button:focus-visible {
-  outline: none;
-  background-color: var(--stoked-color-surface-hover);
-  box-shadow: inset 0 0 0 2px var(--stoked-color-focus-ring);
-}
-
-.button:disabled {
-  color: var(--stoked-color-text-muted);
-  cursor: not-allowed;
-}
-
-/* Icon */
-.icon {
+/* Chevron */
+.chevron {
   flex-shrink: 0;
   width: 1.25rem;
   height: 1.25rem;
   color: var(--stoked-color-text-secondary);
-  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s ease;
 }
 
-.button[aria-expanded='true'] .icon {
+.item[data-expanded] .chevron {
   transform: rotate(180deg);
 }
 
-.button:disabled .icon {
+.item[data-disabled] .chevron {
   color: var(--stoked-color-text-muted);
 }
 
-/* Panel - using CSS Grid for smooth height animation */
+/* Panel - CSS slideDown animation */
 .panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideDown 0.25s ease-out;
 }
 
-.panel[data-state='open'] {
-  grid-template-rows: 1fr;
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.panelContent {
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-8px);
-  transition:
-    opacity 200ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.panel[data-state='open'] .panelContent {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 100ms;
-}
-
-.panelInner {
+/* Content inside panel */
+.content {
   padding: 0 var(--stoked-spacing-5) var(--stoked-spacing-4) var(--stoked-spacing-5);
   color: var(--stoked-color-text-secondary);
   font-size: var(--stoked-text-sm);

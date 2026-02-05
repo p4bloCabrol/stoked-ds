@@ -1,7 +1,16 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState, useCallback, type MouseEvent } from 'react';
 import { cn } from '../../utils/cn';
 import type { ButtonProps } from './Button.types';
 import styles from './Button.module.css';
+
+interface Ripple {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+}
+
+let rippleCount = 0;
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -17,11 +26,43 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       children,
       type = 'button',
+      ripple = false,
+      onClick,
       ...rest
     },
     ref
   ) => {
     const isDisabled = disabled || loading;
+    const [ripples, setRipples] = useState<Ripple[]>([]);
+
+    const handleClick = useCallback(
+      (e: MouseEvent<HTMLButtonElement>) => {
+        if (ripple && !isDisabled) {
+          const button = e.currentTarget;
+          const rect = button.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height) * 2;
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+
+          const newRipple: Ripple = {
+            id: ++rippleCount,
+            x,
+            y,
+            size,
+          };
+
+          setRipples((prev) => [...prev, newRipple]);
+
+          // Remove ripple after animation
+          setTimeout(() => {
+            setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
+          }, 600);
+        }
+
+        onClick?.(e);
+      },
+      [ripple, isDisabled, onClick]
+    );
 
     return (
       <button
@@ -34,10 +75,28 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         data-color={color}
         data-loading={loading || undefined}
         data-full-width={fullWidth || undefined}
+        data-ripple={ripple || undefined}
         aria-busy={loading || undefined}
         aria-disabled={isDisabled || undefined}
+        onClick={handleClick}
         {...rest}
       >
+        {ripple && (
+          <span className={styles.rippleContainer} aria-hidden="true">
+            {ripples.map((r) => (
+              <span
+                key={r.id}
+                className={styles.ripple}
+                style={{
+                  left: r.x,
+                  top: r.y,
+                  width: r.size,
+                  height: r.size,
+                }}
+              />
+            ))}
+          </span>
+        )}
         {loading && (
           <span className={styles.spinner} aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" className={styles.spinnerIcon}>

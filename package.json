@@ -81,7 +81,8 @@
     "vitest": "^2.1.0"
   },
   "dependencies": {
-    "clsx": "^2.1.0"
+    "clsx": "^2.1.0",
+    "framer-motion": "^12.30.0"
   },
   "keywords": [
     "react",

@@ -19,4 +19,6 @@ export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   leftIcon?: ReactNode;
   /** Icon element to render after children */
   rightIcon?: ReactNode;
+  /** Enable ripple effect on click */
+  ripple?: boolean;
 }
