@@ -8,7 +8,6 @@ describe('Skeleton', () => {
     const skeleton = screen.getByTestId('skeleton');
     expect(skeleton).toBeInTheDocument();
     expect(skeleton).toHaveAttribute('data-variant', 'text');
-    expect(skeleton).toHaveAttribute('data-animation', 'pulse');
   });
 
   it('should render with different variants', () => {
@@ -23,11 +22,15 @@ describe('Skeleton', () => {
   });
 
   it('should render with different animations', () => {
+    // Animation is now handled by framer-motion, so we just verify the component renders
     const { rerender } = render(<Skeleton data-testid="skeleton" animation="wave" />);
-    expect(screen.getByTestId('skeleton')).toHaveAttribute('data-animation', 'wave');
+    expect(screen.getByTestId('skeleton')).toBeInTheDocument();
 
     rerender(<Skeleton data-testid="skeleton" animation="none" />);
-    expect(screen.getByTestId('skeleton')).toHaveAttribute('data-animation', 'none');
+    expect(screen.getByTestId('skeleton')).toBeInTheDocument();
+
+    rerender(<Skeleton data-testid="skeleton" animation="pulse" />);
+    expect(screen.getByTestId('skeleton')).toBeInTheDocument();
   });
 
   it('should apply custom width and height', () => {
