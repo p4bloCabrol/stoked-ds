@@ -1,4 +1,5 @@
 import { forwardRef, useState, useCallback, type MouseEvent } from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type { ButtonProps } from './Button.types';
 import styles from './Button.module.css';
@@ -99,7 +100,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {loading && (
           <span className={styles.spinner} aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" className={styles.spinnerIcon}>
+            <motion.svg
+              viewBox="0 0 24 24"
+              fill="none"
+              className={styles.spinnerIcon}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            >
               <circle
                 cx="12"
                 cy="12"
@@ -109,7 +116,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 strokeLinecap="round"
                 strokeDasharray="31.4 31.4"
               />
-            </svg>
+            </motion.svg>
           </span>
         )}
         {!loading && leftIcon && (

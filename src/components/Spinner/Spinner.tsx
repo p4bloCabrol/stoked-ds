@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type { SpinnerProps } from './Spinner.types';
 import styles from './Spinner.module.css';
@@ -24,11 +25,13 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(
         data-color={color}
         {...rest}
       >
-        <svg
+        <motion.svg
           viewBox="0 0 24 24"
           fill="none"
           className={styles.svg}
           aria-hidden="true"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
         >
           <circle
             cx="12"
@@ -49,7 +52,7 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(
             strokeDasharray="31.4 31.4"
             className={styles.circle}
           />
-        </svg>
+        </motion.svg>
         <span className={styles.srOnly}>{label}</span>
       </span>
     );
