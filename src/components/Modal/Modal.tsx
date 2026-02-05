@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback, type KeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from './Modal.types';
 import styles from './Modal.module.css';
@@ -14,6 +14,11 @@ const overlayVariants = {
 const modalVariants = {
   hidden: { opacity: 0, scale: 0.95, y: -10 },
   visible: { opacity: 1, scale: 1, y: 0 },
+};
+
+const reducedMotionVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
 };
 
 function Modal({
@@ -31,6 +36,8 @@ function Modal({
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const animationDuration = shouldReduceMotion ? 0 : 0.2;
 
   // Handle escape key
   const handleKeyDown = useCallback(
@@ -118,7 +125,7 @@ function Modal({
           initial="hidden"
           animate="visible"
           exit="hidden"
-          transition={{ duration: 0.2 }}
+          transition={{ duration: animationDuration }}
         >
           <motion.div
             ref={modalRef}
@@ -131,11 +138,11 @@ function Modal({
             className={styles.modal}
             data-size={size}
             onKeyDown={handleKeyDown}
-            variants={modalVariants}
+            variants={shouldReduceMotion ? reducedMotionVariants : modalVariants}
             initial="hidden"
             animate="visible"
             exit="hidden"
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: animationDuration, ease: [0.16, 1, 0.3, 1] }}
           >
             {showCloseButton && (
               <button

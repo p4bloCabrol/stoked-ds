@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { motion, type HTMLMotionProps } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type {
   CardProps,
@@ -24,18 +24,22 @@ const Card = forwardRef<HTMLElement, CardProps>(function Card(
     isHoverable = false,
     className,
     children,
+    // Exclude native events that conflict with framer-motion
+    onDrag: _onDrag,
+    onDragStart: _onDragStart,
+    onDragEnd: _onDragEnd,
+    onAnimationStart: _onAnimationStart,
+    onAnimationEnd: _onAnimationEnd,
+    onAnimationIteration: _onAnimationIteration,
     ...rest
   },
   ref
 ) {
   const isInteractive = isClickable || isHoverable;
+  const shouldReduceMotion = useReducedMotion();
 
-  // Use motion.article for interactive cards
-  if (isInteractive) {
-    // Filter out incompatible props for motion component
-    const { onAnimationStart, onDrag, onDragEnd, onDragStart, ...motionRest } =
-      rest as CardProps & HTMLMotionProps<'article'>;
-
+  // Use motion.article for interactive cards (with animation)
+  if (isInteractive && !shouldReduceMotion) {
     return (
       <motion.article
         ref={ref}
@@ -45,13 +49,10 @@ const Card = forwardRef<HTMLElement, CardProps>(function Card(
         data-hoverable={isHoverable || undefined}
         data-animated="true"
         tabIndex={isClickable ? 0 : undefined}
-        whileHover={{
-          y: -4,
-          scale: 1.01,
-        }}
+        whileHover={{ y: -4, scale: 1.01 }}
         whileTap={isClickable ? { scale: 0.99 } : undefined}
         transition={springTransition}
-        {...motionRest}
+        {...rest}
       >
         {children}
       </motion.article>

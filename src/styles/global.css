@@ -40,3 +40,45 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--stoked-color-border) transparent;
 }
+
+/* ===== Global Keyframes ===== */
+/* These are defined globally to avoid CSS Modules scoping issues */
+
+@keyframes stoked-progress-stripes {
+  from {
+    background-position: 1rem 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@keyframes stoked-progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes stoked-skeleton-pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes stoked-skeleton-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

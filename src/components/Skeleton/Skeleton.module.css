@@ -1,5 +1,5 @@
 .skeleton {
-  background-color: var(--stoked-color-surface);
+  background-color: var(--stoked-color-border);
   display: block;
 }
 
@@ -28,31 +28,14 @@
   height: 100px;
 }
 
-/* Pulse animation */
-.skeleton[data-animation='pulse'] {
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* Wave animation */
-.skeleton[data-animation='wave'] {
+/* Wave animation container */
+.waveContainer {
   position: relative;
   overflow: hidden;
 }
 
-.skeleton[data-animation='wave']::after {
-  content: '';
+/* Wave shimmer effect - animation handled by framer-motion */
+.waveShimmer {
   position: absolute;
   top: 0;
   left: 0;
@@ -61,24 +44,9 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.15),
     transparent
   );
-  animation: wave 1.5s linear infinite;
-}
-
-@keyframes wave {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-/* No animation */
-.skeleton[data-animation='none'] {
-  animation: none;
 }
 
 /* Text wrapper for multiple lines */

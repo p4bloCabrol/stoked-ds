@@ -7,7 +7,7 @@
 
 .track {
   flex: 1;
-  background-color: var(--stoked-color-surface);
+  background-color: var(--stoked-color-border);
   border-radius: var(--stoked-radius-full);
   overflow: hidden;
 }
@@ -56,40 +56,21 @@
 .bar[data-animated] {
   background-image: linear-gradient(
     45deg,
-    rgba(255, 255, 255, 0.15) 25%,
+    rgba(255, 255, 255, 0.25) 25%,
     transparent 25%,
     transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.25) 75%,
     transparent 75%,
     transparent
   );
   background-size: 1rem 1rem;
-  animation: stripes 1s linear infinite;
+  animation: stoked-progress-stripes 0.75s linear infinite;
 }
 
-@keyframes stripes {
-  from {
-    background-position: 1rem 0;
-  }
-  to {
-    background-position: 0 0;
-  }
-}
-
-/* Indeterminate animation */
+/* Indeterminate - animation handled by framer-motion */
 .bar[data-indeterminate] {
-  width: 50% !important;
-  animation: indeterminate 1.5s ease-in-out infinite;
-}
-
-@keyframes indeterminate {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(200%);
-  }
+  /* width is set inline, animation by framer-motion */
 }
 
 /* Value label */

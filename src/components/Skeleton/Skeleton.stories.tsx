@@ -5,6 +5,13 @@ const meta = {
   title: 'Feedback/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <div style={{ width: 300 }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     variant: {
       control: 'select',

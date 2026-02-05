@@ -31,7 +31,12 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(
           className={styles.svg}
           aria-hidden="true"
           animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+            ease: 'linear',
+            repeatType: 'loop',
+          }}
         >
           <circle
             cx="12"
@@ -42,15 +47,24 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(
             strokeLinecap="round"
             opacity="0.25"
           />
-          <circle
+          <motion.circle
             cx="12"
             cy="12"
             r="10"
             stroke="currentColor"
             strokeWidth="3"
             strokeLinecap="round"
-            strokeDasharray="31.4 31.4"
             className={styles.circle}
+            animate={{
+              strokeDasharray: ['1 62.8', '31.4 31.4', '1 62.8'],
+              strokeDashoffset: [0, -15.7, -62.8],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              repeatType: 'loop',
+            }}
           />
         </motion.svg>
         <span className={styles.srOnly}>{label}</span>

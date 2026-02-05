@@ -30,9 +30,11 @@
 }
 
 .input {
+  box-sizing: border-box;
   width: 100%;
   font-family: var(--stoked-font-sans);
   font-size: var(--stoked-text-base);
+  line-height: 1.5;
   color: var(--stoked-color-text);
   background-color: var(--stoked-color-surface-raised);
   border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
@@ -43,19 +45,19 @@
 /* Size variants */
 .wrapper[data-size='sm'] .input {
   height: var(--stoked-spacing-8);
-  padding: var(--stoked-spacing-2) var(--stoked-spacing-3);
+  padding: var(--stoked-spacing-1-5) var(--stoked-spacing-3);
   font-size: var(--stoked-text-sm);
 }
 
 .wrapper[data-size='md'] .input {
   height: var(--stoked-spacing-10);
-  padding: var(--stoked-spacing-3) var(--stoked-spacing-4);
+  padding: var(--stoked-spacing-2-5) var(--stoked-spacing-4);
   font-size: var(--stoked-text-base);
 }
 
 .wrapper[data-size='lg'] .input {
   height: var(--stoked-spacing-12);
-  padding: var(--stoked-spacing-3-5) var(--stoked-spacing-5);
+  padding: var(--stoked-spacing-3) var(--stoked-spacing-5);
   font-size: var(--stoked-text-md);
 }
 

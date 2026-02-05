@@ -51,8 +51,8 @@ export type { Toast, ToastOptions, ToastPosition, ToastStatus, ToastProviderProp
 export { Card, CardHeader, CardBody, CardFooter, CardImage } from './components/Card';
 export type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps, CardImageProps, CardVariant } from './components/Card';
 
-export { Accordion, AccordionItem, AccordionButton, AccordionPanel } from './components/Accordion';
-export type { AccordionProps, AccordionItemProps, AccordionButtonProps, AccordionPanelProps } from './components/Accordion';
+export { Accordion, AccordionItem } from './components/Accordion';
+export type { AccordionProps, AccordionItemProps } from './components/Accordion';
 
 export { Tabs, TabList, Tab, TabPanels, TabPanel } from './components/Tabs';
 export type { TabsProps, TabListProps, TabProps, TabPanelsProps, TabPanelProps, TabsVariant, TabsSize } from './components/Tabs';

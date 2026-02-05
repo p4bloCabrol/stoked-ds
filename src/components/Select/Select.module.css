@@ -30,11 +30,13 @@
 }
 
 .select {
+  box-sizing: border-box;
   width: 100%;
   font-family: var(--stoked-font-sans);
   font-size: var(--stoked-text-base);
+  line-height: 1.5;
   color: var(--stoked-color-text);
-  background-color: #1c2127;
+  background-color: var(--stoked-color-surface-raised);
   border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
   border-radius: var(--stoked-radius-lg);
   cursor: pointer;
@@ -45,21 +47,21 @@
 /* Size variants */
 .wrapper[data-size='sm'] .select {
   height: var(--stoked-spacing-8);
-  padding: var(--stoked-spacing-2) var(--stoked-spacing-8) var(--stoked-spacing-2)
+  padding: var(--stoked-spacing-1-5) var(--stoked-spacing-8) var(--stoked-spacing-1-5)
     var(--stoked-spacing-3);
   font-size: var(--stoked-text-sm);
 }
 
 .wrapper[data-size='md'] .select {
   height: var(--stoked-spacing-10);
-  padding: var(--stoked-spacing-3) var(--stoked-spacing-10) var(--stoked-spacing-3)
+  padding: var(--stoked-spacing-2-5) var(--stoked-spacing-10) var(--stoked-spacing-2-5)
     var(--stoked-spacing-4);
   font-size: var(--stoked-text-base);
 }
 
 .wrapper[data-size='lg'] .select {
   height: var(--stoked-spacing-12);
-  padding: var(--stoked-spacing-3-5) var(--stoked-spacing-12) var(--stoked-spacing-3-5)
+  padding: var(--stoked-spacing-3) var(--stoked-spacing-12) var(--stoked-spacing-3)
     var(--stoked-spacing-5);
   font-size: var(--stoked-text-md);
 }
@@ -102,6 +104,19 @@
   justify-content: center;
   color: var(--stoked-color-text-muted);
   pointer-events: none;
+}
+
+/* Icon position by size */
+.wrapper[data-size='sm'] .icon {
+  right: var(--stoked-spacing-2);
+}
+
+.wrapper[data-size='md'] .icon {
+  right: var(--stoked-spacing-3);
+}
+
+.wrapper[data-size='lg'] .icon {
+  right: var(--stoked-spacing-4);
 }
 
 /* Helper and error text */

@@ -1,5 +1,5 @@
-import { forwardRef, useState, useCallback, type MouseEvent } from 'react';
-import { motion } from 'framer-motion';
+import { forwardRef, useState, useCallback, useRef, useEffect, type MouseEvent } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type { ButtonProps } from './Button.types';
 import styles from './Button.module.css';
@@ -34,11 +34,22 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const isDisabled = disabled || loading;
+    const shouldReduceMotion = useReducedMotion();
     const [ripples, setRipples] = useState<Ripple[]>([]);
+    const rippleTimersRef = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
+
+    // Cleanup ripple timers on unmount
+    useEffect(() => {
+      const timers = rippleTimersRef.current;
+      return () => {
+        timers.forEach((timer) => clearTimeout(timer));
+        timers.clear();
+      };
+    }, []);
 
     const handleClick = useCallback(
       (e: MouseEvent<HTMLButtonElement>) => {
-        if (ripple && !isDisabled) {
+        if (ripple && !isDisabled && !shouldReduceMotion) {
           const button = e.currentTarget;
           const rect = button.getBoundingClientRect();
           const size = Math.max(rect.width, rect.height) * 2;
@@ -54,15 +65,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
           setRipples((prev) => [...prev, newRipple]);
 
-          // Remove ripple after animation
-          setTimeout(() => {
+          // Remove ripple after animation with proper cleanup
+          const timer = setTimeout(() => {
             setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
+            rippleTimersRef.current.delete(newRipple.id);
           }, 600);
+          rippleTimersRef.current.set(newRipple.id, timer);
         }
 
         onClick?.(e);
       },
-      [ripple, isDisabled, onClick]
+      [ripple, isDisabled, shouldReduceMotion, onClick]
     );
 
     return (
@@ -104,8 +117,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               viewBox="0 0 24 24"
               fill="none"
               className={styles.spinnerIcon}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              animate={shouldReduceMotion ? undefined : { rotate: 360 }}
+              transition={shouldReduceMotion ? undefined : { duration: 1, repeat: Infinity, ease: 'linear' }}
             >
               <circle
                 cx="12"

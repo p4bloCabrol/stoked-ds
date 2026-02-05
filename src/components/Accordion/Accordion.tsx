@@ -24,12 +24,12 @@ const useAccordion = () => {
 // Types
 // =============================================================================
 
-type AccordionProps = React.ComponentPropsWithoutRef<'div'> & {
+export type AccordionProps = React.ComponentPropsWithoutRef<'div'> & {
   allowMultiple?: boolean;
   defaultIndex?: number | number[];
 };
 
-type AccordionItemProps = React.ComponentPropsWithoutRef<'div'> & {
+export type AccordionItemProps = React.ComponentPropsWithoutRef<'div'> & {
   title: React.ReactNode;
   disabled?: boolean;
   'data-index'?: number;
