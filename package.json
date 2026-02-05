@@ -1,6 +1,6 @@
 {
   "name": "stoked-ds",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A lightweight, accessible React design system with zero-runtime CSS",
   "type": "module",
   "main": "./dist/index.js",
@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && copyfiles -u 1 \"src/tokens/**/*.css\" \"src/styles/**/*.css\" dist",
     "build:storybook": "storybook build",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -64,6 +64,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.0",
     "@vitest/coverage-v8": "^2.1.0",
+    "copyfiles": "^2.4.1",
     "eslint": "^9.0.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "glob": "^11.0.0",
