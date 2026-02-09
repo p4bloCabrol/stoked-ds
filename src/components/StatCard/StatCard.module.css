@@ -1,0 +1,86 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stoked-spacing-2);
+  padding: var(--stoked-spacing-5);
+  background-color: var(--stoked-color-surface);
+  color: var(--stoked-color-text);
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  border-radius: var(--stoked-radius-xl);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Icon */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--stoked-radius-lg);
+  font-size: 1.25rem;
+}
+
+.icon[data-status='default'] {
+  background-color: var(--stoked-color-primary-light);
+  color: var(--stoked-color-primary);
+}
+
+.icon[data-status='success'] {
+  background-color: var(--stoked-color-success-light);
+  color: var(--stoked-color-success);
+}
+
+.icon[data-status='warning'] {
+  background-color: var(--stoked-color-warning-light);
+  color: var(--stoked-color-warning);
+}
+
+.icon[data-status='danger'] {
+  background-color: var(--stoked-color-danger-light);
+  color: var(--stoked-color-danger);
+}
+
+/* Label */
+.label {
+  font-size: var(--stoked-text-xs);
+  font-weight: var(--stoked-font-medium);
+  color: var(--stoked-color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Value */
+.value {
+  font-size: var(--stoked-text-2xl);
+  font-weight: var(--stoked-font-bold);
+  line-height: 1.2;
+}
+
+/* Trend */
+.trend {
+  font-size: var(--stoked-text-xs);
+  font-weight: var(--stoked-font-semibold);
+  padding: var(--stoked-spacing-1) var(--stoked-spacing-2);
+  border-radius: var(--stoked-radius-full);
+}
+
+.trend[data-direction='up'] {
+  color: var(--stoked-color-success);
+  background-color: var(--stoked-color-success-light);
+}
+
+.trend[data-direction='down'] {
+  color: var(--stoked-color-danger);
+  background-color: var(--stoked-color-danger-light);
+}
+
+.trend[data-direction='neutral'] {
+  color: var(--stoked-color-text-muted);
+  background-color: var(--stoked-color-border);
+}

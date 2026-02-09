@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Preview } from '@storybook/react';
 import '../src/styles/global.css';
 
@@ -19,20 +18,21 @@ const preview: Preview = {
         rules: [{ id: 'color-contrast', enabled: true }],
       },
     },
-    backgrounds: {
-      default: 'dark',
-      values: [
-        { name: 'dark', value: '#101922' },
-        { name: 'light', value: '#f6f7f8' },
-        { name: 'surface', value: '#1e293b' },
-      ],
-    },
   },
   decorators: [
     (Story, context) => {
       const theme = context.globals.theme || 'dark';
+      const bg = theme === 'light' ? '#f6f7f8' : '#101922';
       return (
-        <div data-theme={theme} style={{ padding: '1rem' }}>
+        <div
+          data-theme={theme}
+          style={{
+            padding: '2rem',
+            backgroundColor: bg,
+            minHeight: '100%',
+            color: theme === 'light' ? '#0f172a' : '#f8fafc',
+          }}
+        >
           <Story />
         </div>
       );
@@ -44,10 +44,16 @@ const preview: Preview = {
       toolbar: {
         title: 'Theme',
         icon: 'circlehollow',
-        items: ['dark', 'light'],
+        items: [
+          { value: 'dark', title: 'Dark', icon: 'moon' },
+          { value: 'light', title: 'Light', icon: 'sun' },
+        ],
         dynamicTitle: true,
       },
     },
+  },
+  initialGlobals: {
+    theme: 'dark',
   },
 };
 

@@ -61,12 +61,12 @@
   font-size: var(--stoked-text-md);
 }
 
-/* Icon padding adjustments */
-.input[data-has-left-icon] {
+/* Icon padding adjustments — needs .wrapper to match size variant specificity */
+.wrapper .input[data-has-left-icon] {
   padding-left: var(--stoked-spacing-10);
 }
 
-.input[data-has-right-icon] {
+.wrapper .input[data-has-right-icon] {
   padding-right: var(--stoked-spacing-10);
 }
 

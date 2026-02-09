@@ -1,0 +1,186 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  height: 100%;
+  background-color: var(--stoked-color-surface);
+  color: var(--stoked-color-text);
+  border-right: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  transition: width var(--stoked-duration-slow) var(--stoked-easing-out);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sidebar[data-collapsed] {
+  width: 64px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--stoked-spacing-4);
+  border-bottom: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  min-height: 64px;
+  transition: padding var(--stoked-duration-slow) var(--stoked-easing-out);
+}
+
+.sidebar[data-collapsed] .header {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--stoked-spacing-2);
+  padding: var(--stoked-spacing-4) var(--stoked-spacing-2);
+}
+
+.logo {
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: var(--stoked-font-bold);
+  font-size: var(--stoked-text-lg);
+  transition: opacity var(--stoked-duration-normal) var(--stoked-easing-out);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--stoked-radius-md);
+  background: transparent;
+  color: var(--stoked-color-text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background-color var(--stoked-duration-fast) var(--stoked-easing-default),
+    color var(--stoked-duration-fast) var(--stoked-easing-default),
+    transform var(--stoked-duration-slow) var(--stoked-easing-out);
+}
+
+.toggle:hover {
+  background-color: var(--stoked-color-primary-light);
+  color: var(--stoked-color-primary);
+}
+
+/* Navigation */
+.nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--stoked-spacing-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--stoked-spacing-1);
+}
+
+/* Footer */
+.footer {
+  padding: var(--stoked-spacing-4);
+  border-top: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  transition: padding var(--stoked-duration-slow) var(--stoked-easing-out);
+}
+
+.sidebar[data-collapsed] .footer {
+  padding: var(--stoked-spacing-2);
+  display: flex;
+  justify-content: center;
+}
+
+/* Section */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stoked-spacing-1);
+}
+
+.section + .section {
+  margin-top: var(--stoked-spacing-4);
+}
+
+.sectionTitle {
+  font-size: var(--stoked-text-xs);
+  font-weight: var(--stoked-font-semibold);
+  color: var(--stoked-color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--stoked-spacing-1) var(--stoked-spacing-3);
+  opacity: 1;
+  transition: opacity var(--stoked-duration-normal) var(--stoked-easing-out);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sidebar[data-collapsed] .sectionTitle {
+  opacity: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* Item */
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--stoked-spacing-3);
+  width: 100%;
+  padding: var(--stoked-spacing-2) var(--stoked-spacing-3);
+  border: none;
+  border-radius: var(--stoked-radius-lg);
+  background: transparent;
+  color: var(--stoked-color-text-secondary);
+  cursor: pointer;
+  font-size: var(--stoked-text-sm);
+  font-weight: var(--stoked-font-medium);
+  text-align: left;
+  transition:
+    background-color var(--stoked-duration-fast) var(--stoked-easing-default),
+    color var(--stoked-duration-fast) var(--stoked-easing-default),
+    padding var(--stoked-duration-slow) var(--stoked-easing-out);
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.item:hover {
+  background-color: var(--stoked-color-primary-light);
+  color: var(--stoked-color-text);
+}
+
+.item[data-active] {
+  background-color: var(--stoked-color-primary-light);
+  color: var(--stoked-color-primary);
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: -2px;
+}
+
+.sidebar[data-collapsed] .item {
+  justify-content: center;
+  padding: var(--stoked-spacing-2);
+}
+
+/* Item icon */
+.itemIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Item label */
+.itemLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 1;
+  transition: opacity var(--stoked-duration-normal) var(--stoked-easing-out);
+}
+
+.sidebar[data-collapsed] .itemLabel {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}

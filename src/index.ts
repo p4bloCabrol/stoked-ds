@@ -87,3 +87,28 @@ export type {
   TableVariant,
   TableSize,
 } from './components/Table';
+
+// Layout Components
+export { Sidebar, SidebarItem, SidebarSection } from './components/Sidebar';
+export type { SidebarProps, SidebarItemProps, SidebarSectionProps } from './components/Sidebar';
+
+export { AppShell } from './components/AppShell';
+export type { AppShellProps } from './components/AppShell';
+
+export { StatCard } from './components/StatCard';
+export type { StatCardProps, StatCardStatus } from './components/StatCard';
+
+export { SearchInput } from './components/SearchInput';
+export type { SearchInputProps } from './components/SearchInput';
+
+export { Tag } from './components/Tag';
+export type { TagProps, TagColor, TagVariant, TagSize } from './components/Tag';
+
+export { Pagination } from './components/Pagination';
+export type { PaginationProps } from './components/Pagination';
+
+export { Breadcrumb } from './components/Breadcrumb';
+export type { BreadcrumbProps, BreadcrumbItem } from './components/Breadcrumb';
+
+export { ButtonGroup } from './components/ButtonGroup';
+export type { ButtonGroupProps, ButtonGroupOption, ButtonGroupSize } from './components/ButtonGroup';

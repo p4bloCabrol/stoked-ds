@@ -1,0 +1,51 @@
+.group {
+  display: inline-flex;
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  border-radius: var(--stoked-radius-lg);
+  overflow: hidden;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--stoked-color-text-secondary);
+  font-family: inherit;
+  font-weight: var(--stoked-font-medium);
+  cursor: pointer;
+  transition:
+    background-color var(--stoked-duration-fast) var(--stoked-easing-default),
+    color var(--stoked-duration-fast) var(--stoked-easing-default);
+}
+
+.button + .button {
+  border-left: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+}
+
+.button:hover:not([data-active]) {
+  background-color: var(--stoked-color-primary-light);
+  color: var(--stoked-color-text);
+}
+
+.button[data-active] {
+  background-color: var(--stoked-color-primary);
+  color: white;
+}
+
+/* Size variants */
+.group[data-size='sm'] .button {
+  padding: var(--stoked-spacing-1) var(--stoked-spacing-3);
+  font-size: var(--stoked-text-xs);
+}
+
+.group[data-size='md'] .button {
+  padding: var(--stoked-spacing-1-5) var(--stoked-spacing-4);
+  font-size: var(--stoked-text-sm);
+}
+
+.group[data-size='lg'] .button {
+  padding: var(--stoked-spacing-2) var(--stoked-spacing-5);
+  font-size: var(--stoked-text-base);
+}

@@ -1,0 +1,107 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--stoked-spacing-1);
+  font-weight: var(--stoked-font-medium);
+  border-radius: var(--stoked-radius-full);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* Size variants */
+.tag[data-size='sm'] {
+  padding: var(--stoked-spacing-0-5) var(--stoked-spacing-2);
+  font-size: var(--stoked-text-xs);
+}
+
+.tag[data-size='md'] {
+  padding: var(--stoked-spacing-1) var(--stoked-spacing-2-5);
+  font-size: var(--stoked-text-sm);
+}
+
+.tag[data-size='lg'] {
+  padding: var(--stoked-spacing-1-5) var(--stoked-spacing-3);
+  font-size: var(--stoked-text-base);
+}
+
+/* Solid variants */
+.tag[data-variant='solid'][data-color='primary'] {
+  background-color: var(--stoked-color-primary);
+  color: white;
+}
+
+.tag[data-variant='solid'][data-color='success'] {
+  background-color: var(--stoked-color-success);
+  color: white;
+}
+
+.tag[data-variant='solid'][data-color='warning'] {
+  background-color: var(--stoked-color-warning);
+  color: #1a1a1a;
+}
+
+.tag[data-variant='solid'][data-color='danger'] {
+  background-color: var(--stoked-color-danger);
+  color: white;
+}
+
+.tag[data-variant='solid'][data-color='neutral'] {
+  background-color: var(--stoked-color-border);
+  color: var(--stoked-color-text);
+}
+
+/* Outline variants */
+.tag[data-variant='outline'][data-color='primary'] {
+  border: 1px solid var(--stoked-color-primary);
+  color: var(--stoked-color-primary);
+}
+
+.tag[data-variant='outline'][data-color='success'] {
+  border: 1px solid var(--stoked-color-success);
+  color: var(--stoked-color-success);
+}
+
+.tag[data-variant='outline'][data-color='warning'] {
+  border: 1px solid var(--stoked-color-warning);
+  color: var(--stoked-color-warning);
+}
+
+.tag[data-variant='outline'][data-color='danger'] {
+  border: 1px solid var(--stoked-color-danger);
+  color: var(--stoked-color-danger);
+}
+
+.tag[data-variant='outline'][data-color='neutral'] {
+  border: 1px solid var(--stoked-color-border);
+  color: var(--stoked-color-text-secondary);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: var(--stoked-spacing-0-5);
+  background: none;
+  border: none;
+  color: currentColor;
+  opacity: 0.7;
+  cursor: pointer;
+  border-radius: var(--stoked-radius-full);
+  transition: opacity var(--stoked-duration-fast);
+}
+
+.remove:hover {
+  opacity: 1;
+}

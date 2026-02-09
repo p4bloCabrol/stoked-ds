@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-import { motion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type { ProgressProps } from './Progress.types';
 import styles from './Progress.module.css';
@@ -36,34 +35,13 @@ const Progress = forwardRef<HTMLDivElement, ProgressProps>(
         {...rest}
       >
         <div className={styles.track}>
-          {indeterminate ? (
-            <motion.div
-              className={styles.bar}
-              data-color={color}
-              data-indeterminate
-              style={{ width: '50%' }}
-              animate={{ x: ['-100%', '200%'] }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                repeatType: 'loop',
-              }}
-            />
-          ) : animated ? (
-            <div
-              className={styles.bar}
-              data-color={color}
-              data-animated
-              style={{ width: `${percentage}%` }}
-            />
-          ) : (
-            <div
-              className={styles.bar}
-              data-color={color}
-              style={{ width: `${percentage}%` }}
-            />
-          )}
+          <div
+            className={styles.bar}
+            data-color={color}
+            {...(indeterminate ? { 'data-indeterminate': '' } : {})}
+            {...(animated && !indeterminate ? { 'data-animated': '' } : {})}
+            style={{ width: indeterminate ? '50%' : `${percentage}%` }}
+          />
         </div>
         {showValue && !indeterminate && (
           <span className={styles.value}>{Math.round(percentage)}%</span>
