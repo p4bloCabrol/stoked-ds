@@ -4,7 +4,7 @@ A lightweight, accessible React design system with zero-runtime CSS.
 
 ## Features
 
-- **19 Components** - Button, Input, Select, Checkbox, Radio, Switch, Modal, Toast, Tabs, Accordion, Card, Table, Avatar, Badge, Alert, Tooltip, Spinner, Progress, Skeleton
+- **27 Components** - Full set of form controls, feedback, data display, layout, and navigation components
 - **Zero-runtime CSS** - CSS Modules with CSS Variables, no JavaScript runtime overhead
 - **Accessible** - WAI-ARIA compliant with keyboard navigation support
 - **Dark Mode** - Built-in dark theme via `data-theme` attribute
@@ -20,7 +20,7 @@ npm install stoked-ds
 ## Quick Start
 
 ```tsx
-import { Button, Input } from 'stoked-ds';
+import { Button, Input, Sidebar, AppShell } from 'stoked-ds';
 import 'stoked-ds/dist/index.css';
 
 function App() {
@@ -40,10 +40,12 @@ function App() {
 ### Form Controls
 - `Button` - Primary actions with solid, outline, ghost, and link variants
 - `Input` - Text input with label, helper text, and error states
+- `SearchInput` - Input with built-in search icon and Enter-to-search
 - `Select` - Dropdown selection
 - `Checkbox` - Single or multiple selection
 - `Radio` / `RadioGroup` - Single selection from options
 - `Switch` - Toggle on/off
+- `ButtonGroup` - Toggle group for mutually exclusive options
 
 ### Feedback
 - `Alert` - Informational messages with success, warning, error, info variants
@@ -56,11 +58,21 @@ function App() {
 
 ### Data Display
 - `Badge` - Status indicators and labels
+- `Tag` - Removable labels with color variants (solid/outline)
 - `Avatar` - User images with fallback
 - `Card` - Content containers
+- `StatCard` - Metric card with icon, value, trend, and status
 - `Accordion` - Collapsible content sections
 - `Tabs` - Tabbed navigation
 - `Table` - Data tables
+
+### Layout
+- `Sidebar` - Collapsible sidebar navigation with sections and items
+- `AppShell` - Application layout wrapper (sidebar + header + content)
+
+### Navigation
+- `Breadcrumb` - Hierarchical navigation trail
+- `Pagination` - Page navigation with smart ellipsis
 
 ## Theming
 
@@ -69,6 +81,14 @@ Enable dark mode by adding `data-theme="dark"` to a parent element:
 ```tsx
 <div data-theme="dark">
   {/* Components will use dark theme */}
+</div>
+```
+
+Light mode:
+
+```tsx
+<div data-theme="light">
+  {/* Components will use light theme */}
 </div>
 ```
 
@@ -86,6 +106,7 @@ Available tokens:
 - Typography: `--stoked-text-*`, `--stoked-font-*`
 - Borders: `--stoked-radius-*`
 - Shadows: `--stoked-shadow-*`
+- Transitions: `--stoked-duration-*`, `--stoked-easing-*`
 
 ## Requirements
 
