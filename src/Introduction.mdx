@@ -1,0 +1,186 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+<style>
+  {`
+    .intro-wrapper {
+      max-width: 680px;
+      margin: 0 auto;
+      font-family: var(--stoked-font-sans, 'Inter', system-ui, sans-serif);
+    }
+    .intro-logo {
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 2.5rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .intro-logo span {
+      color: #137fec;
+    }
+    .intro-badge {
+      display: inline-block;
+      padding: 2px 12px;
+      background: rgba(19, 127, 236, 0.1);
+      color: #137fec;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .intro-description {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+    .intro-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 2.5rem;
+    }
+    .intro-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .intro-link-primary {
+      background: #137fec;
+      color: #fff;
+    }
+    .intro-link-primary:hover {
+      background: #1170d4;
+    }
+    .intro-link-outline {
+      border: 1px solid #334155;
+      color: inherit;
+    }
+    .intro-link-outline:hover {
+      border-color: #475569;
+      background: rgba(255,255,255,0.05);
+    }
+    .intro-section {
+      margin-bottom: 2rem;
+    }
+    .intro-section h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .intro-section code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 1rem;
+    }
+    .intro-card {
+      padding: 16px;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      font-size: 0.875rem;
+    }
+    .intro-card strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .intro-card span {
+      opacity: 0.6;
+      font-size: 0.8rem;
+    }
+  `}
+</style>
+
+<div className="intro-wrapper">
+
+<div className="intro-logo">stoked<span>-ds</span></div>
+<div className="intro-badge">v0.2.1 — 27 components</div>
+
+<p className="intro-description">
+  A lightweight, accessible React design system with zero-runtime CSS.
+  Browse the sidebar to explore all components with live examples.
+</p>
+
+<div className="intro-links">
+  <a className="intro-link intro-link-primary" href="https://www.npmjs.com/package/stoked-ds" target="_blank">
+    📦 npm
+  </a>
+  <a className="intro-link intro-link-outline" href="https://github.com/p4bloCabrol/stoked-ds" target="_blank">
+    GitHub
+  </a>
+  <a className="intro-link intro-link-outline" href="https://p4blocabrol.github.io/stoked-ds/" target="_blank">
+    Landing Page
+  </a>
+</div>
+
+<div className="intro-section">
+  <h2>Quick Start</h2>
+
+  ```bash
+  npm install stoked-ds
+  ```
+
+  ```tsx
+  import { Button, Input } from 'stoked-ds';
+  import 'stoked-ds/dist/index.css';
+
+  function App() {
+    return (
+      <div data-theme="dark">
+        <Input placeholder="Enter your name" />
+        <Button variant="solid">Submit</Button>
+      </div>
+    );
+  }
+  ```
+</div>
+
+<div className="intro-section">
+  <h2>Components</h2>
+  <div className="intro-grid">
+    <div className="intro-card">
+      <strong>Form Controls</strong>
+      <span>Button, Input, SearchInput, Checkbox, Radio, Select, Switch, ButtonGroup</span>
+    </div>
+    <div className="intro-card">
+      <strong>Feedback</strong>
+      <span>Alert, Modal, Toast, Spinner, Progress, Skeleton, Tooltip</span>
+    </div>
+    <div className="intro-card">
+      <strong>Data Display</strong>
+      <span>Badge, Tag, Avatar, Card, StatCard, Accordion, Tabs, Table</span>
+    </div>
+    <div className="intro-card">
+      <strong>Layout & Nav</strong>
+      <span>Sidebar, AppShell, Breadcrumb, Pagination</span>
+    </div>
+  </div>
+</div>
+
+<div className="intro-section">
+  <h2>Design Tokens</h2>
+  <p>Import tokens to use the same CSS variables in your custom styles:</p>
+
+  ```css
+  @import 'stoked-ds/dist/tokens/index.css';
+  ```
+
+  <p style={{ marginTop: '0.5rem', opacity: 0.7, fontSize: '0.85rem' }}>
+    Available tokens: colors, spacing, typography, borders, shadows, transitions, z-index.
+  </p>
+</div>
+
+</div>
