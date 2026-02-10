@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>stoked-ds &mdash; Lightweight React Design System</title>
+  <meta name="description" content="A lightweight, accessible React design system with zero-runtime CSS. 27 components, dark mode, TypeScript, tree-shakeable.">
+  <meta property="og:title" content="stoked-ds">
+  <meta property="og:description" content="Lightweight, accessible React design system with zero-runtime CSS">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Anti-FOUC: read theme before render -->
+  <script>
+    (function(){var t=localStorage.getItem('stoked-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/prism-stoked.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#hero" class="navbar-logo">stoked<span>-ds</span></a>
+
+      <div class="navbar-links" id="navbar-links">
+        <a href="#features">Features</a>
+        <a href="#installation">Install</a>
+        <a href="#components">Components</a>
+        <a href="#tokens">Tokens</a>
+      </div>
+
+      <div class="navbar-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="https://github.com/p4bloCabrol/stoked-ds" target="_blank" rel="noopener" class="github-link" aria-label="GitHub repository">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#features">Features</a>
+    <a href="#installation">Install</a>
+    <a href="#components">Components</a>
+    <a href="#tokens">Tokens</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          v0.2.1 &mdash; 27 components
+        </div>
+        <h1>Build faster with stoked-ds</h1>
+        <p class="hero-description">
+          A lightweight, accessible React design system with zero-runtime CSS.
+          Ship beautiful interfaces without the performance overhead.
+        </p>
+        <div class="hero-actions">
+          <a href="#installation" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            npm install stoked-ds
+          </a>
+          <a href="https://github.com/p4bloCabrol/stoked-ds" target="_blank" rel="noopener" class="btn btn-outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://storybook.stoked-ds.dev" target="_blank" rel="noopener" class="btn btn-outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Storybook
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Why stoked-ds</span>
+        <h2 class="section-title">Built for modern React apps</h2>
+        <p class="section-description">Everything you need to build accessible, performant user interfaces.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Zero-Runtime CSS -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>Zero-Runtime CSS</h3>
+          <p>CSS Modules with CSS custom properties. No JavaScript overhead at runtime. Your bundle stays lean and fast.</p>
+        </div>
+
+        <!-- Accessible -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2.5"/><path d="m10.2 6.3-3.9 3.26"/><path d="m14 6.3 3.9 3.26"/><path d="M4.24 12.96A2.5 2.5 0 0 0 6.5 16h11a2.5 2.5 0 0 0 2.26-3.04"/><path d="m8 16 1.5 5"/><path d="m16 16-1.5 5"/></svg>
+          </div>
+          <h3>Accessible</h3>
+          <p>WAI-ARIA compliant with keyboard navigation. Built-in focus management and screen reader support.</p>
+        </div>
+
+        <!-- TypeScript First -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>TypeScript First</h3>
+          <p>Full type definitions for every component. IntelliSense-powered development experience out of the box.</p>
+        </div>
+
+        <!-- 27 Components -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <h3>27 Components</h3>
+          <p>Form controls, feedback, data display, layout, and navigation. Everything you need to build complete applications.</p>
+        </div>
+
+        <!-- Dark & Light Themes -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 1 0 0 20V2z"/></svg>
+          </div>
+          <h3>Dark &amp; Light Themes</h3>
+          <p>Dark mode by default. Switch with a single <code>data-theme</code> attribute. Tokens adapt automatically.</p>
+        </div>
+
+        <!-- Tree-Shakeable -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8"/><path d="m2 10 10-8 10 8"/><path d="M20 22V8"/><path d="M4 22V8"/></svg>
+          </div>
+          <h3>Tree-Shakeable</h3>
+          <p>Import only what you need. ESM exports ensure unused components are eliminated from your bundle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INSTALLATION ===== -->
+  <section class="installation" id="installation">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Get started</span>
+        <h2 class="section-title">Up and running in minutes</h2>
+        <p class="section-description">Install from npm and start building right away.</p>
+      </div>
+
+      <div class="install-grid">
+        <!-- Step 1: Install -->
+        <div class="install-step">
+          <h3>1. Install the package</h3>
+          <p>Add stoked-ds to your project using your preferred package manager.</p>
+          <div class="code-block">
+            <pre><code class="language-bash">npm install stoked-ds</code></pre>
+            <button class="copy-btn" data-copy="npm install stoked-ds" aria-label="Copy install command">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Use -->
+        <div class="install-step">
+          <h3>2. Import and use</h3>
+          <p>Import components and styles, then use them in your React app.</p>
+          <div class="code-block">
+            <pre><code class="language-tsx">import { Button, Input } from 'stoked-ds';
+import 'stoked-ds/dist/index.css';
+
+function App() {
+  return (
+    &lt;div data-theme="dark"&gt;
+      &lt;Input placeholder="Enter your name" /&gt;
+      &lt;Button variant="solid"&gt;Submit&lt;/Button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+            <button class="copy-btn" data-copy="import { Button, Input } from 'stoked-ds';&#10;import 'stoked-ds/dist/index.css';" aria-label="Copy code">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Tokens (optional) -->
+        <div class="install-step">
+          <h3>3. Use design tokens (optional)</h3>
+          <p>Import CSS tokens to use the same variables in your custom styles.</p>
+          <div class="code-block">
+            <pre><code class="language-css">@import 'stoked-ds/dist/tokens/index.css';
+
+.my-card {
+  background: var(--stoked-color-surface);
+  border-radius: var(--stoked-radius-xl);
+  box-shadow: var(--stoked-shadow-md);
+  padding: var(--stoked-spacing-6);
+}</code></pre>
+            <button class="copy-btn" data-copy="@import 'stoked-ds/dist/tokens/index.css';" aria-label="Copy token import">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMPONENT CATALOG ===== -->
+  <section class="components" id="components">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Component library</span>
+        <h2 class="section-title">27 components, ready to use</h2>
+        <p class="section-description">Organized by category. Every component is fully typed, accessible, and themeable.</p>
+      </div>
+
+      <!-- Form Controls -->
+      <div class="component-category">
+        <div class="category-header">
+          <h3>Form Controls</h3>
+          <span class="category-count">8</span>
+        </div>
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-icon">B</div>
+            <div class="component-info">
+              <h4>Button</h4>
+              <p>Solid, outline, ghost, and link variants with multiple sizes</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">I</div>
+            <div class="component-info">
+              <h4>Input</h4>
+              <p>Text input with label, helper text, and error states</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">S</div>
+            <div class="component-info">
+              <h4>SearchInput</h4>
+              <p>Input with search icon and Enter-to-search action</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">C</div>
+            <div class="component-info">
+              <h4>Checkbox</h4>
+              <p>Single or multiple selection with controlled state</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">R</div>
+            <div class="component-info">
+              <h4>Radio</h4>
+              <p>Single selection with RadioGroup container</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">S</div>
+            <div class="component-info">
+              <h4>Select</h4>
+              <p>Dropdown selection with custom styling</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">T</div>
+            <div class="component-info">
+              <h4>Switch</h4>
+              <p>Toggle on/off with accessible labeling</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">G</div>
+            <div class="component-info">
+              <h4>ButtonGroup</h4>
+              <p>Toggle group for mutually exclusive options</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="component-category">
+        <div class="category-header">
+          <h3>Feedback</h3>
+          <span class="category-count">7</span>
+        </div>
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-icon">A</div>
+            <div class="component-info">
+              <h4>Alert</h4>
+              <p>Informational messages with variant support</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">M</div>
+            <div class="component-info">
+              <h4>Modal</h4>
+              <p>Dialog overlays with focus trap and backdrop</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">T</div>
+            <div class="component-info">
+              <h4>Toast</h4>
+              <p>Temporary notification popups with auto-dismiss</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">S</div>
+            <div class="component-info">
+              <h4>Spinner</h4>
+              <p>Circular loading indicator with CSS keyframes</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">P</div>
+            <div class="component-info">
+              <h4>Progress</h4>
+              <p>Progress bar with animated stripes and indeterminate</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">K</div>
+            <div class="component-info">
+              <h4>Skeleton</h4>
+              <p>Content placeholder with pulse and wave animation</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">T</div>
+            <div class="component-info">
+              <h4>Tooltip</h4>
+              <p>Contextual information on hover or focus</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Display -->
+      <div class="component-category">
+        <div class="category-header">
+          <h3>Data Display</h3>
+          <span class="category-count">8</span>
+        </div>
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-icon">B</div>
+            <div class="component-info">
+              <h4>Badge</h4>
+              <p>Status indicators and labels with color variants</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">T</div>
+            <div class="component-info">
+              <h4>Tag</h4>
+              <p>Removable labels with solid and outline variants</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">A</div>
+            <div class="component-info">
+              <h4>Avatar</h4>
+              <p>User images with initials fallback and sizes</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">C</div>
+            <div class="component-info">
+              <h4>Card</h4>
+              <p>Content containers with header and footer slots</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">S</div>
+            <div class="component-info">
+              <h4>StatCard</h4>
+              <p>Metric card with icon, value, trend, and status</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">A</div>
+            <div class="component-info">
+              <h4>Accordion</h4>
+              <p>Collapsible content sections with smooth animation</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">T</div>
+            <div class="component-info">
+              <h4>Tabs</h4>
+              <p>Tabbed navigation with keyboard support</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">T</div>
+            <div class="component-info">
+              <h4>Table</h4>
+              <p>Data tables with responsive styling</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layout -->
+      <div class="component-category">
+        <div class="category-header">
+          <h3>Layout</h3>
+          <span class="category-count">2</span>
+        </div>
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-icon">S</div>
+            <div class="component-info">
+              <h4>Sidebar</h4>
+              <p>Collapsible navigation with sections and items</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">A</div>
+            <div class="component-info">
+              <h4>AppShell</h4>
+              <p>Layout wrapper with sidebar, header, and content area</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="component-category">
+        <div class="category-header">
+          <h3>Navigation</h3>
+          <span class="category-count">2</span>
+        </div>
+        <div class="component-grid">
+          <div class="component-card">
+            <div class="component-icon">B</div>
+            <div class="component-info">
+              <h4>Breadcrumb</h4>
+              <p>Hierarchical navigation trail with custom separators</p>
+            </div>
+          </div>
+          <div class="component-card">
+            <div class="component-icon">P</div>
+            <div class="component-info">
+              <h4>Pagination</h4>
+              <p>Page navigation with smart ellipsis handling</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DESIGN TOKENS ===== -->
+  <section class="tokens" id="tokens">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Design tokens</span>
+        <h2 class="section-title">Consistent design tokens</h2>
+        <p class="section-description">CSS custom properties for colors, spacing, typography, and more. Use them in your own styles for a cohesive look.</p>
+      </div>
+
+      <div class="tokens-grid">
+        <!-- Colors -->
+        <div class="token-card">
+          <h3>Colors</h3>
+          <div class="token-demo">
+            <div class="color-swatch" style="background: var(--stoked-primary-500)"></div>
+            <div class="color-swatch" style="background: var(--stoked-primary-400)"></div>
+            <div class="color-swatch" style="background: var(--stoked-success-500)"></div>
+            <div class="color-swatch" style="background: var(--stoked-warning-500)"></div>
+            <div class="color-swatch" style="background: var(--stoked-danger-500)"></div>
+            <div class="color-swatch" style="background: var(--stoked-slate-400)"></div>
+            <div class="color-swatch" style="background: var(--stoked-color-surface)"></div>
+            <div class="color-swatch" style="background: var(--stoked-color-text)"></div>
+          </div>
+        </div>
+
+        <!-- Spacing -->
+        <div class="token-card">
+          <h3>Spacing</h3>
+          <div class="token-demo" style="flex-direction: column; width: 100%">
+            <div class="spacing-bar" style="width: var(--stoked-spacing-2)"></div>
+            <div class="spacing-bar" style="width: var(--stoked-spacing-4)"></div>
+            <div class="spacing-bar" style="width: var(--stoked-spacing-8)"></div>
+            <div class="spacing-bar" style="width: var(--stoked-spacing-12)"></div>
+            <div class="spacing-bar" style="width: var(--stoked-spacing-16)"></div>
+            <div class="spacing-bar" style="width: var(--stoked-spacing-24)"></div>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div class="token-card">
+          <h3>Typography</h3>
+          <div class="type-demo">
+            <span style="font-family: var(--stoked-font-display); font-size: var(--stoked-text-xl); font-weight: var(--stoked-font-bold)">Manrope Display</span>
+            <span style="font-family: var(--stoked-font-sans); font-size: var(--stoked-text-md)">Inter Body Text</span>
+            <span style="font-family: var(--stoked-font-mono); font-size: var(--stoked-text-base); color: var(--stoked-color-primary)">JetBrains Mono</span>
+          </div>
+        </div>
+
+        <!-- Borders -->
+        <div class="token-card">
+          <h3>Border Radius</h3>
+          <div class="token-demo">
+            <div class="radius-demo" style="border-radius: var(--stoked-radius-sm)"></div>
+            <div class="radius-demo" style="border-radius: var(--stoked-radius-md)"></div>
+            <div class="radius-demo" style="border-radius: var(--stoked-radius-lg)"></div>
+            <div class="radius-demo" style="border-radius: var(--stoked-radius-xl)"></div>
+            <div class="radius-demo" style="border-radius: var(--stoked-radius-full)"></div>
+          </div>
+        </div>
+
+        <!-- Shadows -->
+        <div class="token-card">
+          <h3>Shadows</h3>
+          <div class="token-demo">
+            <div class="shadow-demo" style="box-shadow: var(--stoked-shadow-sm)"></div>
+            <div class="shadow-demo" style="box-shadow: var(--stoked-shadow-md)"></div>
+            <div class="shadow-demo" style="box-shadow: var(--stoked-shadow-lg)"></div>
+            <div class="shadow-demo" style="box-shadow: var(--stoked-shadow-xl)"></div>
+          </div>
+        </div>
+
+        <!-- Transitions -->
+        <div class="token-card">
+          <h3>Transitions</h3>
+          <div class="transition-demo">
+            <code>--stoked-duration-fast: 100ms</code>
+            <code>--stoked-duration-normal: 200ms</code>
+            <code>--stoked-duration-slow: 300ms</code>
+            <code>--stoked-easing-default: cubic-bezier(0.4, 0, 0.2, 1)</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <pre><code class="language-css">/* Import all tokens */
+@import 'stoked-ds/dist/tokens/index.css';
+
+/* Or import individual token files */
+@import 'stoked-ds/dist/tokens/colors.css';
+@import 'stoked-ds/dist/tokens/spacing.css';
+@import 'stoked-ds/dist/tokens/typography.css';</code></pre>
+        <button class="copy-btn" data-copy="@import 'stoked-ds/dist/tokens/index.css';" aria-label="Copy token import">
+          <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg class="icon-check" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>stoked<span>-ds</span></h3>
+          <p>A lightweight, accessible React design system with zero-runtime CSS.</p>
+          <span class="license">MIT License &copy; 2024 Pablo Cabrol</span>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="https://github.com/p4bloCabrol/stoked-ds" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/stoked-ds" target="_blank" rel="noopener">npm</a>
+          <a href="https://storybook.stoked-ds.dev" target="_blank" rel="noopener">Storybook</a>
+        </div>
+        <div class="footer-col">
+          <h4>Built with</h4>
+          <a href="#">React 18</a>
+          <a href="#">TypeScript 5.7</a>
+          <a href="#">CSS Modules</a>
+          <a href="#">Vite 6</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        Made by Pablo Cabrol
+      </div>
+    </div>
+  </footer>
+
+  <!-- Prism.js (syntax highlighting) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" defer></script>
+
+  <!-- Landing page logic -->
+  <script src="js/main.js" defer></script>
+</body>
+</html>

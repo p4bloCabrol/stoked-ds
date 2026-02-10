@@ -1,0 +1,180 @@
+/* ===== Stoked DS Tokens (extracted from v0.2.1) ===== */
+
+:root {
+  /* ===== Color Primitives - Slate ===== */
+  --stoked-slate-50: #f8fafc;
+  --stoked-slate-100: #f1f5f9;
+  --stoked-slate-200: #e2e8f0;
+  --stoked-slate-300: #cbd5e1;
+  --stoked-slate-400: #94a3b8;
+  --stoked-slate-500: #64748b;
+  --stoked-slate-600: #475569;
+  --stoked-slate-700: #334155;
+  --stoked-slate-800: #1e293b;
+  --stoked-slate-900: #0f172a;
+  --stoked-slate-950: #020617;
+
+  /* ===== Brand Colors ===== */
+  --stoked-primary-50: #eff6ff;
+  --stoked-primary-100: #dbeafe;
+  --stoked-primary-200: #bfdbfe;
+  --stoked-primary-300: #93c5fd;
+  --stoked-primary-400: #60a5fa;
+  --stoked-primary-500: #137fec;
+  --stoked-primary-600: #1170d4;
+  --stoked-primary-700: #0e5bb3;
+  --stoked-primary-800: #0c4a91;
+  --stoked-primary-900: #0a3d77;
+
+  /* ===== Semantic Colors ===== */
+  --stoked-success-500: #10b981;
+  --stoked-success-600: #059669;
+  --stoked-warning-500: #f59e0b;
+  --stoked-warning-600: #d97706;
+  --stoked-danger-500: #f43f5e;
+  --stoked-danger-600: #e11d48;
+
+  /* ===== Semantic Aliases (Dark Mode Default) ===== */
+  --stoked-color-primary: var(--stoked-primary-500);
+  --stoked-color-primary-hover: var(--stoked-primary-400);
+  --stoked-color-primary-active: var(--stoked-primary-600);
+  --stoked-color-primary-light: rgba(19, 127, 236, 0.1);
+  --stoked-color-primary-muted: rgba(19, 127, 236, 0.3);
+
+  --stoked-color-success: var(--stoked-success-500);
+  --stoked-color-warning: var(--stoked-warning-500);
+  --stoked-color-danger: var(--stoked-danger-500);
+
+  /* ===== Surface & Background (Dark Default) ===== */
+  --stoked-color-background: #101922;
+  --stoked-color-background-alt: #0a0f14;
+  --stoked-color-surface: #1e293b;
+  --stoked-color-surface-raised: #16202b;
+  --stoked-color-surface-overlay: rgba(0, 0, 0, 0.5);
+
+  /* ===== Border Colors ===== */
+  --stoked-color-border: #334155;
+  --stoked-color-border-muted: #283039;
+  --stoked-color-border-strong: #475569;
+
+  /* ===== Text Colors ===== */
+  --stoked-color-text: #f8fafc;
+  --stoked-color-text-secondary: #94a3b8;
+  --stoked-color-text-muted: #64748b;
+  --stoked-color-text-disabled: #475569;
+  --stoked-color-text-inverse: #0f172a;
+
+  /* ===== Focus Ring ===== */
+  --stoked-color-focus-ring: var(--stoked-primary-500);
+
+  /* ===== Font Families ===== */
+  --stoked-font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --stoked-font-display: 'Manrope', var(--stoked-font-sans);
+  --stoked-font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+
+  /* ===== Font Sizes ===== */
+  --stoked-text-xs: 0.625rem;
+  --stoked-text-sm: 0.75rem;
+  --stoked-text-base: 0.875rem;
+  --stoked-text-md: 1rem;
+  --stoked-text-lg: 1.125rem;
+  --stoked-text-xl: 1.25rem;
+  --stoked-text-2xl: 1.5rem;
+  --stoked-text-3xl: 1.875rem;
+  --stoked-text-4xl: 2.25rem;
+  --stoked-text-5xl: 3rem;
+
+  /* ===== Line Heights ===== */
+  --stoked-leading-none: 1;
+  --stoked-leading-tight: 1.25;
+  --stoked-leading-normal: 1.5;
+
+  /* ===== Font Weights ===== */
+  --stoked-font-normal: 400;
+  --stoked-font-medium: 500;
+  --stoked-font-semibold: 600;
+  --stoked-font-bold: 700;
+  --stoked-font-extrabold: 800;
+
+  /* ===== Spacing Scale (4px base) ===== */
+  --stoked-spacing-0: 0;
+  --stoked-spacing-0-5: 0.125rem;
+  --stoked-spacing-1: 0.25rem;
+  --stoked-spacing-1-5: 0.375rem;
+  --stoked-spacing-2: 0.5rem;
+  --stoked-spacing-2-5: 0.625rem;
+  --stoked-spacing-3: 0.75rem;
+  --stoked-spacing-3-5: 0.875rem;
+  --stoked-spacing-4: 1rem;
+  --stoked-spacing-5: 1.25rem;
+  --stoked-spacing-6: 1.5rem;
+  --stoked-spacing-7: 1.75rem;
+  --stoked-spacing-8: 2rem;
+  --stoked-spacing-9: 2.25rem;
+  --stoked-spacing-10: 2.5rem;
+  --stoked-spacing-12: 3rem;
+  --stoked-spacing-14: 3.5rem;
+  --stoked-spacing-16: 4rem;
+  --stoked-spacing-20: 5rem;
+  --stoked-spacing-24: 6rem;
+
+  /* ===== Border Radius ===== */
+  --stoked-radius-none: 0;
+  --stoked-radius-sm: 0.25rem;
+  --stoked-radius-md: 0.375rem;
+  --stoked-radius-lg: 0.5rem;
+  --stoked-radius-xl: 0.75rem;
+  --stoked-radius-2xl: 1rem;
+  --stoked-radius-3xl: 1.5rem;
+  --stoked-radius-full: 9999px;
+
+  /* ===== Shadows ===== */
+  --stoked-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --stoked-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --stoked-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --stoked-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --stoked-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --stoked-shadow-primary: 0 10px 15px -3px rgba(19, 127, 236, 0.2), 0 4px 6px -4px rgba(19, 127, 236, 0.2);
+
+  /* ===== Transitions ===== */
+  --stoked-duration-fast: 100ms;
+  --stoked-duration-normal: 200ms;
+  --stoked-duration-slow: 300ms;
+  --stoked-easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --stoked-easing-out: cubic-bezier(0, 0, 0.2, 1);
+  --stoked-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --stoked-transition-colors: color var(--stoked-duration-normal) var(--stoked-easing-default),
+    background-color var(--stoked-duration-normal) var(--stoked-easing-default),
+    border-color var(--stoked-duration-normal) var(--stoked-easing-default),
+    box-shadow var(--stoked-duration-normal) var(--stoked-easing-default);
+  --stoked-transition-transform: transform var(--stoked-duration-normal) var(--stoked-easing-default);
+  --stoked-transition-all: all var(--stoked-duration-normal) var(--stoked-easing-default);
+
+  /* ===== Navbar ===== */
+  --navbar-bg: rgba(16, 25, 34, 0.85);
+  --navbar-height: 64px;
+}
+
+/* ===== Light Theme ===== */
+[data-theme='light'] {
+  --stoked-color-primary-hover: var(--stoked-primary-600);
+  --stoked-color-primary-active: var(--stoked-primary-700);
+
+  --stoked-color-background: #f6f7f8;
+  --stoked-color-background-alt: #ffffff;
+  --stoked-color-surface: #ffffff;
+  --stoked-color-surface-raised: #ffffff;
+  --stoked-color-surface-overlay: rgba(0, 0, 0, 0.3);
+
+  --stoked-color-border: #e2e8f0;
+  --stoked-color-border-muted: #f1f5f9;
+  --stoked-color-border-strong: #cbd5e1;
+
+  --stoked-color-text: #0f172a;
+  --stoked-color-text-secondary: #475569;
+  --stoked-color-text-muted: #64748b;
+  --stoked-color-text-disabled: #94a3b8;
+  --stoked-color-text-inverse: #f8fafc;
+
+  --navbar-bg: rgba(246, 247, 248, 0.85);
+}
