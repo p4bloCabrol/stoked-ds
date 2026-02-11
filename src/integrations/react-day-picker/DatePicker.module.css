@@ -1,0 +1,190 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stoked-spacing-1-5);
+  position: relative;
+}
+
+.wrapper[data-full-width] {
+  width: 100%;
+}
+
+.label {
+  font-size: var(--stoked-text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--stoked-tracking-wide);
+  color: var(--stoked-color-text-secondary);
+}
+
+.required {
+  color: var(--stoked-color-danger);
+  margin-left: 2px;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--stoked-spacing-2);
+  width: 100%;
+  padding: var(--stoked-spacing-2-5) var(--stoked-spacing-3);
+  border: 1px solid var(--stoked-color-border);
+  border-radius: var(--stoked-radius-md);
+  background: var(--stoked-color-surface);
+  color: var(--stoked-color-text-primary);
+  font-size: var(--stoked-text-sm);
+  cursor: pointer;
+  transition: border-color var(--stoked-duration-fast) var(--stoked-easing-default),
+    box-shadow var(--stoked-duration-fast) var(--stoked-easing-default);
+  text-align: left;
+}
+
+.trigger:hover:not(:disabled) {
+  border-color: var(--stoked-color-border-hover);
+}
+
+.trigger:focus {
+  outline: none;
+  border-color: var(--stoked-color-primary);
+  box-shadow: 0 0 0 2px var(--stoked-color-primary-light);
+}
+
+.wrapper[data-error] .trigger {
+  border-color: var(--stoked-color-danger);
+}
+
+.wrapper[data-error] .trigger:focus {
+  box-shadow: 0 0 0 2px var(--stoked-color-danger-light);
+}
+
+.wrapper[data-disabled] .trigger {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Size variants */
+.wrapper[data-size='sm'] .trigger {
+  padding: var(--stoked-spacing-1-5) var(--stoked-spacing-2-5);
+  font-size: var(--stoked-text-xs);
+}
+
+.wrapper[data-size='lg'] .trigger {
+  padding: var(--stoked-spacing-3) var(--stoked-spacing-4);
+  font-size: var(--stoked-text-base);
+}
+
+.calendarIcon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--stoked-color-text-secondary);
+}
+
+.triggerText {
+  flex: 1;
+}
+
+.placeholder {
+  color: var(--stoked-color-text-tertiary);
+}
+
+.helperText {
+  font-size: var(--stoked-text-xs);
+  color: var(--stoked-color-text-secondary);
+}
+
+.errorText {
+  font-size: var(--stoked-text-xs);
+  color: var(--stoked-color-danger);
+}
+
+/* Popup */
+.popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: var(--stoked-z-dropdown, 1000);
+  margin-top: var(--stoked-spacing-1);
+  padding: var(--stoked-spacing-3);
+  background: var(--stoked-color-surface);
+  border: 1px solid var(--stoked-color-border);
+  border-radius: var(--stoked-radius-lg);
+  box-shadow: var(--stoked-shadow-lg);
+}
+
+/* react-day-picker style overrides */
+.popup :global(.rdp-root) {
+  --rdp-accent-color: var(--stoked-color-primary);
+  --rdp-accent-background-color: var(--stoked-color-primary-light);
+  --rdp-font-family: var(--stoked-font-sans, 'Inter', system-ui, sans-serif);
+  --rdp-day-height: 36px;
+  --rdp-day-width: 36px;
+  --rdp-day_button-height: 34px;
+  --rdp-day_button-width: 34px;
+  --rdp-day_button-border-radius: var(--stoked-radius-md);
+  --rdp-selected-font: bold var(--stoked-text-sm) var(--stoked-font-sans, 'Inter', system-ui, sans-serif);
+  --rdp-outside-opacity: 0.4;
+  color: var(--stoked-color-text-primary);
+  font-size: var(--stoked-text-sm);
+}
+
+.popup :global(.rdp-month_caption) {
+  font-weight: 600;
+  font-size: var(--stoked-text-sm);
+  color: var(--stoked-color-text-primary);
+}
+
+.popup :global(.rdp-button_previous),
+.popup :global(.rdp-button_next) {
+  color: var(--stoked-color-text-secondary);
+  border-radius: var(--stoked-radius-md);
+}
+
+.popup :global(.rdp-button_previous:hover),
+.popup :global(.rdp-button_next:hover) {
+  background: var(--stoked-color-surface-secondary);
+}
+
+.popup :global(.rdp-weekday) {
+  font-size: var(--stoked-text-xs);
+  color: var(--stoked-color-text-tertiary);
+  font-weight: 600;
+}
+
+.popup :global(.rdp-day_button) {
+  border-radius: var(--stoked-radius-md);
+  transition: background var(--stoked-duration-fast) var(--stoked-easing-default);
+}
+
+.popup :global(.rdp-day_button:hover) {
+  background: var(--stoked-color-surface-secondary);
+}
+
+.popup :global(.rdp-selected .rdp-day_button) {
+  background: var(--stoked-color-primary);
+  color: #fff;
+}
+
+.popup :global(.rdp-today:not(.rdp-selected) .rdp-day_button) {
+  font-weight: 700;
+  color: var(--stoked-color-primary);
+}
+
+.popup :global(.rdp-disabled .rdp-day_button) {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.popup :global(.rdp-range_middle .rdp-day_button) {
+  background: var(--stoked-color-primary-light);
+  color: var(--stoked-color-text-primary);
+  border-radius: 0;
+}
+
+.popup :global(.rdp-range_start .rdp-day_button) {
+  border-radius: var(--stoked-radius-md) 0 0 var(--stoked-radius-md);
+}
+
+.popup :global(.rdp-range_end .rdp-day_button) {
+  border-radius: 0 var(--stoked-radius-md) var(--stoked-radius-md) 0;
+}

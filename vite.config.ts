@@ -27,6 +27,8 @@ export default defineConfig({
         'react/jsx-runtime',
         'react-hook-form',
         '@tanstack/react-table',
+        'react-day-picker',
+        'react-day-picker/style.css',
       ],
       input: Object.fromEntries(
         glob

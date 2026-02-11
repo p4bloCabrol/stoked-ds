@@ -136,9 +136,32 @@ function UsersTable({ users }: { users: User[] }) {
 }
 ```
 
+### react-day-picker
+
+```bash
+npm install react-day-picker
+```
+
+```tsx
+import { DatePicker, DateRangePicker } from 'stoked-ds/integrations/react-day-picker';
+
+function BookingForm() {
+  const [date, setDate] = useState<Date>();
+
+  return (
+    <DatePicker
+      label="Check-in date"
+      value={date}
+      onValueChange={setDate}
+      minDate={new Date()}
+      size="md"
+    />
+  );
+}
+```
+
 ### Coming Soon
 
-- **react-day-picker** — `DatePicker` and `DateRangePicker`
 - **react-select** — `AdvancedSelect` with search, multi-select, and async
 - **Recharts** — Themed chart components (`StokedLineChart`, `StokedBarChart`, etc.)
 - **React Flow** — Styled nodes and controls for node-based UIs
