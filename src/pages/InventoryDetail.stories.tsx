@@ -6,7 +6,7 @@ import { Badge } from '../components/Badge';
 import { Tag } from '../components/Tag';
 import { Button } from '../components/Button';
 import { StatCard } from '../components/StatCard';
-import { Card, CardHeader, CardBody } from '../components/Card';
+import { Card, CardBody } from '../components/Card';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '../components/Tabs';
 import { TableContainer, Table, Thead, Tbody, Tr, Th, Td } from '../components/Table';
 import { products, stockMovements } from './_shared/data';
