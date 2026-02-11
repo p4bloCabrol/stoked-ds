@@ -1,6 +1,6 @@
 {
   "name": "stoked-ds",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A lightweight, accessible React design system with zero-runtime CSS",
   "type": "module",
   "main": "./dist/index.js",
