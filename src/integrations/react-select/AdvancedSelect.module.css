@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stoked-spacing-1-5);
+}
+
+.wrapper[data-full-width] {
+  width: 100%;
+}
+
+.label {
+  font-size: var(--stoked-text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--stoked-tracking-wide);
+  color: var(--stoked-color-text-secondary);
+}
+
+.required {
+  color: var(--stoked-color-danger);
+  margin-left: 2px;
+}
+
+.helperText {
+  font-size: var(--stoked-text-xs);
+  color: var(--stoked-color-text-secondary);
+}
+
+.errorText {
+  font-size: var(--stoked-text-xs);
+  color: var(--stoked-color-danger);
+}
+
+.wrapper[data-disabled] .label {
+  opacity: 0.5;
+}

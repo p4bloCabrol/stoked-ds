@@ -29,6 +29,8 @@ export default defineConfig({
         '@tanstack/react-table',
         'react-day-picker',
         'react-day-picker/style.css',
+        'react-select',
+        'react-select/creatable',
       ],
       input: Object.fromEntries(
         glob

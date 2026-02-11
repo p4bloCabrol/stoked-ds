@@ -160,9 +160,37 @@ function BookingForm() {
 }
 ```
 
+### react-select
+
+```bash
+npm install react-select
+```
+
+```tsx
+import { AdvancedSelect } from 'stoked-ds/integrations/react-select';
+
+const options = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Svelte', value: 'svelte' },
+];
+
+function TechPicker() {
+  return (
+    <AdvancedSelect
+      label="Technologies"
+      options={options}
+      isMulti
+      isSearchable
+      isClearable
+      size="md"
+    />
+  );
+}
+```
+
 ### Coming Soon
 
-- **react-select** — `AdvancedSelect` with search, multi-select, and async
 - **Recharts** — Themed chart components (`StokedLineChart`, `StokedBarChart`, etc.)
 - **React Flow** — Styled nodes and controls for node-based UIs
 
