@@ -107,9 +107,37 @@ function LoginForm() {
 }
 ```
 
+### TanStack Table
+
+```bash
+npm install @tanstack/react-table
+```
+
+```tsx
+import { DataTable } from 'stoked-ds/integrations/tanstack-table';
+import type { ColumnDef } from 'stoked-ds/integrations/tanstack-table';
+
+const columns: ColumnDef<User>[] = [
+  { accessorKey: 'name', header: 'Name' },
+  { accessorKey: 'email', header: 'Email' },
+];
+
+function UsersTable({ users }: { users: User[] }) {
+  return (
+    <DataTable
+      columns={columns}
+      data={users}
+      enableSorting
+      enablePagination
+      pageSize={10}
+      variant="striped"
+    />
+  );
+}
+```
+
 ### Coming Soon
 
-- **TanStack Table** — `DataTable` with sorting, filtering, and pagination
 - **react-day-picker** — `DatePicker` and `DateRangePicker`
 - **react-select** — `AdvancedSelect` with search, multi-select, and async
 - **Recharts** — Themed chart components (`StokedLineChart`, `StokedBarChart`, etc.)

@@ -9,7 +9,7 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    layout: 'centered',
+    layout: 'padded',
     docs: {
       toc: true,
     },
@@ -29,7 +29,7 @@ const preview: Preview = {
           style={{
             padding: '2rem',
             backgroundColor: bg,
-            minHeight: '100%',
+            minHeight: '600px',
             color: theme === 'light' ? '#0f172a' : '#f8fafc',
           }}
         >
