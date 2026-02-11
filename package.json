@@ -38,6 +38,10 @@
     "./integrations/react-select": {
       "types": "./dist/integrations/react-select/index.d.ts",
       "import": "./dist/integrations/react-select/index.js"
+    },
+    "./integrations/recharts": {
+      "types": "./dist/integrations/recharts/index.d.ts",
+      "import": "./dist/integrations/recharts/index.js"
     }
   },
   "sideEffects": [
@@ -66,7 +70,8 @@
     "react-day-picker": ">=9.0.0",
     "react-dom": ">=18.0.0",
     "react-hook-form": ">=7.0.0",
-    "react-select": ">=5.0.0"
+    "react-select": ">=5.0.0",
+    "recharts": ">=2.0.0"
   },
   "peerDependenciesMeta": {
     "react-hook-form": {
@@ -79,6 +84,9 @@
       "optional": true
     },
     "react-select": {
+      "optional": true
+    },
+    "recharts": {
       "optional": true
     }
   },
@@ -112,6 +120,7 @@
     "react-dom": "^18.3.0",
     "react-hook-form": "^7.71.1",
     "react-select": "^5.10.2",
+    "recharts": "^3.7.0",
     "rimraf": "^6.0.0",
     "storybook": "^8.4.0",
     "typescript": "^5.7.0",

@@ -31,6 +31,7 @@ export default defineConfig({
         'react-day-picker/style.css',
         'react-select',
         'react-select/creatable',
+        'recharts',
       ],
       input: Object.fromEntries(
         glob

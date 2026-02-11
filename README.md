@@ -189,9 +189,37 @@ function TechPicker() {
 }
 ```
 
+### Recharts
+
+```bash
+npm install recharts
+```
+
+```tsx
+import { ChartCard, StokedLineChart } from 'stoked-ds/integrations/recharts';
+
+const data = [
+  { month: 'Jan', revenue: 4000, profit: 2400 },
+  { month: 'Feb', revenue: 3000, profit: 1398 },
+  { month: 'Mar', revenue: 5000, profit: 3800 },
+];
+
+function Dashboard() {
+  return (
+    <ChartCard title="Monthly Revenue">
+      <StokedLineChart
+        data={data}
+        dataKeys={['revenue', 'profit']}
+        xAxisKey="month"
+        showLegend
+      />
+    </ChartCard>
+  );
+}
+```
+
 ### Coming Soon
 
-- **Recharts** — Themed chart components (`StokedLineChart`, `StokedBarChart`, etc.)
 - **React Flow** — Styled nodes and controls for node-based UIs
 
 ## Theming

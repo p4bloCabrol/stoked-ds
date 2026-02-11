@@ -1,0 +1,23 @@
+.card {
+  background: var(--stoked-color-surface);
+  border: 1px solid var(--stoked-color-border);
+  border-radius: var(--stoked-radius-xl);
+  padding: var(--stoked-spacing-6);
+}
+
+.header {
+  margin-bottom: var(--stoked-spacing-4);
+}
+
+.title {
+  font-size: var(--stoked-text-md);
+  font-weight: 600;
+  color: var(--stoked-color-text);
+  margin: 0 0 var(--stoked-spacing-1) 0;
+}
+
+.description {
+  font-size: var(--stoked-text-sm);
+  color: var(--stoked-color-text-secondary);
+  margin: 0;
+}
