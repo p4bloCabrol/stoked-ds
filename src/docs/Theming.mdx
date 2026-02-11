@@ -1,0 +1,153 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Docs/Theming" />
+
+# Theming
+
+stoked-ds supports **dark and light themes** out of the box using CSS custom properties and the `data-theme` attribute.
+
+## How It Works
+
+- **Dark mode is the default** — no attribute needed on `:root`
+- **Light mode** is activated by setting `data-theme="light"` on any parent element
+- Theme tokens (backgrounds, text colors, borders) automatically adapt
+- All components respect the current theme context
+
+## Setting the Theme
+
+### Global Theme
+
+Set the theme at the application root:
+
+```tsx
+// Dark mode (default)
+function App() {
+  return (
+    <div>
+      <Button>Dark by default</Button>
+    </div>
+  );
+}
+
+// Light mode
+function App() {
+  return (
+    <div data-theme="light">
+      <Button>Light mode</Button>
+    </div>
+  );
+}
+```
+
+### Mixed Themes
+
+You can nest themes — a section can use light mode while the rest of the app uses dark:
+
+```tsx
+function App() {
+  return (
+    <div> {/* dark by default */}
+      <Card>This card is dark</Card>
+
+      <div data-theme="light">
+        <Card>This card is light</Card>
+      </div>
+    </div>
+  );
+}
+```
+
+## Theme Toggle
+
+A common pattern is letting users switch themes with a toggle:
+
+```tsx
+import { useState } from 'react';
+import { Switch } from 'stoked-ds';
+
+function ThemeToggle() {
+  const [isDark, setIsDark] = useState(true);
+
+  return (
+    <div data-theme={isDark ? 'dark' : 'light'}>
+      <Switch
+        checked={isDark}
+        onChange={setIsDark}
+        label="Dark mode"
+      />
+      {/* rest of your app */}
+    </div>
+  );
+}
+```
+
+## Theme-Aware Tokens
+
+These CSS custom properties change automatically based on the active theme:
+
+### Backgrounds & Surfaces
+
+| Token | Dark | Light |
+|-------|------|-------|
+| `--stoked-color-background` | `#101922` | `#f6f7f8` |
+| `--stoked-color-background-alt` | `#0a0f14` | `#ffffff` |
+| `--stoked-color-surface` | `#1e293b` | `#ffffff` |
+| `--stoked-color-surface-raised` | `#16202b` | `#ffffff` |
+
+### Text
+
+| Token | Dark | Light |
+|-------|------|-------|
+| `--stoked-color-text` | `#f8fafc` | `#0f172a` |
+| `--stoked-color-text-secondary` | `#94a3b8` | `#475569` |
+| `--stoked-color-text-muted` | `#64748b` | `#64748b` |
+| `--stoked-color-text-disabled` | `#475569` | `#94a3b8` |
+
+### Borders
+
+| Token | Dark | Light |
+|-------|------|-------|
+| `--stoked-color-border` | `#334155` | `#e2e8f0` |
+| `--stoked-color-border-muted` | `#283039` | `#f1f5f9` |
+| `--stoked-color-border-strong` | `#475569` | `#cbd5e1` |
+
+## Customizing Tokens
+
+You can override any token to match your brand:
+
+```css
+:root {
+  /* Override the primary color */
+  --stoked-primary-500: #8b5cf6; /* purple */
+  --stoked-primary-400: #a78bfa;
+  --stoked-primary-600: #7c3aed;
+
+  /* Override backgrounds */
+  --stoked-color-background: #0a0a0a;
+  --stoked-color-surface: #171717;
+}
+
+[data-theme='light'] {
+  --stoked-color-background: #fafafa;
+  --stoked-color-surface: #ffffff;
+}
+```
+
+## Using Tokens in Custom Components
+
+When building custom components alongside stoked-ds, use the same tokens for visual consistency:
+
+```css
+.custom-sidebar {
+  background: var(--stoked-color-surface);
+  border-right: 1px solid var(--stoked-color-border);
+  color: var(--stoked-color-text);
+  padding: var(--stoked-spacing-4);
+}
+
+.custom-sidebar:hover {
+  background: var(--stoked-color-surface-raised);
+}
+```
+
+This ensures your custom components automatically adapt when the user switches themes.

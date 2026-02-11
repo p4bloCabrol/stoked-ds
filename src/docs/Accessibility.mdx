@@ -1,0 +1,126 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Docs/Accessibility" />
+
+# Accessibility
+
+stoked-ds is built with accessibility in mind. All components follow WAI-ARIA patterns and are tested with the `@storybook/addon-a11y` addon.
+
+## Core Principles
+
+1. **Semantic HTML** — Components use the correct HTML elements (`<button>`, `<input>`, `<nav>`, etc.) rather than generic `<div>` elements
+2. **Keyboard Navigation** — All interactive components are reachable and operable via keyboard
+3. **ARIA Attributes** — Proper `aria-*` attributes are applied where native HTML semantics are insufficient
+4. **Focus Management** — Visible focus indicators and logical tab order throughout
+5. **Color Contrast** — Color combinations meet WCAG 2.1 AA standards
+
+## Keyboard Navigation
+
+All stoked-ds interactive components support keyboard interaction:
+
+| Component | Key | Action |
+|-----------|-----|--------|
+| **Button** | `Enter`, `Space` | Activate |
+| **Checkbox** | `Space` | Toggle |
+| **Switch** | `Space` | Toggle |
+| **Radio** | `Arrow Up/Down` | Navigate options |
+| **Select** | `Enter`, `Space` | Open dropdown |
+| **Modal** | `Escape` | Close |
+| **Tabs** | `Arrow Left/Right` | Navigate tabs |
+| **Accordion** | `Enter`, `Space` | Toggle panel |
+| **Tooltip** | `Escape` | Dismiss |
+
+## Focus Management
+
+### Focus Indicators
+
+All interactive elements show a visible focus ring using the `--stoked-color-focus-ring` token:
+
+```css
+/* Default focus style used across components */
+outline: 2px solid var(--stoked-color-focus-ring);
+outline-offset: 2px;
+```
+
+### Modal Focus Trap
+
+The `Modal` component traps focus within the dialog when open:
+- Focus moves to the first focusable element when opened
+- `Tab` and `Shift+Tab` cycle through elements inside the modal
+- `Escape` closes the modal and returns focus to the trigger element
+
+## Using ARIA Attributes
+
+### Form Controls
+
+All form components (`Input`, `Select`, `Checkbox`, `Radio`, `Switch`) connect labels, help text, and error messages with the proper ARIA relationships:
+
+```tsx
+// The component handles aria-describedby and aria-invalid automatically
+<Input
+  label="Email"
+  helperText="We'll never share your email"
+  error="Invalid email address"
+/>
+```
+
+This renders with:
+- `aria-describedby` pointing to the helper text or error message
+- `aria-invalid="true"` when error is present
+- `<label>` properly associated via `htmlFor`
+
+### Alert & Toast
+
+Feedback components use ARIA live regions:
+
+```tsx
+// Alert uses role="alert" by default
+<Alert variant="danger">Something went wrong</Alert>
+
+// Toast announcements use aria-live="polite"
+<Toast>File saved successfully</Toast>
+```
+
+## Testing Accessibility
+
+### In Storybook
+
+The **a11y addon** is enabled for all stories. Click the "Accessibility" tab in any story to see automated audit results powered by axe-core.
+
+Common checks include:
+- Color contrast ratios
+- Missing alt text
+- Missing form labels
+- Invalid ARIA attributes
+- Keyboard accessibility
+
+### In Your Application
+
+We recommend pairing stoked-ds with automated accessibility testing:
+
+```bash
+npm install --save-dev @axe-core/react
+```
+
+```tsx
+// In development only
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+if (process.env.NODE_ENV === 'development') {
+  import('@axe-core/react').then((axe) => {
+    axe.default(React, ReactDOM, 1000);
+  });
+}
+```
+
+## Accessibility Checklist
+
+When using stoked-ds components, keep these guidelines in mind:
+
+- Always provide a `label` for form controls, or use `aria-label` if a visible label isn't appropriate
+- Use `Alert` for important messages that need to be announced to screen readers
+- Ensure interactive elements have sufficient color contrast (4.5:1 for text, 3:1 for large text)
+- Don't rely on color alone to convey information — use icons or text alongside color indicators
+- Test keyboard navigation flows in your application end-to-end
+- Provide alt text for images within `Avatar` and `Card` components

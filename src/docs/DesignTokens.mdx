@@ -1,0 +1,199 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Docs/Design Tokens" />
+
+# Design Tokens
+
+stoked-ds uses **CSS custom properties** (variables) as design tokens. All tokens are prefixed with `--stoked-` and can be imported for use in your own styles.
+
+## Importing Tokens
+
+```css
+@import 'stoked-ds/dist/tokens/index.css';
+```
+
+This imports all token categories: colors, spacing, typography, borders, shadows, transitions, and z-index.
+
+---
+
+## Colors
+
+### Primitive Scale (Slate)
+
+| Token | Value |
+|-------|-------|
+| `--stoked-slate-50` | `#f8fafc` |
+| `--stoked-slate-100` | `#f1f5f9` |
+| `--stoked-slate-200` | `#e2e8f0` |
+| `--stoked-slate-300` | `#cbd5e1` |
+| `--stoked-slate-400` | `#94a3b8` |
+| `--stoked-slate-500` | `#64748b` |
+| `--stoked-slate-600` | `#475569` |
+| `--stoked-slate-700` | `#334155` |
+| `--stoked-slate-800` | `#1e293b` |
+| `--stoked-slate-900` | `#0f172a` |
+| `--stoked-slate-950` | `#020617` |
+
+### Brand Colors (Primary)
+
+| Token | Value |
+|-------|-------|
+| `--stoked-primary-500` | `#137fec` |
+| `--stoked-primary-400` | `#60a5fa` |
+| `--stoked-primary-600` | `#1170d4` |
+| `--stoked-primary-700` | `#0e5bb3` |
+
+### Semantic Colors
+
+| Category | Base (500) | Hover (600) | Light |
+|----------|-----------|-------------|-------|
+| **Success** | `#10b981` | `#059669` | `rgba(16, 185, 129, 0.1)` |
+| **Warning** | `#f59e0b` | `#d97706` | `rgba(245, 158, 11, 0.1)` |
+| **Danger** | `#f43f5e` | `#e11d48` | `rgba(244, 63, 94, 0.1)` |
+
+### Theme-Aware Aliases
+
+These tokens automatically change between dark and light themes:
+
+| Token | Dark Mode | Light Mode |
+|-------|-----------|------------|
+| `--stoked-color-background` | `#101922` | `#f6f7f8` |
+| `--stoked-color-surface` | `#1e293b` | `#ffffff` |
+| `--stoked-color-text` | `#f8fafc` | `#0f172a` |
+| `--stoked-color-text-secondary` | `#94a3b8` | `#475569` |
+| `--stoked-color-border` | `#334155` | `#e2e8f0` |
+
+---
+
+## Spacing
+
+Based on a **4px base unit**:
+
+| Token | Value |
+|-------|-------|
+| `--stoked-spacing-1` | `0.25rem` (4px) |
+| `--stoked-spacing-2` | `0.5rem` (8px) |
+| `--stoked-spacing-3` | `0.75rem` (12px) |
+| `--stoked-spacing-4` | `1rem` (16px) |
+| `--stoked-spacing-5` | `1.25rem` (20px) |
+| `--stoked-spacing-6` | `1.5rem` (24px) |
+| `--stoked-spacing-8` | `2rem` (32px) |
+| `--stoked-spacing-10` | `2.5rem` (40px) |
+| `--stoked-spacing-12` | `3rem` (48px) |
+| `--stoked-spacing-16` | `4rem` (64px) |
+| `--stoked-spacing-20` | `5rem` (80px) |
+| `--stoked-spacing-24` | `6rem` (96px) |
+
+---
+
+## Typography
+
+### Font Families
+
+| Token | Value |
+|-------|-------|
+| `--stoked-font-sans` | Inter, system-ui, sans-serif |
+| `--stoked-font-display` | Manrope, (sans fallback) |
+| `--stoked-font-mono` | JetBrains Mono, monospace |
+
+### Font Sizes
+
+| Token | Value |
+|-------|-------|
+| `--stoked-text-xs` | `0.625rem` (10px) |
+| `--stoked-text-sm` | `0.75rem` (12px) |
+| `--stoked-text-base` | `0.875rem` (14px) |
+| `--stoked-text-md` | `1rem` (16px) |
+| `--stoked-text-lg` | `1.125rem` (18px) |
+| `--stoked-text-xl` | `1.25rem` (20px) |
+| `--stoked-text-2xl` | `1.5rem` (24px) |
+| `--stoked-text-3xl` | `1.875rem` (30px) |
+
+### Font Weights
+
+| Token | Value |
+|-------|-------|
+| `--stoked-font-normal` | 400 |
+| `--stoked-font-medium` | 500 |
+| `--stoked-font-semibold` | 600 |
+| `--stoked-font-bold` | 700 |
+| `--stoked-font-extrabold` | 800 |
+
+---
+
+## Borders
+
+### Border Radius
+
+| Token | Value | Use Case |
+|-------|-------|----------|
+| `--stoked-radius-none` | `0` | — |
+| `--stoked-radius-sm` | `0.25rem` (4px) | Subtle, minimal |
+| `--stoked-radius-md` | `0.375rem` (6px) | — |
+| `--stoked-radius-lg` | `0.5rem` (8px) | Buttons, inputs |
+| `--stoked-radius-xl` | `0.75rem` (12px) | Cards, containers |
+| `--stoked-radius-2xl` | `1rem` (16px) | Large cards, modals |
+| `--stoked-radius-full` | `9999px` | Avatars, badges |
+
+### Border Widths
+
+| Token | Value |
+|-------|-------|
+| `--stoked-border-width-thin` | `1px` |
+| `--stoked-border-width-medium` | `2px` |
+| `--stoked-border-width-thick` | `3px` |
+
+---
+
+## Shadows
+
+| Token | Use Case |
+|-------|----------|
+| `--stoked-shadow-xs` | Subtle elevation |
+| `--stoked-shadow-sm` | Buttons, small cards |
+| `--stoked-shadow-md` | Dropdowns, popovers |
+| `--stoked-shadow-lg` | Cards, dialogs |
+| `--stoked-shadow-xl` | Modals |
+| `--stoked-shadow-2xl` | Maximum elevation |
+| `--stoked-shadow-inner` | Inset effect |
+| `--stoked-shadow-primary` | Primary colored glow |
+| `--stoked-shadow-success` | Success colored glow |
+| `--stoked-shadow-danger` | Danger colored glow |
+
+---
+
+## Transitions
+
+### Durations
+
+| Token | Value |
+|-------|-------|
+| `--stoked-duration-instant` | `0ms` |
+| `--stoked-duration-fast` | `100ms` |
+| `--stoked-duration-normal` | `200ms` |
+| `--stoked-duration-slow` | `300ms` |
+| `--stoked-duration-slower` | `500ms` |
+
+### Easing Functions
+
+| Token | Curve |
+|-------|-------|
+| `--stoked-easing-default` | `cubic-bezier(0.4, 0, 0.2, 1)` |
+| `--stoked-easing-in` | `cubic-bezier(0.4, 0, 1, 1)` |
+| `--stoked-easing-out` | `cubic-bezier(0, 0, 0.2, 1)` |
+| `--stoked-easing-bounce` | `cubic-bezier(0.68, -0.55, 0.265, 1.55)` |
+
+### Presets
+
+| Token | Animates |
+|-------|----------|
+| `--stoked-transition-colors` | color, background, border, shadow |
+| `--stoked-transition-transform` | transform |
+| `--stoked-transition-all` | all properties |
+
+```css
+.my-button:hover {
+  transition: var(--stoked-transition-colors);
+  background: var(--stoked-color-primary-hover);
+}
+```

@@ -1,0 +1,96 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Docs/Getting Started" />
+
+# Getting Started
+
+Welcome to **stoked-ds** — a lightweight, accessible React design system with zero-runtime CSS.
+
+## Installation
+
+```bash
+npm install stoked-ds
+```
+
+## Setup
+
+Import the global CSS file once at the root of your application. This includes the CSS reset, design tokens, and component styles.
+
+```tsx
+// main.tsx or App.tsx
+import 'stoked-ds/dist/index.css';
+```
+
+## Basic Usage
+
+```tsx
+import { Button, Input } from 'stoked-ds';
+
+function LoginForm() {
+  return (
+    <div data-theme="dark">
+      <Input label="Email" type="email" placeholder="you@example.com" />
+      <Input label="Password" type="password" />
+      <Button variant="solid">Sign In</Button>
+    </div>
+  );
+}
+```
+
+## Theme Setup
+
+stoked-ds ships with **dark mode by default**. To use light mode, add the `data-theme="light"` attribute to a parent element:
+
+```tsx
+// Dark mode (default — no attribute needed)
+<div>
+  <Button>I'm dark</Button>
+</div>
+
+// Light mode
+<div data-theme="light">
+  <Button>I'm light</Button>
+</div>
+```
+
+## Using Design Tokens
+
+You can import the design tokens CSS to use the same variables in your custom styles:
+
+```css
+@import 'stoked-ds/dist/tokens/index.css';
+
+.my-custom-card {
+  background: var(--stoked-color-surface);
+  border: 1px solid var(--stoked-color-border);
+  border-radius: var(--stoked-radius-xl);
+  padding: var(--stoked-spacing-4);
+}
+```
+
+## Integrations
+
+stoked-ds provides optional adapters for popular libraries. Each integration is imported from a separate sub-path so it doesn't impact your main bundle:
+
+```tsx
+// React Hook Form
+import { Form, FormField } from 'stoked-ds/integrations/react-hook-form';
+
+// TanStack Table
+import { DataTable } from 'stoked-ds/integrations/tanstack-table';
+
+// react-day-picker
+import { DatePicker } from 'stoked-ds/integrations/react-day-picker';
+```
+
+## Component Categories
+
+| Category | Components |
+|----------|-----------|
+| **Form Controls** | Button, Input, SearchInput, Checkbox, Radio, Select, Switch, ButtonGroup |
+| **Feedback** | Alert, Modal, Toast, Spinner, Progress, Skeleton, Tooltip |
+| **Data Display** | Badge, Tag, Avatar, Card, StatCard, Accordion, Tabs, Table |
+| **Layout** | Sidebar, AppShell |
+| **Navigation** | Breadcrumb, Pagination |
+
+Browse the sidebar to explore each component with live examples and auto-generated API docs.
