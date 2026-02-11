@@ -21,7 +21,12 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react-hook-form',
+      ],
       input: Object.fromEntries(
         glob
           .sync('src/**/*.{ts,tsx}', {

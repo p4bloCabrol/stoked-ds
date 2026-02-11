@@ -74,6 +74,47 @@ function App() {
 - `Breadcrumb` - Hierarchical navigation trail
 - `Pagination` - Page navigation with smart ellipsis
 
+## Integrations
+
+stoked-ds provides optional adapters for popular third-party libraries. Import them from separate sub-paths — they won't affect your bundle if you don't use them.
+
+### React Hook Form
+
+```bash
+npm install react-hook-form
+```
+
+```tsx
+import { useForm } from 'react-hook-form';
+import { Form, FormField } from 'stoked-ds/integrations/react-hook-form';
+import { Input, Button } from 'stoked-ds';
+
+function LoginForm() {
+  const form = useForm({ defaultValues: { email: '', password: '' } });
+
+  return (
+    <Form form={form} onSubmit={(data) => console.log(data)}>
+      <FormField
+        control={form.control}
+        name="email"
+        render={({ field, error }) => (
+          <Input {...field} label="Email" error={error?.message} />
+        )}
+      />
+      <Button type="submit">Sign In</Button>
+    </Form>
+  );
+}
+```
+
+### Coming Soon
+
+- **TanStack Table** — `DataTable` with sorting, filtering, and pagination
+- **react-day-picker** — `DatePicker` and `DateRangePicker`
+- **react-select** — `AdvancedSelect` with search, multi-select, and async
+- **Recharts** — Themed chart components (`StokedLineChart`, `StokedBarChart`, etc.)
+- **React Flow** — Styled nodes and controls for node-based UIs
+
 ## Theming
 
 Enable dark mode by adding `data-theme="dark"` to a parent element:

@@ -22,6 +22,10 @@
     },
     "./styles/*": {
       "import": "./dist/styles/*.css"
+    },
+    "./integrations/react-hook-form": {
+      "types": "./dist/integrations/react-hook-form/index.d.ts",
+      "import": "./dist/integrations/react-hook-form/index.js"
     }
   },
   "sideEffects": [
@@ -46,7 +50,13 @@
   },
   "peerDependencies": {
     "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react-dom": ">=18.0.0",
+    "react-hook-form": ">=7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-hook-form": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@playwright/test": "^1.58.0",
@@ -73,6 +83,7 @@
     "prettier": "^3.4.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "react-hook-form": "^7.71.1",
     "rimraf": "^6.0.0",
     "storybook": "^8.4.0",
     "typescript": "^5.7.0",
