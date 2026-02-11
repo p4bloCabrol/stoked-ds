@@ -1,24 +1,24 @@
-## Descripción
+## Description
 
-<!-- Describe brevemente qué cambia este PR y por qué -->
+<!-- Briefly describe what this PR changes and why -->
 
-## Tipo de cambio
+## Type of change
 
-- [ ] Nuevo componente
-- [ ] Nueva integración
-- [ ] Mejora/fix de componente existente
-- [ ] Documentación
-- [ ] Configuración / CI
-- [ ] Otro
+- [ ] New component
+- [ ] New integration
+- [ ] Enhancement/fix to existing component
+- [ ] Documentation
+- [ ] Configuration / CI
+- [ ] Other
 
 ## Checklist
 
-- [ ] Tests unitarios pasan (`npm run test`)
-- [ ] TypeScript compila sin errores (`npm run typecheck`)
-- [ ] Linting pasa (`npm run lint`)
-- [ ] Stories de Storybook actualizadas (si aplica)
-- [ ] CLAUDE.md actualizado (si se agregó componente/integración)
+- [ ] Unit tests pass (`npm run test`)
+- [ ] TypeScript compiles without errors (`npm run typecheck`)
+- [ ] Linting passes (`npm run lint`)
+- [ ] Storybook stories updated (if applicable)
+- [ ] CLAUDE.md updated (if component/integration was added)
 
-## Screenshots (si aplica)
+## Screenshots (if applicable)
 
-<!-- Agrega capturas de pantalla si hay cambios visuales -->
+<!-- Add screenshots if there are visual changes -->
