@@ -20,7 +20,7 @@
 }
 
 .card[data-variant='filled'] {
-  background-color: var(--stoked-color-surface-secondary);
+  background-color: var(--stoked-color-surface-raised);
 }
 
 /* Interactive states */

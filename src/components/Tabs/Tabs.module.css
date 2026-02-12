@@ -16,7 +16,7 @@
 }
 
 .tabList[data-variant='enclosed'] {
-  background-color: var(--stoked-color-surface-secondary);
+  background-color: var(--stoked-color-surface-raised);
   padding: var(--stoked-spacing-1);
   border-radius: var(--stoked-radius-lg);
   gap: var(--stoked-spacing-1);
@@ -99,7 +99,7 @@
 }
 
 .tab[data-variant='enclosed']:hover:not(:disabled) {
-  background-color: var(--stoked-color-surface-hover);
+  background-color: var(--stoked-color-primary-light);
 }
 
 .tab[data-variant='enclosed'][aria-selected='true'] {
@@ -113,13 +113,13 @@
   border-radius: var(--stoked-radius-full);
 }
 
-.tab[data-variant='pills']:hover:not(:disabled) {
-  background-color: var(--stoked-color-surface-hover);
+.tab[data-variant='pills']:hover:not(:disabled):not([aria-selected='true']) {
+  background-color: var(--stoked-color-primary-light);
 }
 
 .tab[data-variant='pills'][aria-selected='true'] {
   background-color: var(--stoked-color-primary);
-  color: var(--stoked-color-primary-contrast);
+  color: var(--stoked-color-text-inverse);
 }
 
 /* Focus state */

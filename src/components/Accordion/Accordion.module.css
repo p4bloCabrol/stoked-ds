@@ -31,11 +31,11 @@
 }
 
 .header:hover {
-  background-color: var(--stoked-color-surface-hover);
+  background-color: var(--stoked-color-primary-light);
 }
 
 .header:focus-visible {
-  background-color: var(--stoked-color-surface-hover);
+  background-color: var(--stoked-color-primary-light);
   box-shadow: inset 0 0 0 2px var(--stoked-color-focus-ring);
 }
 
