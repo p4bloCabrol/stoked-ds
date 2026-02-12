@@ -7,9 +7,8 @@ const config: StorybookConfig = {
     '../src/**/*.stories.@(ts|tsx|mdx)',
   ],
   addons: [
-    '@storybook/addon-essentials',
+    '@storybook/addon-docs',
     '@storybook/addon-a11y',
-    '@storybook/addon-interactions',
     '@storybook/addon-links',
   ],
   framework: {
