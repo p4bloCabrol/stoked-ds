@@ -1,0 +1,94 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  # Run all quality checks before publishing
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+
+  # Validate, generate SBOM, and publish with provenance
+  publish:
+    needs: quality
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Validate package contents
+        run: |
+          echo "=== Files that will be published ==="
+          npm pack --dry-run 2>&1
+          echo ""
+          echo "=== Checking for sensitive files ==="
+          PACK_OUTPUT=$(npm pack --dry-run 2>&1)
+          if echo "$PACK_OUTPUT" | grep -iE '\.env|credentials|secret|\.key$|\.pem$'; then
+            echo "ERROR: Potentially sensitive files detected in package!"
+            exit 1
+          fi
+          echo "No sensitive files detected."
+
+      - name: Generate SBOM (CycloneDX)
+        run: |
+          npx --yes @cyclonedx/cyclonedx-npm --output-file dist/sbom.cdx.json --omit dev --spec-version 1.5
+          echo "SBOM generated at dist/sbom.cdx.json"
+          node -e "const s=require('./dist/sbom.cdx.json'); console.log('Components:', s.components?.length || 0)"
+
+      - name: Publish with provenance
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Upload SBOM as release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/sbom.cdx.json --clobber

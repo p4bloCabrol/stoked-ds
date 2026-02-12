@@ -61,7 +61,9 @@
     "lint:fix": "eslint src/ --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run lint && npm run typecheck && npm run test",
+    "validate:pack": "npm pack --dry-run",
     "clean": "rimraf dist"
   },
   "peerDependencies": {
@@ -136,11 +138,17 @@
   },
   "keywords": [
     "react",
+    "react-components",
     "design-system",
+    "ui",
     "components",
     "accessible",
+    "a11y",
     "css-modules",
+    "zero-runtime",
     "typescript",
+    "dark-mode",
+    "tree-shakeable",
     "stoked"
   ],
   "license": "MIT",
