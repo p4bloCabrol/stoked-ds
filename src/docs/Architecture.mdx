@@ -1,0 +1,306 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Docs/Architecture & Decisions" />
+
+# Architecture & Decisions
+
+A technical deep-dive into the design decisions behind **stoked-ds** — why we chose zero-runtime CSS, how integrations stay isolated, and what makes this system different.
+
+---
+
+## Why Zero-Runtime CSS?
+
+Most modern design systems use CSS-in-JS (Styled Components, Emotion, Stitches). We chose **CSS Modules + CSS Variables** instead. Here's why:
+
+| Factor | CSS-in-JS | CSS Modules (stoked-ds) |
+|--------|-----------|-------------------------|
+| **Runtime cost** | Generates styles at render time | Zero — styles are static CSS |
+| **Bundle impact** | ~12-15 KB runtime library | 0 KB — no runtime dependency |
+| **SSR complexity** | Requires style extraction | Works out of the box |
+| **Debugging** | Generated class names | Scoped but readable: `stoked-button-a3x2k` |
+| **Theme switching** | Re-renders component tree | Instant — CSS variables cascade |
+
+The tradeoff is less dynamic styling power, but for a design system with a fixed set of variants this is the right call. Every variant is statically defined and scoped.
+
+### The Data-Attribute Pattern
+
+Instead of composing CSS classes for variants, we use **data attributes**:
+
+```css
+/* Button.module.css */
+.button[data-variant='solid'][data-color='primary'] {
+  background-color: var(--stoked-color-primary);
+  color: var(--stoked-color-text-inverse);
+}
+
+.button[data-size='lg'] {
+  --_btn-height: var(--stoked-spacing-12);
+  --_btn-px: var(--stoked-spacing-6);
+}
+```
+
+```tsx
+// Button.tsx
+<button
+  data-variant={variant}
+  data-size={size}
+  data-color={color}
+  className={cn(styles.button, className)}
+/>
+```
+
+**Why data attributes over classes?**
+- Variants are visible in DevTools without decoding hashed class names
+- Selectors are self-documenting: `[data-variant='ghost']` reads like prose
+- No className collision — the component controls its own attribute namespace
+- Easy to target from parent components or global overrides
+
+### Component-Level CSS Variables
+
+Each component defines private CSS variables (prefixed with `--_`) that can be overridden by variant selectors:
+
+```css
+.button {
+  --_btn-height: var(--stoked-spacing-10);  /* default */
+  --_btn-px: var(--stoked-spacing-4);       /* default */
+  height: var(--_btn-height);
+  padding-inline: var(--_btn-px);
+}
+```
+
+This creates a clean layering: **global tokens** → **component defaults** → **variant overrides**. No specificity wars, no `!important`.
+
+---
+
+## Design Token Architecture
+
+stoked-ds uses **214 CSS custom properties** organized across 8 token files:
+
+| Category | Tokens | Purpose |
+|----------|--------|---------|
+| **Colors** | 97 | Primitive scale (slate 50-950), brand colors, semantic colors (success/warning/danger), surface/border/text |
+| **Typography** | 35 | 3 font families (Inter, Manrope, JetBrains Mono), 10 sizes, line heights, weights |
+| **Spacing** | 21 | 4px base unit scale: 2px to 96px |
+| **Transitions** | 25 | 5 durations, 5 easing functions, 3 presets |
+| **Borders** | 13 | 7 radii, 5 border widths |
+| **Shadows** | 12 | 7 elevation scales + 3 semantic colored shadows |
+| **Z-Index** | 11 | 11 named stacking layers |
+
+### Theme System
+
+Dark mode is the default. Light mode activates via a single attribute:
+
+```css
+/* colors.css — dark is the default */
+:root {
+  --stoked-color-background: #0a0f16;
+  --stoked-color-surface: #101922;
+  --stoked-color-text: #f1f5f9;
+}
+
+/* Light mode override */
+[data-theme='light'] {
+  --stoked-color-background: #ffffff;
+  --stoked-color-surface: #f6f7f8;
+  --stoked-color-text: #0f172a;
+}
+```
+
+Theme switching is **instant** — no re-renders, no JavaScript. CSS variables cascade down the DOM tree. This is fundamentally faster than any runtime theme solution.
+
+---
+
+## Integration Architecture
+
+Most design systems force you to choose: use their components or don't. stoked-ds takes a different approach with **optional integration adapters**.
+
+### The Problem
+
+A design system's Table component will never match the power of TanStack Table. A DatePicker will never compete with react-day-picker's locale support. Instead of building inferior versions, we wrap the best libraries with our design tokens.
+
+### Sub-Path Exports
+
+Each integration lives in its own entry point:
+
+```tsx
+// Only pulls in what you use — zero impact if you don't
+import { DataTable } from 'stoked-ds/integrations/tanstack-table';
+import { DatePicker } from 'stoked-ds/integrations/react-day-picker';
+import { Form, FormField } from 'stoked-ds/integrations/react-hook-form';
+```
+
+The external library is a **peer dependency marked as optional**. If you don't install it, your bundle isn't affected:
+
+```json
+{
+  "peerDependenciesMeta": {
+    "@tanstack/react-table": { "optional": true },
+    "react-day-picker": { "optional": true }
+  }
+}
+```
+
+### Current Integrations
+
+| Integration | Components | What It Wraps |
+|-------------|------------|---------------|
+| **React Hook Form** | `Form`, `FormField` | Form state management with automatic error binding |
+| **TanStack Table** | `DataTable` | Sorting, pagination, filtering with stoked-ds styling |
+| **react-day-picker** | `DatePicker`, `DateRangePicker` | Calendar with locale support and token-mapped styles |
+| **react-select** | `AdvancedSelect` | Searchable, multi-select dropdown |
+| **Recharts** | `ChartCard`, `StokedLineChart`, `StokedBarChart`, `StokedAreaChart`, `StokedPieChart` | Data visualization with theme-aware colors |
+
+### Isolation Strategy
+
+Integrations are kept completely separate from the core in the build:
+
+1. **Vite marks them as external** — the library code isn't bundled
+2. **Each gets its own entry point** — separate JavaScript chunk
+3. **Styles map to design tokens** — visual consistency without coupling
+4. **Tests and stories are self-contained** — each integration is a standalone module
+
+This means the core bundle (27 components) is **never affected** by integration code.
+
+---
+
+## Performance Decisions
+
+### Tree-Shaking
+
+stoked-ds outputs **ESM-only** (no CommonJS). Combined with named exports and `sideEffects: ["**/*.css"]`, bundlers can eliminate unused components:
+
+```tsx
+// Only Button's code and CSS end up in your bundle
+import { Button } from 'stoked-ds';
+```
+
+The build produces **95 separate entry files** — one per component, integration, and utility. This maximizes tree-shaking granularity.
+
+### Animation Strategy
+
+We use a hybrid approach:
+
+**CSS keyframes** for simple, performance-critical animations:
+- Skeleton pulse and wave
+- Spinner rotation
+- Progress bar stripes
+
+**Framer Motion** for complex interactions requiring:
+- Mount/unmount transitions (Modal, Toast)
+- Layout animations (Tabs indicator)
+- Gesture-driven feedback (Button ripple)
+
+All motion respects `prefers-reduced-motion` via the `useReducedMotion` hook.
+
+### forwardRef Everywhere
+
+All 27 components use `React.forwardRef`. This is non-negotiable for a design system:
+- Form libraries need ref access for registration
+- Focus management requires imperative control
+- Composition with third-party components expects refs to work
+
+---
+
+## Component Conventions
+
+Every component follows the same structure:
+
+```
+ComponentName/
+├── ComponentName.tsx           # Implementation with forwardRef
+├── ComponentName.types.ts      # Props interface extending HTML element
+├── ComponentName.module.css    # Scoped styles with data-attribute variants
+├── ComponentName.stories.tsx   # Storybook stories with controls
+├── ComponentName.test.tsx      # Unit tests with Testing Library
+└── index.ts                    # Re-export
+```
+
+**Why this matters:**
+- New contributors know exactly where to look
+- Code review is predictable
+- Automated tooling (test runners, linters) can target patterns
+- Every component ships with documentation and tests — no exceptions
+
+### Props Design
+
+Props extend the native HTML element interface:
+
+```tsx
+interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
+  variant?: ButtonVariant;  // 'solid' | 'outline' | 'ghost' | 'link'
+  size?: ButtonSize;        // 'sm' | 'md' | 'lg'
+  color?: ButtonColor;      // 'primary' | 'secondary' | ...
+}
+```
+
+This means every native attribute (`onClick`, `disabled`, `aria-label`) works out of the box. No wrapping, no prop drilling.
+
+---
+
+## Quality & Security Pipeline
+
+### Automated Quality Gates
+
+Every pull request runs through:
+
+```
+npm audit --omit=dev    → Dependency vulnerability scan
+npm run lint            → ESLint with React hooks rules
+npm run typecheck       → TypeScript strict mode
+npm run test            → 332 unit tests (Vitest)
+npm run build           → Production build
+npm pack --dry-run      → Validate package contents
+```
+
+### Secure Publishing
+
+Publishing uses **Trusted Publishers** with GitHub OIDC — no npm tokens stored anywhere:
+
+1. Create a GitHub Release
+2. `publish.yml` triggers automatically
+3. Quality checks run (lint, typecheck, test, audit)
+4. Sensitive file detection scans the tarball
+5. **CycloneDX SBOM** is generated (Software Bill of Materials)
+6. Package publishes with `--provenance` (cryptographic attestation)
+7. SBOM is attached to the GitHub Release
+
+Consumers can verify the package origin:
+
+```bash
+npm audit signatures  # Verifies provenance attestation
+```
+
+### Dependency Management
+
+- **Dependabot** monitors dependencies weekly with grouped PRs
+- **npm audit** runs on every PR (production dependencies only)
+- **2 production dependencies**: `clsx` (class utility) and `framer-motion` (animations)
+- Everything else is a peer or dev dependency
+
+---
+
+## Key Metrics
+
+| Metric | Value |
+|--------|-------|
+| Components | 27 |
+| Integrations | 5 (12 components) |
+| Design tokens | 214 CSS custom properties |
+| Unit tests | 332 passing |
+| Test-to-component ratio | 1:1 (every component has tests) |
+| Production dependencies | 2 (clsx, framer-motion) |
+| CSS runtime overhead | 0 KB |
+| Theme switching cost | 0 re-renders (pure CSS) |
+| Build format | ESM-only (tree-shakeable) |
+
+---
+
+## What's Next
+
+- **Headless mode** — Unstyled component primitives for full customization
+- **React Flow integration** — Styled nodes for node-based UIs
+- **MCP Server** — AI-powered component discovery and code generation
+
+---
+
+*stoked-ds is MIT licensed and maintained by [Pablo Cabrol](https://github.com/p4bloCabrol).*
