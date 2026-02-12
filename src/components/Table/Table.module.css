@@ -34,7 +34,7 @@
 
 /* Table Head */
 .thead {
-  background-color: var(--stoked-color-surface-secondary);
+  background-color: var(--stoked-color-surface-raised);
 }
 
 .thead th {
@@ -61,7 +61,7 @@
 }
 
 .th[data-sortable='true']:hover {
-  background-color: var(--stoked-color-surface-hover);
+  background-color: var(--stoked-color-primary-light);
 }
 
 .sortButton {
@@ -106,16 +106,16 @@
 
 /* Striped variant */
 .table[data-variant='striped'] .tbody tr:nth-child(even) {
-  background-color: var(--stoked-color-surface-secondary);
+  background-color: var(--stoked-color-surface-raised);
 }
 
 /* Row states */
 .tr[data-hoverable='true']:hover {
-  background-color: var(--stoked-color-surface-hover);
+  background-color: var(--stoked-color-primary-light);
 }
 
 .tr[data-selected='true'] {
-  background-color: var(--stoked-color-primary-subtle);
+  background-color: var(--stoked-color-primary-light);
 }
 
 /* Table Cell */
@@ -130,7 +130,7 @@
 
 /* Table Foot */
 .tfoot {
-  background-color: var(--stoked-color-surface-secondary);
+  background-color: var(--stoked-color-surface-raised);
 }
 
 .tfoot td {

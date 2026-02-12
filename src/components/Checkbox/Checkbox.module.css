@@ -22,6 +22,7 @@
   opacity: 0;
   cursor: inherit;
   margin: 0;
+  z-index: 1;
 }
 
 .checkbox {
@@ -32,6 +33,7 @@
   border: var(--stoked-border-width-medium) solid var(--stoked-color-border);
   border-radius: var(--stoked-radius-sm);
   transition: var(--stoked-transition-colors);
+  pointer-events: none;
 }
 
 /* Size variants */
