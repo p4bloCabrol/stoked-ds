@@ -109,7 +109,7 @@
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.0",
-    "@vitest/coverage-v8": "^2.1.0",
+    "@vitest/coverage-v8": "^4.0.18",
     "copyfiles": "^2.4.1",
     "eslint": "^9.0.0",
     "eslint-plugin-react-hooks": "^5.0.0",
@@ -130,7 +130,7 @@
     "vite": "^6.0.0",
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-lib-inject-css": "^2.1.0",
-    "vitest": "^2.1.0"
+    "vitest": "^4.0.18"
   },
   "dependencies": {
     "clsx": "^2.1.0",
