@@ -91,6 +91,15 @@
   height: 2px;
   background-color: var(--stoked-color-primary);
   border-radius: 1px 1px 0 0;
+  transition:
+    left var(--stoked-duration-normal) var(--stoked-easing-default),
+    width var(--stoked-duration-normal) var(--stoked-easing-default);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicator {
+    transition: none;
+  }
 }
 
 /* Enclosed Variant */

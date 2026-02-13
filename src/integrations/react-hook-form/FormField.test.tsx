@@ -6,7 +6,6 @@ import type { ReactNode } from 'react';
 import { FormField } from './FormField';
 import { Form } from './Form';
 import { Input } from '../../components/Input';
-import { Checkbox } from '../../components/Checkbox';
 
 interface TestFormValues {
   email: string;

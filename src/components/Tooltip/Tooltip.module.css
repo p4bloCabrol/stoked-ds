@@ -29,11 +29,15 @@
   }
 }
 
-/* Arrow: single CSS triangle, border-colored */
+/* Arrow: rotated square for seamless border connection */
 .arrow {
   position: absolute;
-  width: 0;
-  height: 0;
+  z-index: -1;
+  width: 8px;
+  height: 8px;
+  background: var(--stoked-color-surface);
+  border: 1px solid var(--stoked-color-border);
+  transform: rotate(45deg);
 }
 
 /* Placement: Top */
@@ -41,15 +45,14 @@
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .tooltip[data-placement='top'] .arrow {
-  bottom: -6px;
-  left: calc(50% - 6px);
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid var(--stoked-color-border);
+  bottom: -5px;
+  left: calc(50% - 4px);
+  border-top: none;
+  border-left: none;
 }
 
 /* Placement: Bottom */
@@ -57,15 +60,14 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .tooltip[data-placement='bottom'] .arrow {
-  top: -6px;
-  left: calc(50% - 6px);
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid var(--stoked-color-border);
+  top: -5px;
+  left: calc(50% - 4px);
+  border-bottom: none;
+  border-right: none;
 }
 
 /* Placement: Left */
@@ -73,15 +75,14 @@
   right: 100%;
   top: 50%;
   transform: translateY(-50%);
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .tooltip[data-placement='left'] .arrow {
-  right: -6px;
-  top: calc(50% - 6px);
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-left: 6px solid var(--stoked-color-border);
+  right: -5px;
+  top: calc(50% - 4px);
+  border-bottom: none;
+  border-left: none;
 }
 
 /* Placement: Right */
@@ -89,13 +90,18 @@
   left: 100%;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 8px;
+  margin-left: 6px;
 }
 
 .tooltip[data-placement='right'] .arrow {
-  left: -6px;
-  top: calc(50% - 6px);
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-right: 6px solid var(--stoked-color-border);
+  left: -5px;
+  top: calc(50% - 4px);
+  border-top: none;
+  border-right: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    animation: none;
+  }
 }

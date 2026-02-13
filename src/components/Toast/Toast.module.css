@@ -157,3 +157,45 @@
   width: 100%;
   height: 100%;
 }
+
+/* ===== Animations ===== */
+.toast {
+  animation: toastEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast[data-state='exiting'] {
+  animation: toastExit 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastExit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+
+  .toast[data-state='exiting'] {
+    animation: none;
+    display: none;
+  }
+}

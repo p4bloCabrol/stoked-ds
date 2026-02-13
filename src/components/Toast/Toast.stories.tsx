@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ToastProvider } from './ToastProvider';
 import { useToast } from './ToastContext';
+import type { ToastPosition } from './Toast.types';
 import { Button } from '../Button';
 
 const ToastDemo = () => {
@@ -215,9 +216,9 @@ export const MultipleToasts: Story = {
 };
 
 // For position demo, we need separate providers
-const PositionDemo = ({ position }: { position: string }) => {
+const PositionDemo = ({ position }: { position: ToastPosition }) => {
   return (
-    <ToastProvider position={position as any}>
+    <ToastProvider position={position}>
       <PositionDemoInner />
     </ToastProvider>
   );

@@ -1,5 +1,4 @@
-import { forwardRef } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { forwardRef, useCallback, useEffect, useRef } from 'react';
 import type { Toast, ToastStatus } from './Toast.types';
 import styles from './Toast.module.css';
 
@@ -26,44 +25,52 @@ const statusIcons: Record<ToastStatus, JSX.Element> = {
   ),
 };
 
-// Animation variants
-const toastVariants = {
-  initial: { opacity: 0, y: -20, scale: 0.95 },
-  animate: { opacity: 1, y: 0, scale: 1 },
-  exit: { opacity: 0, y: -20, scale: 0.95 },
-};
-
-const reducedMotionVariants = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-};
-
 interface ToastItemProps {
   toast: Toast;
   onClose: () => void;
+  onExitComplete: () => void;
 }
 
 const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(
-  { toast, onClose },
+  { toast, onClose, onExitComplete },
   ref
 ) {
-  const { title, description, status = 'info', isClosable, icon } = toast;
-  const shouldReduceMotion = useReducedMotion();
+  const { title, description, status = 'info', isClosable, icon, _exiting } = toast;
+  const exitedRef = useRef(false);
+
+  const handleComplete = useCallback(() => {
+    if (!exitedRef.current) {
+      exitedRef.current = true;
+      onExitComplete();
+    }
+  }, [onExitComplete]);
+
+  const handleAnimationEnd = useCallback(
+    (e: React.AnimationEvent) => {
+      if (_exiting && e.animationName) {
+        handleComplete();
+      }
+    },
+    [_exiting, handleComplete]
+  );
+
+  // Safety timeout for environments where animationend doesn't fire
+  useEffect(() => {
+    if (_exiting) {
+      const timer = setTimeout(handleComplete, 250);
+      return () => clearTimeout(timer);
+    }
+  }, [_exiting, handleComplete]);
 
   return (
-    <motion.div
+    <div
       ref={ref}
       role="alert"
       aria-live="polite"
       className={styles.toast}
       data-status={status}
-      variants={shouldReduceMotion ? reducedMotionVariants : toastVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
-      layout={!shouldReduceMotion}
+      data-state={_exiting ? 'exiting' : 'entered'}
+      onAnimationEnd={handleAnimationEnd}
     >
       <span className={styles.icon}>{icon || statusIcons[status]}</span>
       <div className={styles.content}>
@@ -82,7 +89,7 @@ const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(function ToastItem(
           </svg>
         </button>
       )}
-    </motion.div>
+    </div>
   );
 });
 

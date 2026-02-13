@@ -30,19 +30,25 @@
 
 .card[data-hoverable='true']:hover,
 .card[data-clickable='true']:hover {
+  transform: translateY(-4px) scale(1.01);
   box-shadow: var(--stoked-shadow-lg);
 }
 
-/* CSS-only hover for non-animated cards */
-.card[data-variant='elevated'][data-hoverable='true']:not([data-animated]):hover,
-.card[data-variant='elevated'][data-clickable='true']:not([data-animated]):hover {
-  transform: translateY(-2px);
+.card[data-variant='elevated'][data-hoverable='true']:hover,
+.card[data-variant='elevated'][data-clickable='true']:hover {
   box-shadow: var(--stoked-shadow-xl);
 }
 
-/* Animated cards use framer-motion for transform, CSS for shadow */
-.card[data-animated='true']:hover {
-  box-shadow: var(--stoked-shadow-xl);
+.card[data-clickable='true']:active {
+  transform: scale(0.99);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card[data-hoverable='true']:hover,
+  .card[data-clickable='true']:hover,
+  .card[data-clickable='true']:active {
+    transform: none;
+  }
 }
 
 .card[data-clickable='true']:focus-visible {

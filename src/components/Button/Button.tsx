@@ -1,5 +1,4 @@
 import { forwardRef, useState, useCallback, useRef, useEffect, type MouseEvent } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type { ButtonProps } from './Button.types';
 import styles from './Button.module.css';
@@ -34,7 +33,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const isDisabled = disabled || loading;
-    const shouldReduceMotion = useReducedMotion();
     const [ripples, setRipples] = useState<Ripple[]>([]);
     const rippleTimersRef = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
 
@@ -49,7 +47,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const handleClick = useCallback(
       (e: MouseEvent<HTMLButtonElement>) => {
-        if (ripple && !isDisabled && !shouldReduceMotion) {
+        const prefersReducedMotion =
+          typeof window !== 'undefined' &&
+          typeof window.matchMedia === 'function' &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (ripple && !isDisabled && !prefersReducedMotion) {
           const button = e.currentTarget;
           const rect = button.getBoundingClientRect();
           const size = Math.max(rect.width, rect.height) * 2;
@@ -75,7 +77,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
         onClick?.(e);
       },
-      [ripple, isDisabled, shouldReduceMotion, onClick]
+      [ripple, isDisabled, onClick]
     );
 
     return (
@@ -113,12 +115,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {loading && (
           <span className={styles.spinner} aria-hidden="true">
-            <motion.svg
+            <svg
               viewBox="0 0 24 24"
               fill="none"
               className={styles.spinnerIcon}
-              animate={shouldReduceMotion ? undefined : { rotate: 360 }}
-              transition={shouldReduceMotion ? undefined : { duration: 1, repeat: Infinity, ease: 'linear' }}
             >
               <circle
                 cx="12"
@@ -129,7 +129,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 strokeLinecap="round"
                 strokeDasharray="31.4 31.4"
               />
-            </motion.svg>
+            </svg>
           </span>
         )}
         {!loading && leftIcon && (

@@ -1,5 +1,4 @@
 import { forwardRef, useState, Children, isValidElement, cloneElement, useRef, useCallback, useLayoutEffect, useEffect, type KeyboardEvent } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import { useId } from '../../utils/useId';
 import { TabsContext, useTabs } from './TabsContext';
@@ -60,7 +59,6 @@ const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList(
   const { variant, isFitted, setSelectedIndex, selectedIndex, baseId } = useTabs();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
-  const shouldReduceMotion = useReducedMotion();
 
   // Update indicator position when selected tab changes
   useIsomorphicLayoutEffect(() => {
@@ -150,18 +148,11 @@ const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList(
     >
       {tabs}
       {variant === 'line' && (
-        <motion.div
+        <div
           className={styles.indicator}
-          layoutId="tab-indicator"
-          initial={false}
-          animate={{
+          style={{
             left: indicatorStyle.left,
             width: indicatorStyle.width,
-          }}
-          transition={shouldReduceMotion ? { duration: 0 } : {
-            type: 'spring',
-            stiffness: 500,
-            damping: 35,
           }}
         />
       )}
