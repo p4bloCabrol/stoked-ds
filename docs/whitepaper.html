@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>White Paper &mdash; stoked-ds</title>
+  <meta name="description" content="Architecture decisions, roadmap, and vision for stoked-ds — a lightweight, accessible React design system with zero-runtime CSS.">
+  <meta property="og:title" content="stoked-ds White Paper">
+  <meta property="og:description" content="Architecture decisions, roadmap, and vision for stoked-ds">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <script>
+    (function(){var t=localStorage.getItem('stoked-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/whitepaper.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">stoked<span>-ds</span></a>
+      <div class="navbar-links" id="navbar-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#components">Components</a>
+        <a href="index.html#integrations">Integrations</a>
+        <a href="whitepaper.html" data-active="true">White Paper</a>
+      </div>
+      <div class="navbar-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="https://github.com/p4bloCabrol/stoked-ds" target="_blank" rel="noopener" class="github-link" aria-label="GitHub repository">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="wp-hero">
+    <div class="container">
+      <div class="wp-hero-content">
+        <a href="index.html" class="wp-back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to home
+        </a>
+        <h1>White Paper</h1>
+        <p>Architecture decisions, roadmap, and vision for stoked-ds. This document provides transparency into where the project is, where it's going, and the principles that guide every decision.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KEY METRICS ===== -->
+  <section class="wp-section">
+    <div class="container">
+      <div class="wp-section-header">
+        <span class="section-label">At a glance</span>
+        <h2>Key Metrics</h2>
+      </div>
+      <div class="wp-metrics">
+        <div class="wp-metric">
+          <div class="wp-metric-value">27</div>
+          <div class="wp-metric-label">Components</div>
+        </div>
+        <div class="wp-metric">
+          <div class="wp-metric-value">5</div>
+          <div class="wp-metric-label">Integrations</div>
+        </div>
+        <div class="wp-metric">
+          <div class="wp-metric-value">214</div>
+          <div class="wp-metric-label">Design Tokens</div>
+        </div>
+        <div class="wp-metric">
+          <div class="wp-metric-value">332</div>
+          <div class="wp-metric-label">Unit Tests</div>
+        </div>
+        <div class="wp-metric">
+          <div class="wp-metric-value">0 KB</div>
+          <div class="wp-metric-label">CSS Runtime</div>
+        </div>
+        <div class="wp-metric">
+          <div class="wp-metric-value">2</div>
+          <div class="wp-metric-label">Prod Dependencies</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GUIDING PRINCIPLES ===== -->
+  <section class="wp-section">
+    <div class="container">
+      <div class="wp-section-header">
+        <span class="section-label">Philosophy</span>
+        <h2>Guiding Principles</h2>
+        <p>Every decision in stoked-ds is guided by these core principles. They define what we build, how we build it, and what we deliberately choose not to do.</p>
+      </div>
+      <div class="wp-principles">
+        <div class="wp-principle">
+          <div class="wp-principle-number">1</div>
+          <div>
+            <h3>Zero-Runtime CSS</h3>
+            <p>CSS Modules with CSS Variables. No JavaScript overhead at runtime. Theme switching happens instantly through CSS cascade, not re-renders.</p>
+          </div>
+        </div>
+        <div class="wp-principle">
+          <div class="wp-principle-number">2</div>
+          <div>
+            <h3>Wrap, Don't Reinvent</h3>
+            <p>We don't build inferior versions of TanStack Table or react-day-picker. We wrap the best libraries with our tokens and styling. The ecosystem wins.</p>
+          </div>
+        </div>
+        <div class="wp-principle">
+          <div class="wp-principle-number">3</div>
+          <div>
+            <h3>Accessibility is Non-Negotiable</h3>
+            <p>WAI-ARIA patterns, keyboard navigation, focus management, and screen reader support. Every component, every release. No exceptions.</p>
+          </div>
+        </div>
+        <div class="wp-principle">
+          <div class="wp-principle-number">4</div>
+          <div>
+            <h3>Minimal Dependency Surface</h3>
+            <p>Only 2 production dependencies (clsx, framer-motion). Everything else is a peer or dev dependency. Your bundle stays lean.</p>
+          </div>
+        </div>
+        <div class="wp-principle">
+          <div class="wp-principle-number">5</div>
+          <div>
+            <h3>Supply Chain Security</h3>
+            <p>Trusted Publishers with OIDC, provenance attestation, CycloneDX SBOM, npm audit in CI. Every release is cryptographically verifiable.</p>
+          </div>
+        </div>
+        <div class="wp-principle">
+          <div class="wp-principle-number">6</div>
+          <div>
+            <h3>Ship With Tests and Docs</h3>
+            <p>Every component ships with unit tests, Storybook stories, and TypeScript types. 1:1 test-to-component ratio. No undocumented features.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ARCHITECTURE ===== -->
+  <section class="wp-section">
+    <div class="container">
+      <div class="wp-section-header">
+        <span class="section-label">Architecture</span>
+        <h2>How It's Built</h2>
+        <p>A summary of the key architectural decisions that make stoked-ds different from other React design systems.</p>
+      </div>
+      <div class="wp-prose">
+        <p><strong>Data-attribute variants</strong> instead of CSS classes. Variants are visible in DevTools as <code>data-variant="solid"</code>, selectors are self-documenting, and there's no className collision. Each component controls its own attribute namespace.</p>
+        <p><strong>Component-level CSS variables</strong> create a clean layering system: global tokens cascade into component defaults, which are overridden by variant selectors. No specificity wars, no <code>!important</code>.</p>
+        <p><strong>Sub-path exports</strong> keep integrations isolated. Each adapter has its own entry point (<code>stoked-ds/integrations/tanstack-table</code>), its own bundle, and its external library as an optional peer dependency. The core bundle is never affected by integration code.</p>
+        <p><strong>ESM-only output</strong> with 95 separate entry files maximizes tree-shaking. Import one component, only that component's code and CSS end up in your bundle. CSS is declared as a side effect for proper inclusion.</p>
+        <p><strong>Hybrid animation strategy:</strong> CSS keyframes for simple animations (Spinner, Skeleton, Progress) and Framer Motion for complex interactions requiring mount/unmount transitions (Modal, Toast) and gesture feedback (Button ripple). All motion respects <code>prefers-reduced-motion</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ROADMAP ===== -->
+  <section class="wp-section">
+    <div class="container">
+      <div class="wp-section-header">
+        <span class="section-label">Roadmap</span>
+        <h2>Where We're Going</h2>
+        <p>A phased plan designed for predictability. Each phase builds on the previous one, with clear deliverables and priorities.</p>
+      </div>
+      <div class="wp-roadmap">
+
+        <!-- Phase 1 -->
+        <div class="wp-phase" data-status="completed">
+          <div class="wp-phase-header">
+            <span class="wp-phase-title">Phase 1: Foundation (v0.1 &ndash; v0.3)</span>
+            <span class="wp-phase-badge" data-completed>Completed</span>
+          </div>
+          <p class="wp-phase-description">Core component library, design token system, integrations, and documentation. The foundation everything else builds on.</p>
+          <div class="wp-phase-items">
+            <span class="wp-phase-item">27 Components</span>
+            <span class="wp-phase-item">214 Design Tokens</span>
+            <span class="wp-phase-item">Dark/Light Themes</span>
+            <span class="wp-phase-item">5 Integrations</span>
+            <span class="wp-phase-item">8 Page Stories</span>
+            <span class="wp-phase-item">Storybook Docs</span>
+            <span class="wp-phase-item">Landing Page</span>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="wp-phase" data-status="in-progress">
+          <div class="wp-phase-header">
+            <span class="wp-phase-title">Phase 2: Hardening &amp; Visibility (v0.4)</span>
+            <span class="wp-phase-badge" data-in-progress>In Progress</span>
+          </div>
+          <p class="wp-phase-description">Security pipeline, SEO optimization, architecture documentation, and community building. Making the project trustworthy and discoverable.</p>
+          <div class="wp-phase-items">
+            <span class="wp-phase-item">Trusted Publishers (OIDC)</span>
+            <span class="wp-phase-item">Provenance Attestation</span>
+            <span class="wp-phase-item">CycloneDX SBOM</span>
+            <span class="wp-phase-item">npm Audit in CI</span>
+            <span class="wp-phase-item">Dependabot</span>
+            <span class="wp-phase-item">SEO Keywords</span>
+            <span class="wp-phase-item">README Badges</span>
+            <span class="wp-phase-item">White Paper</span>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="wp-phase" data-status="planned">
+          <div class="wp-phase-header">
+            <span class="wp-phase-title">Phase 3: High-Demand Components (v0.5)</span>
+            <span class="wp-phase-badge" data-planned>Planned</span>
+          </div>
+          <p class="wp-phase-description">New components that developers frequently need but rarely find well-implemented. Each one fills a gap in the current catalog.</p>
+          <div class="wp-phase-items">
+            <span class="wp-phase-item">TreeView</span>
+            <span class="wp-phase-item">MultiSelect (pills)</span>
+            <span class="wp-phase-item">Hierarchical Select</span>
+            <span class="wp-phase-item">Stepper</span>
+            <span class="wp-phase-item">CommandPalette</span>
+            <span class="wp-phase-item">Transfer</span>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="wp-phase" data-status="planned">
+          <div class="wp-phase-header">
+            <span class="wp-phase-title">Phase 4: Headless Mode (v0.6)</span>
+            <span class="wp-phase-badge" data-planned>Planned</span>
+          </div>
+          <p class="wp-phase-description">Unstyled component primitives that provide behavior, accessibility, and keyboard navigation without any CSS. Full customization power.</p>
+          <div class="wp-phase-items">
+            <span class="wp-phase-item">Behavior-Only Primitives</span>
+            <span class="wp-phase-item">Dual Export (styled + headless)</span>
+            <span class="wp-phase-item">Custom Theming Support</span>
+          </div>
+        </div>
+
+        <!-- Phase 5 -->
+        <div class="wp-phase" data-status="planned">
+          <div class="wp-phase-header">
+            <span class="wp-phase-title">Phase 5: Premium Integrations (v0.7)</span>
+            <span class="wp-phase-badge" data-planned>Planned</span>
+          </div>
+          <p class="wp-phase-description">Enterprise-grade integrations with popular commercial and open-source libraries. Open core model with premium adapters.</p>
+          <div class="wp-phase-items">
+            <span class="wp-phase-item">TipTap (WYSIWYG)</span>
+            <span class="wp-phase-item">AG Grid</span>
+            <span class="wp-phase-item">React DnD Kit</span>
+            <span class="wp-phase-item">Uppy (File Upload)</span>
+          </div>
+        </div>
+
+        <!-- Phase 6 -->
+        <div class="wp-phase" data-status="planned">
+          <div class="wp-phase-header">
+            <span class="wp-phase-title">Phase 6: Developer Experience &amp; Ecosystem (v1.0)</span>
+            <span class="wp-phase-badge" data-planned>Planned</span>
+          </div>
+          <p class="wp-phase-description">AI-powered tooling, design-to-code pipeline, stable API commitment, and enterprise patterns. The full ecosystem play.</p>
+          <div class="wp-phase-items">
+            <span class="wp-phase-item">MCP Server</span>
+            <span class="wp-phase-item">CLI Scaffolding</span>
+            <span class="wp-phase-item">Figma Token Sync</span>
+            <span class="wp-phase-item">React Flow Integration</span>
+            <span class="wp-phase-item">Stable API (semver)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECURITY ===== -->
+  <section class="wp-section">
+    <div class="container">
+      <div class="wp-section-header">
+        <span class="section-label">Trust &amp; Security</span>
+        <h2>Supply Chain Security</h2>
+        <p>Every release is cryptographically verifiable. We don't just build components &mdash; we build trust.</p>
+      </div>
+      <div class="wp-prose">
+        <p><strong>Trusted Publishers with OIDC</strong> &mdash; No npm tokens stored in CI. GitHub Actions receives ephemeral tokens per workflow run via OpenID Connect. Tokens expire immediately after use.</p>
+        <p><strong>Provenance attestation</strong> &mdash; Every published version includes a signed attestation linking the package to the exact commit, workflow run, and repository. Verify with <code>npm audit signatures</code>.</p>
+        <p><strong>CycloneDX SBOM</strong> &mdash; A Software Bill of Materials is generated for every release and attached as a GitHub Release asset. Full transparency into what ships in the package.</p>
+        <p><strong>Automated dependency monitoring</strong> &mdash; Dependabot creates grouped PRs weekly. <code>npm audit</code> runs on every pull request, blocking merges on high/critical vulnerabilities in production dependencies.</p>
+        <p><strong>Package validation</strong> &mdash; Before every publish, the tarball is scanned for sensitive files (.env, credentials, keys). The <code>files</code> allowlist in package.json ensures only <code>dist/</code>, README, LICENSE, and CHANGELOG are included.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="wp-section wp-cta" style="text-align: center;">
+    <div class="container">
+      <div class="wp-section-header" style="margin-bottom: var(--stoked-spacing-8);">
+        <span class="section-label">Get started</span>
+        <h2>Ready to build?</h2>
+        <p>Install stoked-ds and start shipping accessible, performant interfaces today.</p>
+      </div>
+      <div class="hero-actions" style="justify-content: center;">
+        <a href="index.html#installation" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          npm install stoked-ds
+        </a>
+        <a href="https://p4blocabrol.github.io/stoked-ds/storybook/" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Storybook
+        </a>
+        <a href="https://github.com/p4bloCabrol/stoked-ds" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>stoked<span>-ds</span></h3>
+          <p>A lightweight, accessible React design system with zero-runtime CSS.</p>
+          <span class="license">MIT License &copy; 2024 Pablo Cabrol</span>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="https://github.com/p4bloCabrol/stoked-ds" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.npmjs.com/package/stoked-ds" target="_blank" rel="noopener">npm</a>
+          <a href="https://p4blocabrol.github.io/stoked-ds/storybook/" target="_blank" rel="noopener">Storybook</a>
+        </div>
+        <div class="footer-col">
+          <h4>Documentation</h4>
+          <a href="index.html">Home</a>
+          <a href="whitepaper.html">White Paper</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        Made by Pablo Cabrol
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
