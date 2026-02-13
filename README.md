@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/stoked-ds)](https://www.npmjs.com/package/stoked-ds)
 [![npm downloads](https://img.shields.io/npm/dm/stoked-ds)](https://www.npmjs.com/package/stoked-ds)
 [![license](https://img.shields.io/npm/l/stoked-ds)](https://github.com/p4bloCabrol/stoked-ds/blob/main/LICENSE)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/stoked-ds)](https://bundlephobia.com/package/stoked-ds)
+[![install size](https://packagephobia.com/badge?p=stoked-ds)](https://packagephobia.com/result?p=stoked-ds)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue)](https://www.typescriptlang.org/)
 
 A lightweight, accessible React design system with zero-runtime CSS.
