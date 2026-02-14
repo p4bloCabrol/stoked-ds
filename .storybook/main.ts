@@ -1,4 +1,10 @@
+import { createRequire } from 'node:module';
+import { dirname, join } from 'path';
 import type { StorybookConfig } from '@storybook/react-vite';
+
+const require = createRequire(import.meta.url);
+const getAbsolutePath = (value: string) =>
+  dirname(require.resolve(join(value, 'package.json')));
 
 const config: StorybookConfig = {
   stories: [
@@ -7,12 +13,12 @@ const config: StorybookConfig = {
     '../src/**/*.stories.@(ts|tsx|mdx)',
   ],
   addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-a11y',
-    '@storybook/addon-links',
+    getAbsolutePath('@storybook/addon-docs'),
+    getAbsolutePath('@storybook/addon-a11y'),
+    getAbsolutePath('@storybook/addon-links'),
   ],
   framework: {
-    name: '@storybook/react-vite',
+    name: getAbsolutePath('@storybook/react-vite') as any,
     options: {},
   },
   docs: {

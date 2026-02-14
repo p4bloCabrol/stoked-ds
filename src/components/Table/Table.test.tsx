@@ -4,12 +4,7 @@ import { describe, it, expect, vi } from 'vitest';
 import {
   TableContainer,
   Table,
-  TableHead,
-  TableBody,
   TableFoot,
-  TableRow,
-  TableHeaderCell,
-  TableCell,
   TableCaption,
   Thead,
   Tbody,

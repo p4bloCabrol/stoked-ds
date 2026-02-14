@@ -178,19 +178,15 @@ The build produces **95 separate entry files** — one per component, integratio
 
 ### Animation Strategy
 
-We use a hybrid approach:
+All animations use **CSS keyframes and transitions** with zero JavaScript runtime cost:
 
-**CSS keyframes** for simple, performance-critical animations:
-- Skeleton pulse and wave
-- Spinner rotation
-- Progress bar stripes
+- **Skeleton** pulse and wave, **Spinner** rotation, **Progress** bar stripes — `@keyframes` in component CSS modules
+- **Modal** and **Toast** enter/exit — CSS keyframes with `data-state` attributes, managed by a lightweight `useExitAnimation` hook
+- **Tabs** indicator — CSS transitions on `left` and `width` properties
+- **Card** hover/active — CSS `:hover` and `:active` pseudo-classes with `transform`
+- **Button** loading spinner — CSS `@keyframes spin`
 
-**Framer Motion** for complex interactions requiring:
-- Mount/unmount transitions (Modal, Toast)
-- Layout animations (Tabs indicator)
-- Gesture-driven feedback (Button ripple)
-
-All motion respects `prefers-reduced-motion` via the `useReducedMotion` hook.
+All motion respects `prefers-reduced-motion` via CSS `@media` queries.
 
 ### forwardRef Everywhere
 
@@ -274,7 +270,7 @@ npm audit signatures  # Verifies provenance attestation
 
 - **Dependabot** monitors dependencies weekly with grouped PRs
 - **npm audit** runs on every PR (production dependencies only)
-- **2 production dependencies**: `clsx` (class utility) and `framer-motion` (animations)
+- **1 production dependency**: `clsx` (class utility)
 - Everything else is a peer or dev dependency
 
 ---
@@ -288,7 +284,7 @@ npm audit signatures  # Verifies provenance attestation
 | Design tokens | 214 CSS custom properties |
 | Unit tests | 332 passing |
 | Test-to-component ratio | 1:1 (every component has tests) |
-| Production dependencies | 2 (clsx, framer-motion) |
+| Production dependencies | 1 (clsx) |
 | CSS runtime overhead | 0 KB |
 | Theme switching cost | 0 re-renders (pure CSS) |
 | Build format | ESM-only (tree-shakeable) |

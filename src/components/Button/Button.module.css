@@ -242,6 +242,19 @@
 .spinnerIcon {
   width: 1.25em;
   height: 1.25em;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinnerIcon {
+    animation: none;
+  }
 }
 
 .icon {

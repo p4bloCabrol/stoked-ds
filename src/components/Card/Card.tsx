@@ -1,5 +1,4 @@
 import { forwardRef } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import type {
   CardProps,
@@ -10,13 +9,6 @@ import type {
 } from './Card.types';
 import styles from './Card.module.css';
 
-// Spring animation config for hover
-const springTransition = {
-  type: 'spring' as const,
-  stiffness: 400,
-  damping: 25,
-};
-
 const Card = forwardRef<HTMLElement, CardProps>(function Card(
   {
     variant = 'elevated',
@@ -24,41 +16,10 @@ const Card = forwardRef<HTMLElement, CardProps>(function Card(
     isHoverable = false,
     className,
     children,
-    // Exclude native events that conflict with framer-motion
-    onDrag: _onDrag,
-    onDragStart: _onDragStart,
-    onDragEnd: _onDragEnd,
-    onAnimationStart: _onAnimationStart,
-    onAnimationEnd: _onAnimationEnd,
-    onAnimationIteration: _onAnimationIteration,
     ...rest
   },
   ref
 ) {
-  const isInteractive = isClickable || isHoverable;
-  const shouldReduceMotion = useReducedMotion();
-
-  // Use motion.article for interactive cards (with animation)
-  if (isInteractive && !shouldReduceMotion) {
-    return (
-      <motion.article
-        ref={ref}
-        className={cn(styles.card, className)}
-        data-variant={variant}
-        data-clickable={isClickable || undefined}
-        data-hoverable={isHoverable || undefined}
-        data-animated="true"
-        tabIndex={isClickable ? 0 : undefined}
-        whileHover={{ y: -4, scale: 1.01 }}
-        whileTap={isClickable ? { scale: 0.99 } : undefined}
-        transition={springTransition}
-        {...rest}
-      >
-        {children}
-      </motion.article>
-    );
-  }
-
   return (
     <article
       ref={ref}

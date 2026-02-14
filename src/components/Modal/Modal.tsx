@@ -1,25 +1,9 @@
 import { useEffect, useRef, useCallback, type KeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { cn } from '../../utils/cn';
+import { useExitAnimation } from '../../utils/useExitAnimation';
 import type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from './Modal.types';
 import styles from './Modal.module.css';
-
-// Animation variants
-const overlayVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
-
-const modalVariants = {
-  hidden: { opacity: 0, scale: 0.95, y: -10 },
-  visible: { opacity: 1, scale: 1, y: 0 },
-};
-
-const reducedMotionVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
 
 function Modal({
   isOpen,
@@ -36,8 +20,7 @@ function Modal({
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const animationDuration = shouldReduceMotion ? 0 : 0.2;
+  const { shouldRender, animationState, onAnimationEnd } = useExitAnimation(isOpen, 200);
 
   // Handle escape key
   const handleKeyDown = useCallback(
@@ -114,53 +97,47 @@ function Modal({
     return () => document.removeEventListener('keydown', handleTabKey);
   }, [isOpen]);
 
+  if (!shouldRender) {
+    return null;
+  }
+
   const modalContent = (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className={styles.overlay}
-          onClick={handleOverlayClick}
-          data-centered={isCentered || undefined}
-          variants={overlayVariants}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          transition={{ duration: animationDuration }}
-        >
-          <motion.div
-            ref={modalRef}
-            role="dialog"
-            aria-modal="true"
-            aria-label={ariaLabel}
-            aria-labelledby={ariaLabelledBy}
-            aria-describedby={ariaDescribedBy}
-            tabIndex={-1}
-            className={styles.modal}
-            data-size={size}
-            onKeyDown={handleKeyDown}
-            variants={shouldReduceMotion ? reducedMotionVariants : modalVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            transition={{ duration: animationDuration, ease: [0.16, 1, 0.3, 1] }}
+    <div
+      className={styles.overlay}
+      onClick={handleOverlayClick}
+      data-centered={isCentered || undefined}
+      data-state={animationState}
+      onAnimationEnd={onAnimationEnd}
+    >
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        aria-describedby={ariaDescribedBy}
+        tabIndex={-1}
+        className={styles.modal}
+        data-size={size}
+        data-state={animationState}
+        onKeyDown={handleKeyDown}
+        onAnimationEnd={onAnimationEnd}
+      >
+        {showCloseButton && (
+          <button
+            type="button"
+            className={styles.closeButton}
+            onClick={onClose}
+            aria-label="Close modal"
           >
-            {showCloseButton && (
-              <button
-                type="button"
-                className={styles.closeButton}
-                onClick={onClose}
-                aria-label="Close modal"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-              </button>
-            )}
-            {children}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            </svg>
+          </button>
+        )}
+        {children}
+      </div>
+    </div>
   );
 
   return createPortal(modalContent, document.body);

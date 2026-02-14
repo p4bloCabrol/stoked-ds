@@ -188,7 +188,7 @@ export const AllControlTypes: Story = {
         <FormField
           control={form.control}
           name="country"
-          render={({ field, error }) => (
+          render={({ field, error: _error }) => (
             <Select
               {...field}
               label="Country"

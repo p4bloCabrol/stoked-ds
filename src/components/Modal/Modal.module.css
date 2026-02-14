@@ -9,6 +9,11 @@
   background-color: var(--stoked-color-surface-overlay);
   backdrop-filter: blur(4px);
   overflow-y: auto;
+  animation: overlayEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.overlay[data-state='exiting'] {
+  animation: overlayExit 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .overlay[data-centered] {
@@ -23,6 +28,11 @@
   border-radius: var(--stoked-radius-xl);
   box-shadow: var(--stoked-shadow-2xl);
   outline: none;
+  animation: modalEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal[data-state='exiting'] {
+  animation: modalExit 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Size variants */
@@ -112,4 +122,49 @@
   gap: var(--stoked-spacing-3);
   padding: var(--stoked-spacing-4) var(--stoked-spacing-6);
   border-top: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+}
+
+/* ===== Animations ===== */
+@keyframes overlayEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlayExit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalExit {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .overlay[data-state='exiting'] {
+    animation-duration: 0.01ms;
+  }
+
+  .modal,
+  .modal[data-state='exiting'] {
+    animation-duration: 0.01ms;
+  }
 }

@@ -22,7 +22,7 @@ describe('Skeleton', () => {
   });
 
   it('should render with different animations', () => {
-    // Animation is now handled by framer-motion, so we just verify the component renders
+    // Animation is handled by CSS keyframes, so we just verify the component renders
     const { rerender } = render(<Skeleton data-testid="skeleton" animation="wave" />);
     expect(screen.getByTestId('skeleton')).toBeInTheDocument();
 

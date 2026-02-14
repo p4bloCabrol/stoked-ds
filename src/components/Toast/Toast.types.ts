@@ -18,6 +18,8 @@ export interface Toast {
   duration?: number;
   isClosable?: boolean;
   icon?: ReactNode;
+  /** @internal Used for exit animation state */
+  _exiting?: boolean;
 }
 
 export interface ToastOptions extends Omit<Toast, 'id'> {}

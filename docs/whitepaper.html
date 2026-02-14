@@ -90,8 +90,8 @@
           <div class="wp-metric-label">CSS Runtime</div>
         </div>
         <div class="wp-metric">
-          <div class="wp-metric-value">2</div>
-          <div class="wp-metric-label">Prod Dependencies</div>
+          <div class="wp-metric-value">1</div>
+          <div class="wp-metric-label">Prod Dependency</div>
         </div>
       </div>
     </div>
@@ -131,7 +131,7 @@
           <div class="wp-principle-number">4</div>
           <div>
             <h3>Minimal Dependency Surface</h3>
-            <p>Only 2 production dependencies (clsx, framer-motion). Everything else is a peer or dev dependency. Your bundle stays lean.</p>
+            <p>Only 1 production dependency (clsx). All animations are pure CSS. Everything else is a peer or dev dependency. Your bundle stays lean.</p>
           </div>
         </div>
         <div class="wp-principle">
@@ -165,7 +165,7 @@
         <p><strong>Component-level CSS variables</strong> create a clean layering system: global tokens cascade into component defaults, which are overridden by variant selectors. No specificity wars, no <code>!important</code>.</p>
         <p><strong>Sub-path exports</strong> keep integrations isolated. Each adapter has its own entry point (<code>stoked-ds/integrations/tanstack-table</code>), its own bundle, and its external library as an optional peer dependency. The core bundle is never affected by integration code.</p>
         <p><strong>ESM-only output</strong> with 95 separate entry files maximizes tree-shaking. Import one component, only that component's code and CSS end up in your bundle. CSS is declared as a side effect for proper inclusion.</p>
-        <p><strong>Hybrid animation strategy:</strong> CSS keyframes for simple animations (Spinner, Skeleton, Progress) and Framer Motion for complex interactions requiring mount/unmount transitions (Modal, Toast) and gesture feedback (Button ripple). All motion respects <code>prefers-reduced-motion</code>.</p>
+        <p><strong>Pure CSS animation strategy:</strong> All animations use CSS keyframes and transitions defined in component CSS modules. Mount/unmount transitions (Modal, Toast) are managed by a lightweight <code>useExitAnimation</code> hook with <code>data-state</code> attributes. All motion respects <code>prefers-reduced-motion</code> via CSS media queries.</p>
       </div>
     </div>
   </section>

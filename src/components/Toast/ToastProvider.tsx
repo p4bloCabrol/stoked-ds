@@ -1,6 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { AnimatePresence } from 'framer-motion';
 import { ToastContext } from './ToastContext';
 import { ToastItem } from './ToastItem';
 import type { Toast, ToastOptions, ToastProviderProps } from './Toast.types';
@@ -22,6 +21,12 @@ function ToastProvider({
       clearTimeout(timer);
       timersRef.current.delete(id);
     }
+    // Mark as exiting instead of immediate removal
+    setToasts((prev) => prev.map((t) => (t.id === id ? { ...t, _exiting: true } : t)));
+  }, []);
+
+  // Actual removal after exit animation completes
+  const finalizeRemoval = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
@@ -75,8 +80,9 @@ function ToastProvider({
 
   // Cleanup timers on unmount
   useEffect(() => {
+    const timers = timersRef.current;
     return () => {
-      timersRef.current.forEach((timer) => clearTimeout(timer));
+      timers.forEach((timer) => clearTimeout(timer));
     };
   }, []);
 
@@ -86,11 +92,14 @@ function ToastProvider({
       {typeof document !== 'undefined' &&
         createPortal(
           <div className={styles.container} data-position={position}>
-            <AnimatePresence mode="popLayout">
-              {toasts.map((t) => (
-                <ToastItem key={t.id} toast={t} onClose={() => removeToast(t.id)} />
-              ))}
-            </AnimatePresence>
+            {toasts.map((t) => (
+              <ToastItem
+                key={t.id}
+                toast={t}
+                onClose={() => removeToast(t.id)}
+                onExitComplete={() => finalizeRemoval(t.id)}
+              />
+            ))}
           </div>,
           document.body
         )}
