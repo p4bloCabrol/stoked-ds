@@ -149,9 +149,14 @@
     "stoked"
   ],
   "license": "MIT",
+  "author": "Pablo Cabrol",
+  "homepage": "https://p4blocabrol.github.io/stoked-ds/",
   "repository": {
     "type": "git",
     "url": "https://github.com/p4bloCabrol/stoked-ds.git"
+  },
+  "bugs": {
+    "url": "https://github.com/p4bloCabrol/stoked-ds/issues"
   },
   "publishConfig": {
     "access": "public"
