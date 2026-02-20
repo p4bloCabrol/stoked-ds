@@ -38,3 +38,4 @@ nul
 # Claude Code context
 CLAUDE.md
 .claude/
+.mcp.json
