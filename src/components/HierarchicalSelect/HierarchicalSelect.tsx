@@ -1,4 +1,5 @@
 import {
+  Fragment,
   forwardRef,
   useState,
   useCallback,
@@ -109,8 +110,7 @@ function TreeItem({
     if (option.disabled) return;
     if (hasChildren) {
       onToggleExpand(option.id);
-      // In single mode, clicking a parent only expands/collapses
-      if (mode === 'single') return;
+      return;
     }
     onSelect(option.id);
   };
@@ -174,7 +174,7 @@ function TreeItem({
           {mode === 'multi' && breadcrumb && breadcrumb.length > 1 && (
             <span className={styles.itemPath}>
               {breadcrumb.map((segment, i) => (
-                <span key={i}>
+                <Fragment key={i}>
                   {i > 0 && (
                     <svg
                       className={styles.pathSeparator}
@@ -189,15 +189,15 @@ function TreeItem({
                       <path d="M9 18l6-6-6-6" />
                     </svg>
                   )}
-                  {segment}
-                </span>
+                  <span>{segment}</span>
+                </Fragment>
               ))}
             </span>
           )}
         </div>
 
-        {/* Checkbox (multi mode) */}
-        {mode === 'multi' && (
+        {/* Checkbox (multi mode, leaf nodes only) */}
+        {mode === 'multi' && !hasChildren && (
           <span
             className={styles.checkbox}
             aria-hidden="true"
@@ -438,13 +438,10 @@ const HierarchicalSelect = forwardRef<HTMLDivElement, HierarchicalSelectProps>(
               setIsOpen(true);
             } else if (activeDescendant) {
               const opt = findOption(options, activeDescendant);
-              if (opt?.children && mode === 'single') {
+              if (opt?.children) {
                 handleToggleExpand(activeDescendant);
               } else {
                 handleSelect(activeDescendant);
-                if (opt?.children) {
-                  handleToggleExpand(activeDescendant);
-                }
               }
             }
             break;
@@ -516,7 +513,6 @@ const HierarchicalSelect = forwardRef<HTMLDivElement, HierarchicalSelectProps>(
         visibleItems,
         expandedIds,
         options,
-        mode,
         setIsOpen,
         handleSelect,
         handleToggleExpand,
@@ -743,20 +739,25 @@ const HierarchicalSelect = forwardRef<HTMLDivElement, HierarchicalSelectProps>(
             </div>
 
             {/* Footer (multi mode) */}
-            {mode === 'multi' && (
+            {mode === 'multi' && (selectedIds.length > 0 || showApplyButton) && (
               <div className={styles.footer}>
-                <button
-                  type="button"
-                  className={styles.clearButton}
-                  onClick={handleClearAll}
-                >
-                  {clearButtonLabel}
-                </button>
+                {selectedIds.length > 0 ? (
+                  <button
+                    type="button"
+                    className={styles.clearButton}
+                    onClick={handleClearAll}
+                  >
+                    {clearButtonLabel}
+                  </button>
+                ) : (
+                  <span />
+                )}
                 {showApplyButton && (
                   <button
                     type="button"
                     className={styles.applyButton}
                     onClick={handleApply}
+                    disabled={selectedIds.length === 0}
                   >
                     {applyButtonLabel}
                   </button>

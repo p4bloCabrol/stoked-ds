@@ -201,7 +201,24 @@ describe('HierarchicalSelect', () => {
     expect(onChange).toHaveBeenCalledWith([]);
   });
 
-  it('should show footer with clear and apply buttons in multi mode', async () => {
+  it('should show footer with clear and apply buttons when items selected', async () => {
+    const user = userEvent.setup();
+    render(
+      <HierarchicalSelect
+        options={sampleOptions}
+        mode="multi"
+        defaultValue={['root-2']}
+        showApplyButton
+        aria-label="Test"
+      />
+    );
+
+    await user.click(screen.getByRole('combobox'));
+    expect(screen.getByText('Clear all')).toBeInTheDocument();
+    expect(screen.getByText('Apply Selection')).toBeInTheDocument();
+  });
+
+  it('should disable apply button when no items selected', async () => {
     const user = userEvent.setup();
     render(
       <HierarchicalSelect
@@ -213,8 +230,8 @@ describe('HierarchicalSelect', () => {
     );
 
     await user.click(screen.getByRole('combobox'));
-    expect(screen.getByText('Clear all')).toBeInTheDocument();
-    expect(screen.getByText('Apply Selection')).toBeInTheDocument();
+    expect(screen.getByText('Apply Selection')).toBeDisabled();
+    expect(screen.queryByText('Clear all')).not.toBeInTheDocument();
   });
 
   it('should call onApply when apply button is clicked', async () => {
