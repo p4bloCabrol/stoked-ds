@@ -159,7 +159,7 @@ Integrations are kept completely separate from the core in the build:
 3. **Styles map to design tokens** — visual consistency without coupling
 4. **Tests and stories are self-contained** — each integration is a standalone module
 
-This means the core bundle (27 components) is **never affected** by integration code.
+This means the core bundle (28 components) is **never affected** by integration code.
 
 ---
 
@@ -190,7 +190,7 @@ All motion respects `prefers-reduced-motion` via CSS `@media` queries.
 
 ### forwardRef Everywhere
 
-All 27 components use `React.forwardRef`. This is non-negotiable for a design system:
+All 28 components use `React.forwardRef`. This is non-negotiable for a design system:
 - Form libraries need ref access for registration
 - Focus management requires imperative control
 - Composition with third-party components expects refs to work
@@ -279,10 +279,10 @@ npm audit signatures  # Verifies provenance attestation
 
 | Metric | Value |
 |--------|-------|
-| Components | 27 |
+| Components | 28 |
 | Integrations | 5 (12 components) |
 | Design tokens | 214 CSS custom properties |
-| Unit tests | 332 passing |
+| Unit tests | 359 passing |
 | Test-to-component ratio | 1:1 (every component has tests) |
 | Production dependencies | 1 (clsx) |
 | CSS runtime overhead | 0 KB |

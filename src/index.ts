@@ -112,3 +112,11 @@ export type { BreadcrumbProps, BreadcrumbItem } from './components/Breadcrumb';
 
 export { ButtonGroup } from './components/ButtonGroup';
 export type { ButtonGroupProps, ButtonGroupOption, ButtonGroupSize } from './components/ButtonGroup';
+
+export { HierarchicalSelect } from './components/HierarchicalSelect';
+export type {
+  HierarchicalSelectProps,
+  HierarchicalSelectMode,
+  HierarchicalSelectSize,
+  HierarchicalOption,
+} from './components/HierarchicalSelect';
