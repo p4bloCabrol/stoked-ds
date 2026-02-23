@@ -1,0 +1,505 @@
+/* =============================================================================
+   HierarchicalSelect
+   ============================================================================= */
+
+.root {
+  --_hs-trigger-height: var(--stoked-spacing-10);
+  --_hs-font-size: var(--stoked-text-base);
+  --_hs-radius: var(--stoked-radius-xl);
+  --_hs-padding: var(--stoked-spacing-3);
+  --_hs-gap: var(--stoked-spacing-2);
+  --_hs-item-indent: var(--stoked-spacing-6);
+
+  position: relative;
+  width: 100%;
+  font-family: var(--stoked-font-sans);
+  font-size: var(--_hs-font-size);
+}
+
+/* Sizes */
+.root[data-size='sm'] {
+  --_hs-trigger-height: var(--stoked-spacing-8);
+  --_hs-font-size: var(--stoked-text-sm);
+  --_hs-padding: var(--stoked-spacing-2);
+  --_hs-gap: var(--stoked-spacing-1-5);
+}
+
+.root[data-size='lg'] {
+  --_hs-trigger-height: var(--stoked-spacing-12);
+  --_hs-font-size: var(--stoked-text-md);
+  --_hs-padding: var(--stoked-spacing-4);
+}
+
+/* Disabled */
+.root[data-disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   Label
+   ============================================================================= */
+
+.label {
+  display: block;
+  font-size: var(--stoked-text-sm);
+  font-weight: var(--stoked-font-semibold);
+  color: var(--stoked-color-text);
+  margin-bottom: var(--stoked-spacing-1-5);
+}
+
+/* =============================================================================
+   Trigger
+   ============================================================================= */
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--_hs-gap);
+  min-height: var(--_hs-trigger-height);
+  padding: var(--_hs-padding);
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  border-radius: var(--_hs-radius);
+  background-color: var(--stoked-color-surface);
+  cursor: pointer;
+  transition: var(--stoked-transition-colors);
+  outline: none;
+}
+
+.trigger:hover:not([aria-disabled='true']) {
+  border-color: var(--stoked-color-border-strong);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.root[data-open] .trigger {
+  border-color: var(--stoked-color-primary);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Trigger content */
+.triggerContent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--_hs-gap);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.triggerText {
+  font-size: var(--_hs-font-size);
+  font-weight: var(--stoked-font-medium);
+  color: var(--stoked-color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.placeholder {
+  font-size: var(--_hs-font-size);
+  color: var(--stoked-color-text-muted);
+}
+
+/* Arrow */
+.triggerArrow {
+  display: flex;
+  align-items: center;
+  color: var(--stoked-color-text-muted);
+  transition: transform var(--stoked-duration-normal) var(--stoked-easing-default);
+  flex-shrink: 0;
+}
+
+.root[data-open] .triggerArrow {
+  transform: rotate(180deg);
+  color: var(--stoked-color-primary);
+}
+
+/* =============================================================================
+   Chips (Multi-Select)
+   ============================================================================= */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--stoked-spacing-1);
+  padding: var(--stoked-spacing-0-5) var(--stoked-spacing-2);
+  background-color: var(--stoked-color-primary);
+  color: var(--stoked-color-text-inverse);
+  border-radius: var(--stoked-radius-lg);
+  font-size: var(--stoked-text-sm);
+  font-weight: var(--stoked-font-bold);
+  white-space: nowrap;
+  line-height: var(--stoked-leading-normal);
+}
+
+.chipLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chipRemove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity var(--stoked-duration-fast) var(--stoked-easing-default);
+}
+
+.chipRemove:hover {
+  opacity: 1;
+}
+
+/* Inline search input in multi mode */
+.inlineSearch {
+  flex: 1;
+  min-width: 60px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: var(--_hs-font-size);
+  font-family: var(--stoked-font-sans);
+  color: var(--stoked-color-text);
+  padding: 0;
+}
+
+.inlineSearch::placeholder {
+  color: var(--stoked-color-text-muted);
+}
+
+/* =============================================================================
+   Dropdown
+   ============================================================================= */
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: var(--stoked-z-dropdown);
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-primary);
+  border-top: none;
+  border-bottom-left-radius: var(--_hs-radius);
+  border-bottom-right-radius: var(--_hs-radius);
+  background-color: var(--stoked-color-surface);
+  box-shadow: var(--stoked-shadow-xl);
+  overflow: hidden;
+  animation: hsSlideIn var(--stoked-duration-normal) var(--stoked-easing-out);
+}
+
+@keyframes hsSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown {
+    animation: none;
+  }
+}
+
+/* =============================================================================
+   Search
+   ============================================================================= */
+
+.search {
+  position: relative;
+  padding: var(--_hs-padding);
+  border-bottom: var(--stoked-border-width-thin) solid var(--stoked-color-border-muted);
+}
+
+.searchIcon {
+  position: absolute;
+  left: calc(var(--_hs-padding) + var(--stoked-spacing-3));
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--stoked-color-text-muted);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--stoked-spacing-2) var(--stoked-spacing-4) var(--stoked-spacing-2) var(--stoked-spacing-10);
+  border: none;
+  border-radius: var(--stoked-radius-lg);
+  background-color: var(--stoked-color-background);
+  color: var(--stoked-color-text);
+  font-size: var(--stoked-text-sm);
+  font-family: var(--stoked-font-sans);
+  outline: none;
+}
+
+.searchInput:focus {
+  box-shadow: 0 0 0 2px var(--stoked-color-primary);
+}
+
+.searchInput::placeholder {
+  color: var(--stoked-color-text-muted);
+}
+
+/* =============================================================================
+   Tree List
+   ============================================================================= */
+
+.list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: var(--stoked-spacing-1) 0;
+}
+
+/* Custom scrollbar */
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: var(--stoked-color-border-muted);
+  border-radius: var(--stoked-radius-full);
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background: var(--stoked-color-primary);
+}
+
+/* =============================================================================
+   Tree Item
+   ============================================================================= */
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--_hs-gap);
+  padding: var(--stoked-spacing-2) var(--stoked-spacing-4);
+  cursor: pointer;
+  transition: background-color var(--stoked-duration-fast) var(--stoked-easing-default);
+  border-left: 3px solid transparent;
+}
+
+/* Depth indentation (dynamic, supports unlimited nesting) */
+.item {
+  padding-left: calc(var(--stoked-spacing-4) + var(--_hs-item-depth, 0) * var(--_hs-item-indent));
+}
+
+.item:hover:not([data-disabled]) {
+  background-color: var(--stoked-color-primary-light);
+}
+
+/* Selected state */
+.item[data-selected] {
+  background-color: var(--stoked-color-primary-light);
+  border-left-color: var(--stoked-color-primary);
+}
+
+.item[data-selected] .itemLabel {
+  color: var(--stoked-color-primary);
+  font-weight: var(--stoked-font-bold);
+}
+
+/* Active descendant (keyboard focus) */
+.item[data-active] {
+  background-color: var(--stoked-color-primary-light);
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: -2px;
+}
+
+/* Disabled */
+.item[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =============================================================================
+   Tree Item Parts
+   ============================================================================= */
+
+/* Chevron */
+.chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--stoked-color-text-muted);
+  transition: transform var(--stoked-duration-fast) var(--stoked-easing-default);
+}
+
+.chevron[data-expanded] {
+  transform: rotate(90deg);
+  color: var(--stoked-color-primary);
+}
+
+.item:hover .chevron {
+  color: var(--stoked-color-primary);
+}
+
+/* Leaf indent (no chevron) */
+.leafIndent {
+  width: 16px;
+  flex-shrink: 0;
+}
+
+/* Item icon */
+.itemIcon {
+  display: flex;
+  align-items: center;
+  color: var(--stoked-color-text-muted);
+  flex-shrink: 0;
+}
+
+.item[data-selected] .itemIcon {
+  color: var(--stoked-color-primary);
+}
+
+/* Item content */
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.itemLabel {
+  font-size: var(--_hs-font-size);
+  font-weight: var(--stoked-font-medium);
+  color: var(--stoked-color-text);
+  line-height: var(--stoked-leading-tight);
+}
+
+.item[data-has-children] .itemLabel {
+  font-weight: var(--stoked-font-bold);
+}
+
+/* Breadcrumb path */
+.itemPath {
+  display: flex;
+  align-items: center;
+  gap: var(--stoked-spacing-0-5);
+  font-size: var(--stoked-text-xs);
+  color: var(--stoked-color-text-muted);
+  margin-top: var(--stoked-spacing-0-5);
+  line-height: 1;
+}
+
+.pathSeparator {
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+/* =============================================================================
+   Checkbox (Multi Mode)
+   ============================================================================= */
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: var(--stoked-border-width-medium) solid var(--stoked-color-border-strong);
+  border-radius: var(--stoked-radius-sm);
+  transition: var(--stoked-transition-colors);
+  order: -1;
+}
+
+.checkbox[data-checked] {
+  background-color: var(--stoked-color-primary);
+  border-color: var(--stoked-color-primary);
+  color: var(--stoked-color-text-inverse);
+}
+
+/* =============================================================================
+   Footer (Multi Mode)
+   ============================================================================= */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--_hs-padding);
+  border-top: var(--stoked-border-width-thin) solid var(--stoked-color-border-muted);
+  background-color: var(--stoked-color-background);
+}
+
+.clearButton {
+  font-size: var(--stoked-text-sm);
+  font-weight: var(--stoked-font-bold);
+  font-family: var(--stoked-font-sans);
+  color: var(--stoked-color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--stoked-spacing-1) var(--stoked-spacing-2);
+  border-radius: var(--stoked-radius-md);
+  transition: color var(--stoked-duration-fast) var(--stoked-easing-default);
+}
+
+.clearButton:hover {
+  color: var(--stoked-color-primary);
+}
+
+.clearButton:focus-visible {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.applyButton {
+  font-size: var(--stoked-text-sm);
+  font-weight: var(--stoked-font-bold);
+  font-family: var(--stoked-font-sans);
+  color: var(--stoked-color-text-inverse);
+  background-color: var(--stoked-color-primary);
+  border: none;
+  cursor: pointer;
+  padding: var(--stoked-spacing-1-5) var(--stoked-spacing-4);
+  border-radius: var(--stoked-radius-lg);
+  box-shadow: var(--stoked-shadow-primary);
+  transition: var(--stoked-transition-colors);
+}
+
+.applyButton:hover {
+  background-color: var(--stoked-color-primary-hover);
+}
+
+.applyButton:focus-visible {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.applyButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =============================================================================
+   Empty state
+   ============================================================================= */
+
+.empty {
+  padding: var(--stoked-spacing-8) var(--stoked-spacing-4);
+  text-align: center;
+  color: var(--stoked-color-text-muted);
+  font-size: var(--stoked-text-sm);
+}
