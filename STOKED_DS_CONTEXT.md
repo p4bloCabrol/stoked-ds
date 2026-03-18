@@ -2,14 +2,14 @@
 
 > This document is the single source of truth for building components in stoked-ds.
 > Use it as context for AI tools (Stitch, Claude, Cursor) to ensure every new component
-> follows the same patterns, conventions, and quality bar as the existing 27 components.
+> follows the same patterns, conventions, and quality bar as the existing 30 components.
 
 ---
 
 ## 1. Project Identity
 
 - **Name**: stoked-ds
-- **Version**: 0.4.0
+- **Version**: 0.5.0
 - **Philosophy**: Lightweight, accessible React design system with zero-runtime CSS
 - **License**: MIT
 - **Repo**: github.com/p4bloCabrol/stoked-ds
@@ -588,7 +588,7 @@ export const Sizes: Story = {
 
 ---
 
-## 11. Existing Components (27)
+## 11. Existing Components (30)
 
 ### Form Controls (8)
 Button, Input, SearchInput, Checkbox, Radio/RadioGroup, Select, Switch, ButtonGroup
@@ -610,7 +610,7 @@ Breadcrumb, Pagination
 ## 12. Roadmap (from White Paper)
 
 ### Phase 1: Foundation (v0.1–v0.3) — COMPLETED
-27 components, 214 tokens, dark/light themes, 5 integrations, Storybook docs, landing page.
+30 components, 214 tokens, dark/light themes, 5 integrations, Storybook docs, landing page.
 
 ### Phase 2: Hardening & Visibility (v0.4) — COMPLETED
 Trusted Publishers (OIDC), provenance, CycloneDX SBOM, npm audit in CI, Dependabot, SEO, README badges, white paper.

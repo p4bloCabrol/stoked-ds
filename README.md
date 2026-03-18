@@ -10,7 +10,7 @@ A lightweight, accessible React design system with zero-runtime CSS.
 
 ## Features
 
-- **27 Components** - Full set of form controls, feedback, data display, layout, and navigation components
+- **30 Components** - Full set of form controls, feedback, data display, layout, and navigation components
 - **Zero-runtime CSS** - CSS Modules with CSS Variables, no JavaScript runtime overhead
 - **Accessible** - WAI-ARIA compliant with keyboard navigation support
 - **Dark Mode** - Built-in dark theme via `data-theme` attribute
@@ -232,7 +232,7 @@ function Dashboard() {
 
 Run `npm run dev` to launch Storybook with:
 
-- All 27 component stories with controls and docs
+- All 30 component stories with controls and docs
 - **8 Page stories** — Full-screen inventory management pages showing how components compose into real UIs (Dashboard, Inventory List, Inventory Detail, Warehouses, Stock Entry, Reports, Settings, Loading States)
 - 5 Integration demos (React Hook Form, TanStack Table, react-day-picker, react-select, Recharts)
 
