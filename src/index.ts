@@ -120,3 +120,19 @@ export type {
   HierarchicalSelectSize,
   HierarchicalOption,
 } from './components/HierarchicalSelect';
+
+export { MultiSelect } from './components/MultiSelect';
+export type {
+  MultiSelectProps,
+  MultiSelectSize,
+  MultiSelectOption,
+} from './components/MultiSelect';
+
+export { Stepper } from './components/Stepper';
+export type {
+  StepperProps,
+  StepperOrientation,
+  StepperSize,
+  StepItem,
+  StepStatus,
+} from './components/Stepper';

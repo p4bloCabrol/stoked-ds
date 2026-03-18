@@ -1,0 +1,246 @@
+/* =============================================================================
+   Stepper
+   ============================================================================= */
+
+.root {
+  --_step-size: var(--stoked-spacing-10);
+  --_step-font-size: var(--stoked-text-sm);
+  --_step-icon-size: var(--stoked-text-base);
+  --_step-gap: var(--stoked-spacing-3);
+  --_step-line-thickness: var(--stoked-border-width-medium);
+
+  display: flex;
+  width: 100%;
+  font-family: var(--stoked-font-sans);
+}
+
+/* Sizes */
+.root[data-size='sm'] {
+  --_step-size: var(--stoked-spacing-8);
+  --_step-font-size: var(--stoked-text-xs);
+  --_step-icon-size: var(--stoked-text-sm);
+  --_step-gap: var(--stoked-spacing-2);
+}
+
+.root[data-size='lg'] {
+  --_step-size: var(--stoked-spacing-12);
+  --_step-font-size: var(--stoked-text-base);
+  --_step-icon-size: var(--stoked-text-md);
+  --_step-gap: var(--stoked-spacing-4);
+}
+
+/* =============================================================================
+   Horizontal Layout
+   ============================================================================= */
+
+.root[data-orientation='horizontal'] {
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Progress line (horizontal) */
+.progressTrack {
+  position: absolute;
+  top: calc(var(--_step-size) / 2);
+  left: 0;
+  right: 0;
+  height: var(--_step-line-thickness);
+  background-color: var(--stoked-color-border-muted);
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--stoked-color-primary);
+  transition: width var(--stoked-duration-slow) var(--stoked-easing-default);
+}
+
+/* =============================================================================
+   Vertical Layout
+   ============================================================================= */
+
+.root[data-orientation='vertical'] {
+  flex-direction: column;
+  gap: 0;
+}
+
+.root[data-orientation='vertical'] .progressTrack {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--_step-size) / 2);
+  width: var(--_step-line-thickness);
+  height: 100%;
+}
+
+.root[data-orientation='vertical'] .progressFill {
+  width: 100%;
+  height: 0;
+  transition: height var(--stoked-duration-slow) var(--stoked-easing-default);
+}
+
+/* =============================================================================
+   Step
+   ============================================================================= */
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.root[data-orientation='vertical'] .step {
+  flex-direction: row;
+  text-align: left;
+  align-items: flex-start;
+  gap: var(--_step-gap);
+  padding-bottom: var(--stoked-spacing-8);
+}
+
+.root[data-orientation='vertical'] .step:last-child {
+  padding-bottom: 0;
+}
+
+/* Clickable steps */
+.step[data-clickable] {
+  cursor: pointer;
+}
+
+/* Pending state dims the step (unless clickable) */
+.step[data-status='pending']:not([data-clickable]) {
+  opacity: 0.5;
+}
+
+.step[data-status='pending'][data-clickable] {
+  opacity: 0.65;
+  cursor: pointer;
+}
+
+/* =============================================================================
+   Step Indicator (Circle)
+   ============================================================================= */
+
+.indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--_step-size);
+  height: var(--_step-size);
+  border-radius: var(--stoked-radius-full);
+  flex-shrink: 0;
+  margin-bottom: var(--_step-gap);
+  font-size: var(--_step-font-size);
+  font-weight: var(--stoked-font-bold);
+  transition: var(--stoked-transition-all);
+  box-shadow: 0 0 0 4px var(--stoked-color-background);
+}
+
+.root[data-orientation='vertical'] .indicator {
+  margin-bottom: 0;
+}
+
+/* Completed */
+.step[data-status='completed'] .indicator {
+  background-color: var(--stoked-color-primary);
+  color: var(--stoked-color-text-inverse);
+}
+
+/* Active */
+.step[data-status='active'] .indicator {
+  background-color: var(--stoked-color-background);
+  border: var(--stoked-border-width-medium) solid var(--stoked-color-primary);
+  color: var(--stoked-color-primary);
+  box-shadow:
+    0 0 0 4px var(--stoked-color-background),
+    0 0 15px var(--stoked-color-primary-muted);
+}
+
+/* Pending */
+.step[data-status='pending'] .indicator {
+  background-color: var(--stoked-color-surface);
+  color: var(--stoked-color-text-muted);
+}
+
+/* Error */
+.step[data-status='error'] .indicator {
+  background-color: var(--stoked-color-danger);
+  color: var(--stoked-color-text-inverse);
+}
+
+/* Hover on clickable completed steps */
+.step[data-clickable][data-status='completed']:hover .indicator {
+  box-shadow:
+    0 0 0 4px var(--stoked-color-background),
+    0 0 10px var(--stoked-color-primary-muted);
+}
+
+/* Focus */
+.step:focus-visible .indicator {
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   Step Content
+   ============================================================================= */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.stepLabel {
+  font-size: var(--_step-font-size);
+  font-weight: var(--stoked-font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--stoked-color-text-muted);
+  line-height: var(--stoked-leading-tight);
+}
+
+.step[data-status='completed'] .stepLabel {
+  color: var(--stoked-color-text);
+}
+
+.step[data-status='active'] .stepLabel {
+  color: var(--stoked-color-primary);
+}
+
+.step[data-status='error'] .stepLabel {
+  color: var(--stoked-color-danger);
+}
+
+.description {
+  font-size: var(--stoked-text-xs);
+  color: var(--stoked-color-text-muted);
+  margin-top: var(--stoked-spacing-0-5);
+  line-height: var(--stoked-leading-normal);
+}
+
+.step[data-status='active'] .description {
+  color: var(--stoked-color-primary);
+  opacity: 0.8;
+  animation: stepPulse 2s var(--stoked-easing-default) infinite;
+}
+
+@keyframes stepPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step[data-status='active'] .description {
+    animation: none;
+  }
+
+  .progressFill {
+    transition: none;
+  }
+}
