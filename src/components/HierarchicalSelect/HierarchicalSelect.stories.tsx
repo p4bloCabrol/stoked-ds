@@ -194,3 +194,44 @@ export const NoSearch: Story = {
     label: 'Without search',
   },
 };
+
+export const MultiWithoutApply: Story = {
+  args: {
+    mode: 'multi',
+    label: 'Multi (no apply button)',
+    placeholder: 'Select locations...',
+    showApplyButton: false,
+  },
+};
+
+export const ControlledMulti: Story = {
+  render: () => {
+    const [value, setValue] = useState<string[]>([]);
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <HierarchicalSelect
+          options={sampleOptions}
+          mode="multi"
+          label="Controlled Multi"
+          value={value}
+          onChange={(v) => setValue(v as string[])}
+          showApplyButton
+          onApply={(v) => alert(`Applied: ${v.join(', ')}`)}
+        />
+        <p style={{ fontSize: '0.75rem', color: 'var(--stoked-color-text-secondary)' }}>
+          Selected: {value.length > 0 ? value.join(', ') : 'none'}
+        </p>
+      </div>
+    );
+  },
+};
+
+export const MultiSearchable: Story = {
+  args: {
+    mode: 'multi',
+    label: 'Multi with search',
+    placeholder: 'Search and select...',
+    searchable: true,
+    showApplyButton: true,
+  },
+};
