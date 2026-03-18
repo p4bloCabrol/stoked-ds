@@ -1,0 +1,334 @@
+/* =============================================================================
+   MultiSelect
+   ============================================================================= */
+
+.root {
+  --_ms-trigger-min-height: var(--stoked-spacing-10);
+  --_ms-font-size: var(--stoked-text-base);
+  --_ms-radius: var(--stoked-radius-xl);
+  --_ms-padding: var(--stoked-spacing-3);
+  --_ms-gap: var(--stoked-spacing-2);
+
+  position: relative;
+  width: 100%;
+  font-family: var(--stoked-font-sans);
+  font-size: var(--_ms-font-size);
+}
+
+/* Sizes */
+.root[data-size='sm'] {
+  --_ms-trigger-min-height: var(--stoked-spacing-8);
+  --_ms-font-size: var(--stoked-text-sm);
+  --_ms-padding: var(--stoked-spacing-2);
+  --_ms-gap: var(--stoked-spacing-1-5);
+}
+
+.root[data-size='lg'] {
+  --_ms-trigger-min-height: var(--stoked-spacing-12);
+  --_ms-font-size: var(--stoked-text-md);
+  --_ms-padding: var(--stoked-spacing-4);
+}
+
+/* Disabled */
+.root[data-disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   Label
+   ============================================================================= */
+
+.label {
+  display: block;
+  font-size: var(--stoked-text-sm);
+  font-weight: var(--stoked-font-semibold);
+  color: var(--stoked-color-text);
+  margin-bottom: var(--stoked-spacing-1-5);
+}
+
+/* =============================================================================
+   Trigger
+   ============================================================================= */
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--_ms-gap);
+  min-height: var(--_ms-trigger-min-height);
+  padding: var(--_ms-padding);
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-border);
+  border-radius: var(--_ms-radius);
+  background-color: var(--stoked-color-surface);
+  cursor: pointer;
+  transition: var(--stoked-transition-colors);
+  outline: none;
+}
+
+.trigger:hover:not([aria-disabled='true']) {
+  border-color: var(--stoked-color-border-strong);
+}
+
+.trigger:focus-within {
+  border-color: var(--stoked-color-primary);
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.root[data-open] .trigger {
+  border-color: var(--stoked-color-primary);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.root[data-open] .trigger:focus-within {
+  outline: none;
+}
+
+/* Error state */
+.root[data-error] .trigger {
+  border-color: var(--stoked-color-danger);
+}
+
+/* Trigger content */
+.triggerContent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--_ms-gap);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.placeholder {
+  font-size: var(--_ms-font-size);
+  color: var(--stoked-color-text-muted);
+}
+
+/* Arrow */
+.triggerArrow {
+  display: flex;
+  align-items: center;
+  color: var(--stoked-color-text-muted);
+  transition: transform var(--stoked-duration-normal) var(--stoked-easing-default);
+  flex-shrink: 0;
+}
+
+.root[data-open] .triggerArrow {
+  transform: rotate(180deg);
+  color: var(--stoked-color-primary);
+}
+
+/* =============================================================================
+   Chips / Pills
+   ============================================================================= */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--stoked-spacing-1);
+  padding: var(--stoked-spacing-0-5) var(--stoked-spacing-3);
+  background-color: var(--stoked-color-primary-light);
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-primary-muted);
+  color: var(--stoked-color-primary);
+  border-radius: var(--stoked-radius-full);
+  font-size: var(--stoked-text-sm);
+  font-weight: var(--stoked-font-medium);
+  white-space: nowrap;
+  line-height: var(--stoked-leading-normal);
+}
+
+.chipLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chipRemove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity var(--stoked-duration-fast) var(--stoked-easing-default);
+  line-height: 1;
+}
+
+.chipRemove:hover {
+  opacity: 1;
+}
+
+/* Inline search input */
+.inlineSearch {
+  flex: 1;
+  min-width: 80px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: var(--_ms-font-size);
+  font-family: var(--stoked-font-sans);
+  color: var(--stoked-color-text);
+  padding: var(--stoked-spacing-0-5) 0;
+}
+
+.inlineSearch::placeholder {
+  color: var(--stoked-color-text-muted);
+}
+
+/* =============================================================================
+   Dropdown
+   ============================================================================= */
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: var(--stoked-z-dropdown);
+  border: var(--stoked-border-width-thin) solid var(--stoked-color-primary);
+  border-top: none;
+  border-bottom-left-radius: var(--_ms-radius);
+  border-bottom-right-radius: var(--_ms-radius);
+  background-color: var(--stoked-color-surface);
+  box-shadow: var(--stoked-shadow-xl);
+  overflow: hidden;
+  animation: msSlideIn var(--stoked-duration-normal) var(--stoked-easing-out);
+}
+
+@keyframes msSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown {
+    animation: none;
+  }
+}
+
+/* =============================================================================
+   Option List
+   ============================================================================= */
+
+.list {
+  max-height: 240px;
+  overflow-y: auto;
+  padding: var(--stoked-spacing-1) 0;
+}
+
+/* Custom scrollbar */
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: var(--stoked-color-border-muted);
+  border-radius: var(--stoked-radius-full);
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background: var(--stoked-color-primary);
+}
+
+/* =============================================================================
+   Option Item
+   ============================================================================= */
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--_ms-gap);
+  padding: var(--stoked-spacing-2) var(--stoked-spacing-4);
+  cursor: pointer;
+  transition: background-color var(--stoked-duration-fast) var(--stoked-easing-default);
+}
+
+.option:hover:not([data-disabled]) {
+  background-color: var(--stoked-color-primary-light);
+}
+
+.option[data-selected] {
+  background-color: var(--stoked-color-primary-light);
+}
+
+.option[data-active] {
+  background-color: var(--stoked-color-primary-light);
+  outline: 2px solid var(--stoked-color-focus-ring);
+  outline-offset: -2px;
+}
+
+.option[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.optionLabel {
+  font-size: var(--_ms-font-size);
+  font-weight: var(--stoked-font-medium);
+  color: var(--stoked-color-text);
+  flex: 1;
+}
+
+.option[data-selected] .optionLabel {
+  color: var(--stoked-color-primary);
+  font-weight: var(--stoked-font-bold);
+}
+
+/* Checkbox indicator */
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: var(--stoked-border-width-medium) solid var(--stoked-color-border-strong);
+  border-radius: var(--stoked-radius-sm);
+  transition: var(--stoked-transition-colors);
+}
+
+.checkbox[data-checked] {
+  background-color: var(--stoked-color-primary);
+  border-color: var(--stoked-color-primary);
+  color: var(--stoked-color-text-inverse);
+}
+
+/* =============================================================================
+   Empty / Helper / Error
+   ============================================================================= */
+
+.empty {
+  padding: var(--stoked-spacing-8) var(--stoked-spacing-4);
+  text-align: center;
+  color: var(--stoked-color-text-muted);
+  font-size: var(--stoked-text-sm);
+}
+
+.helperText {
+  display: block;
+  font-size: var(--stoked-text-xs);
+  color: var(--stoked-color-text-muted);
+  margin-top: var(--stoked-spacing-1-5);
+  font-style: italic;
+}
+
+.errorText {
+  display: block;
+  font-size: var(--stoked-text-xs);
+  color: var(--stoked-color-danger);
+  margin-top: var(--stoked-spacing-1-5);
+}
