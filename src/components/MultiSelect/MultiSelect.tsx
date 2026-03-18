@@ -12,7 +12,7 @@ import { cn } from '../../utils/cn';
 import { useId } from '../../utils/useId';
 import { useControllable } from '../../utils/useControllable';
 import { mergeRefs } from '../../utils/mergeRefs';
-import type { MultiSelectProps, MultiSelectOption } from './MultiSelect.types';
+import type { MultiSelectProps } from './MultiSelect.types';
 import styles from './MultiSelect.module.css';
 
 const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
