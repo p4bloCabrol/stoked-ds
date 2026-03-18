@@ -427,4 +427,60 @@ describe('HierarchicalSelect', () => {
       'true'
     );
   });
+
+  // =========================================================================
+  // Keyboard: ArrowRight / ArrowLeft (expand/collapse)
+  // =========================================================================
+
+  it('should expand a parent node with ArrowRight', async () => {
+    const user = userEvent.setup();
+    render(
+      <HierarchicalSelect options={sampleOptions} searchable={false} aria-label="Test" />
+    );
+    const trigger = screen.getByRole('combobox');
+
+    trigger.focus();
+    await user.keyboard('{ArrowDown}'); // open dropdown
+    await user.keyboard('{ArrowDown}'); // focus first item (Root 1)
+    await user.keyboard('{ArrowRight}'); // expand Root 1
+    expect(screen.getByText('Child 1')).toBeInTheDocument();
+  });
+
+  it('should collapse an expanded node with ArrowLeft', async () => {
+    const user = userEvent.setup();
+    render(
+      <HierarchicalSelect options={sampleOptions} searchable={false} aria-label="Test" />
+    );
+    const trigger = screen.getByRole('combobox');
+
+    trigger.focus();
+    await user.keyboard('{ArrowDown}'); // open dropdown
+    await user.keyboard('{ArrowDown}'); // focus Root 1
+    await user.keyboard('{ArrowRight}'); // expand Root 1
+    expect(screen.getByText('Child 1')).toBeInTheDocument();
+
+    await user.keyboard('{ArrowLeft}'); // collapse Root 1
+    expect(screen.queryByText('Child 1')).not.toBeInTheDocument();
+  });
+
+  // =========================================================================
+  // Outside click
+  // =========================================================================
+
+  it('should close dropdown on outside click', async () => {
+    const user = userEvent.setup();
+    render(
+      <div>
+        <HierarchicalSelect options={sampleOptions} aria-label="Test" />
+        <button>Outside</button>
+      </div>
+    );
+    const trigger = screen.getByRole('combobox');
+
+    await user.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    await user.click(screen.getByText('Outside'));
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
 });

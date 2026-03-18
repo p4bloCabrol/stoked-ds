@@ -86,7 +86,7 @@ interface TreeItemProps {
   activeDescendant: string;
   onSelect: (id: string) => void;
   onToggleExpand: (id: string) => void;
-  options: HierarchicalOption[];
+  parentPath: string[];
 }
 
 function TreeItem({
@@ -98,12 +98,13 @@ function TreeItem({
   activeDescendant,
   onSelect,
   onToggleExpand,
-  options,
+  parentPath,
 }: TreeItemProps) {
   const hasChildren = option.children && option.children.length > 0;
   const isExpanded = expandedIds.has(option.id);
   const isSelected = selectedIds.has(option.id);
   const isActive = activeDescendant === option.id;
+  const currentPath = [...parentPath, option.label];
 
   const handleClick = (e: MouseEvent) => {
     e.stopPropagation();
@@ -114,9 +115,6 @@ function TreeItem({
     }
     onSelect(option.id);
   };
-
-  const breadcrumb =
-    mode === 'multi' ? getBreadcrumb(options, option.id) : null;
 
   return (
     <>
@@ -171,9 +169,9 @@ function TreeItem({
         {/* Content */}
         <div className={styles.itemContent}>
           <span className={styles.itemLabel}>{option.label}</span>
-          {mode === 'multi' && breadcrumb && breadcrumb.length > 1 && (
+          {mode === 'multi' && currentPath.length > 1 && (
             <span className={styles.itemPath}>
-              {breadcrumb.map((segment, i) => (
+              {currentPath.map((segment, i) => (
                 <Fragment key={i}>
                   {i > 0 && (
                     <svg
@@ -235,7 +233,7 @@ function TreeItem({
               activeDescendant={activeDescendant}
               onSelect={onSelect}
               onToggleExpand={onToggleExpand}
-              options={options}
+              parentPath={currentPath}
             />
           ))}
         </div>
@@ -348,16 +346,11 @@ const HierarchicalSelect = forwardRef<HTMLDivElement, HierarchicalSelectProps>(
 
     // Get display text for trigger
     const triggerDisplay = useMemo(() => {
-      if (selectedIds.length === 0) return null;
-      if (mode === 'single') {
-        const opt = findOption(options, selectedIds[0]);
-        if (!opt) return null;
-        const breadcrumb = getBreadcrumb(options, selectedIds[0]);
-        return breadcrumb ? breadcrumb.join(' > ') : opt.label;
-      }
-      return selectedIds
-        .map((id) => findOption(options, id))
-        .filter(Boolean);
+      if (mode !== 'single' || selectedIds.length === 0) return null;
+      const opt = findOption(options, selectedIds[0]);
+      if (!opt) return null;
+      const breadcrumb = getBreadcrumb(options, selectedIds[0]);
+      return breadcrumb ? breadcrumb.join(' > ') : opt.label;
     }, [selectedIds, options, mode]);
 
     // Handlers
@@ -537,7 +530,14 @@ const HierarchicalSelect = forwardRef<HTMLDivElement, HierarchicalSelectProps>(
         document.removeEventListener('mousedown', handleOutsideClick);
     }, [isOpen, setIsOpen]);
 
-    // Focus search when opening
+    // Reset search when opening
+    useEffect(() => {
+      if (isOpen) {
+        setSearchQuery('');
+      }
+    }, [isOpen]);
+
+    // Focus search input when opening
     useEffect(() => {
       let rafId: number;
       if (isOpen && searchable) {
@@ -545,19 +545,16 @@ const HierarchicalSelect = forwardRef<HTMLDivElement, HierarchicalSelectProps>(
           searchRef.current?.focus();
         });
       }
-      if (isOpen) {
-        setSearchQuery('');
-      }
       return () => cancelAnimationFrame(rafId);
     }, [isOpen, searchable]);
 
     // Scroll active item into view
     useEffect(() => {
-      if (activeDescendant && listRef.current) {
-        const el = listRef.current.querySelector(
-          `#tree-item-${activeDescendant}`
-        );
-        el?.scrollIntoView({ block: 'nearest' });
+      if (activeDescendant) {
+        const el = document.getElementById(`tree-item-${activeDescendant}`);
+        if (el && typeof el.scrollIntoView === 'function') {
+          el.scrollIntoView({ block: 'nearest' });
+        }
       }
     }, [activeDescendant]);
 
@@ -649,9 +646,9 @@ const HierarchicalSelect = forwardRef<HTMLDivElement, HierarchicalSelectProps>(
                   />
                 )}
               </>
-            ) : mode === 'single' && triggerDisplay ? (
+            ) : triggerDisplay ? (
               <span className={styles.triggerText}>
-                {triggerDisplay as string}
+                {triggerDisplay}
               </span>
             ) : (
               <span className={styles.placeholder}>{placeholder}</span>
@@ -730,7 +727,7 @@ const HierarchicalSelect = forwardRef<HTMLDivElement, HierarchicalSelectProps>(
                     activeDescendant={activeDescendant}
                     onSelect={handleSelect}
                     onToggleExpand={handleToggleExpand}
-                    options={options}
+                    parentPath={[]}
                   />
                 ))
               ) : (
