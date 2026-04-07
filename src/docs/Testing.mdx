@@ -1,0 +1,187 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Testing" />
+
+# Testing
+
+stoked-ds is built with a **two-layer testing strategy**: unit tests for component logic and E2E tests for real browser behavior. Every component ships with both.
+
+---
+
+## Unit Tests (Vitest)
+
+Unit tests live alongside the component they test:
+
+```
+src/components/Button/
+├── Button.tsx
+├── Button.test.tsx   ← unit tests here
+└── ...
+```
+
+Run them with:
+
+```bash
+npm run test          # run once
+npm run test:watch    # watch mode
+```
+
+Unit tests use **Vitest** + **Testing Library** and focus on:
+- Rendering with default and custom props
+- Controlled/uncontrolled state transitions
+- ARIA attribute correctness
+- Event handler calls (`onClick`, `onChange`, etc.)
+- Ref forwarding
+
+---
+
+## E2E Tests (Playwright)
+
+E2E tests live in `e2e/` at the project root, one file per component:
+
+```
+e2e/
+├── accordion.spec.ts
+├── alert.spec.ts
+├── app-shell.spec.ts
+├── avatar.spec.ts
+├── badge.spec.ts
+├── breadcrumb.spec.ts
+├── button.spec.ts
+├── button-group.spec.ts
+├── card.spec.ts
+├── checkbox.spec.ts
+├── hierarchical-select.spec.ts
+├── input.spec.ts
+├── modal.spec.ts
+├── multi-select.spec.ts
+├── pagination.spec.ts
+├── progress.spec.ts
+├── radio.spec.ts
+├── search-input.spec.ts
+├── select.spec.ts
+├── sidebar.spec.ts
+├── skeleton.spec.ts
+├── spinner.spec.ts
+├── stat-card.spec.ts
+├── stepper.spec.ts
+├── switch.spec.ts
+├── table.spec.ts
+├── tabs.spec.ts
+├── tag.spec.ts
+├── toast.spec.ts
+└── tooltip.spec.ts
+```
+
+Run them with:
+
+```bash
+npm run test:e2e
+```
+
+### How E2E Tests Work
+
+Tests run against **Storybook** (started automatically on port 6006). Each test navigates to a story's iframe URL and interacts with the rendered component in a real browser:
+
+```ts
+test.beforeEach(async ({ page }) => {
+  await page.goto('/iframe.html?id=components-button--default&viewMode=story');
+});
+
+test('should render button', async ({ page }) => {
+  const button = page.getByRole('button', { name: 'Button' });
+  await expect(button).toBeVisible();
+});
+```
+
+### Browsers
+
+Tests run across **3 browsers** in parallel:
+
+| Browser | Engine |
+|---------|--------|
+| Chromium | Blink |
+| Firefox | Gecko |
+| WebKit | WebKit (Safari) |
+
+### What E2E Tests Cover
+
+Each spec validates the component from a user's perspective:
+
+- **Rendering** — component is visible with correct structure
+- **Interactions** — clicks, keyboard navigation, hover states
+- **Accessibility** — ARIA roles, attributes, keyboard support (`Tab`, `Enter`, `Space`, arrow keys)
+- **Variants** — different stories test different configurations
+- **State transitions** — open/close, checked/unchecked, active/disabled
+
+### Example: Accordion
+
+```ts
+test('should expand item on click', async ({ page }) => {
+  const firstButton = page.locator('[role="button"]').first();
+  await expect(firstButton).toHaveAttribute('aria-expanded', 'false');
+  await firstButton.click();
+  await expect(firstButton).toHaveAttribute('aria-expanded', 'true');
+});
+
+test('should expand item with keyboard Enter', async ({ page }) => {
+  const firstButton = page.locator('[role="button"]').first();
+  await firstButton.focus();
+  await page.keyboard.press('Enter');
+  await expect(firstButton).toHaveAttribute('aria-expanded', 'true');
+});
+```
+
+### Story ID Convention
+
+Each E2E test targets a specific Storybook story via its iframe URL. The ID is derived from the story's `title` and export name:
+
+```
+/iframe.html?id={title-kebab-case}--{story-name-kebab-case}&viewMode=story
+```
+
+Examples:
+
+| Story title | Export | URL ID |
+|-------------|--------|--------|
+| `Components/Button` | `Default` | `components-button--default` |
+| `Data Display/Accordion` | `AllowMultiple` | `data-display-accordion--allow-multiple` |
+| `Form Controls/SearchInput` | `WithLabel` | `form-controls-searchinput--with-label` |
+
+---
+
+## Coverage
+
+| Layer | Tool | Tests | Scope |
+|-------|------|-------|-------|
+| Unit | Vitest | 359 | Logic, props, ARIA, events |
+| E2E | Playwright | 352 | Real browser behavior across 30 specs × 3 browsers |
+
+---
+
+## CI Pipeline
+
+Both test suites run on every pull request:
+
+```
+lint → typecheck → test (unit) → build → E2E
+```
+
+E2E tests run with `--retries=2` in CI and a single worker to avoid flakiness.
+
+---
+
+## Troubleshooting
+
+**Storybook cache issues** — If E2E tests fail with `importers[path] is not a function`, clear the Storybook cache:
+
+```bash
+rm -rf node_modules/.cache/storybook
+```
+
+**Missing browser** — If tests fail with `Executable doesn't exist`, install the missing browser:
+
+```bash
+npx playwright install webkit    # or chromium, firefox
+npx playwright install           # install all
+```

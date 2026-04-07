@@ -252,7 +252,7 @@ export { Button };
 | `npm run build` | Build de producción |
 | `npm run test` | Ejecutar tests unitarios |
 | `npm run test:watch` | Tests en modo watch |
-| `npm run test:e2e` | Tests E2E con Playwright |
+| `npm run test:e2e` | Tests E2E con Playwright (30 specs × 3 browsers = 352 tests) |
 | `npm run lint` | Ejecutar ESLint |
 | `npm run lint:fix` | Auto-fix con ESLint |
 | `npm run format` | Formatear con Prettier |
@@ -280,7 +280,7 @@ export { Button };
 1. Crear branch desde main: `feat/<nombre>`, `fix/<nombre>`, `docs/<nombre>`, `release/vX.X.X`
 2. Desarrollar y commitear en la branch
 3. Abrir PR con `gh pr create`
-4. CI automático ejecuta: lint → typecheck → test → build
+4. CI automático ejecuta: lint → typecheck → test → test:e2e → build
 5. Mergear PR después de que CI pase
 
 ### Convenciones de branches
@@ -301,6 +301,7 @@ export { Button };
 | Nuevo Componente | `/new-component` | Workflow completo: scaffold → implementar → test → stories → review → PR |
 | Nueva Integración | `/new-integration` | Workflow para integraciones con librerías de terceros → PR |
 | Mejorar Docs | `/improve-docs` | Crear/mejorar documentación en Storybook → PR |
+| Audit | `/audit` | Revisar y parchear vulnerabilidades de seguridad en dependencias npm |
 
 Todos los skills que generan cambios de código crean branch + PR automáticamente.
 
@@ -309,9 +310,10 @@ Todos los skills que generan cambios de código crean branch + PR automáticamen
 1. **Zero-runtime CSS**: No usar CSS-in-JS, solo CSS Modules
 2. **Data attributes**: Preferir `data-*` sobre clases para estados/variantes
 3. **Accesibilidad**: Siempre incluir atributos ARIA necesarios
-4. **Testing**: Cada componente debe tener tests unitarios y stories
+4. **Testing**: Cada componente debe tener tests unitarios (Vitest), stories (Storybook) y tests E2E (Playwright)
 5. **Animaciones CSS**: Definir `@keyframes` en el mismo `.module.css` del componente para que CSS Modules scope funcione correctamente
 6. **Temas**: Dark mode por defecto en `:root`, light mode con `[data-theme='light']`
 7. **Storybook**: Theme toggle disponible en la toolbar (dark/light)
 8. **Branches**: Nunca push a main, siempre feature branches + PRs
 9. **Documentación**: Páginas MDX en `src/docs/`, escritas en inglés
+10. **E2E tests**: Viven en `e2e/`, un archivo por componente. Corren contra Storybook en puerto 6006. IDs de stories: `{title-kebab}--{story-kebab}`. Si fallan con `importers[path] is not a function`, borrar cache: `rm -rf node_modules/.cache/storybook`
