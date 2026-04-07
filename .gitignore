@@ -41,3 +41,7 @@ CLAUDE.md
 .mcp.json
 stitch-code.html
 stitch-design.png
+
+# Playwright
+test-results/
+playwright-report/

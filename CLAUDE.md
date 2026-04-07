@@ -301,6 +301,7 @@ export { Button };
 | Nuevo Componente | `/new-component` | Workflow completo: scaffold → implementar → test → stories → review → PR |
 | Nueva Integración | `/new-integration` | Workflow para integraciones con librerías de terceros → PR |
 | Mejorar Docs | `/improve-docs` | Crear/mejorar documentación en Storybook → PR |
+| Audit | `/audit` | Revisar y parchear vulnerabilidades de seguridad en dependencias npm |
 
 Todos los skills que generan cambios de código crean branch + PR automáticamente.
 
