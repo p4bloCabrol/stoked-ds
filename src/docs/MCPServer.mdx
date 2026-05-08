@@ -1,0 +1,171 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/AI Integration" />
+
+# AI Integration
+
+stoked-ds is built for the AI era. Two features make it easy for AI assistants — Claude Desktop, Claude Code, Cursor, VS Code (Copilot agent mode), Windsurf — to use the design system correctly without loading a 700-line context file:
+
+1. **Context slicing** — the design system ships a `.context/` directory split into focused, granular files. Agents (or any tool) can load only the slice they need.
+2. **MCP server** — published to npm as [`@stoked-ds/mcp-server`](https://www.npmjs.com/package/@stoked-ds/mcp-server). Exposes the slices as tools an agent can call on demand.
+
+## Context slicing
+
+Inside the repo, the [`.context/`](https://github.com/p4bloCabrol/stoked-ds/tree/main/.context) directory is the single source of truth for AI tools.
+
+```
+.context/
+├── index.md       # router: "for X, load Y"
+├── tokens.md      # all --stoked-* design tokens
+├── patterns.md    # component architecture & CSS conventions
+├── components.md  # full component inventory
+├── a11y.md        # accessibility checklist
+├── testing.md     # unit & E2E test patterns
+├── stories.md     # Storybook story patterns
+└── roadmap.md     # phases, pending components
+```
+
+Each slice is small (~50–150 lines) and focused on a single domain. The `index.md` is a router that maps tasks to the right slice — e.g. *"creating a new component → load `patterns.md` + `tokens.md` + `a11y.md`"*. This way an agent answering a question about spacing tokens loads ~120 lines instead of 700.
+
+## MCP server
+
+The MCP server takes context slicing a step further: the agent doesn't even need to know the file structure. It just calls a tool.
+
+### Why use it
+
+- **Smaller context windows.** Agents fetch only the slice they need (e.g. only the `colors` section of the tokens), not the whole design system.
+- **Lower latency.** Less context = faster responses.
+- **Always up to date.** The server reads the same `.context/` files that ship with the design system, so it never drifts out of sync.
+
+## Tools
+
+| Tool | What it does |
+|------|--------------|
+| `get_component(name)` | Returns info for a component by PascalCase name (e.g. `Button`, `HierarchicalSelect`). |
+| `get_tokens(category?)` | Returns design tokens for a category: `colors`, `spacing`, `typography`, `borders`, `shadows`, `transitions`, `z-index`, `sizes`, or `all`. |
+| `get_patterns(topic?)` | Returns implementation patterns: `file-structure`, `types`, `implementation`, `css`, `compound`, `exit-animation`, `controlled`, `utilities`, or `all`. |
+| `search_context(query, maxResults?)` | Full-text search across every `.context/` slice. Returns matching lines with slice and line number. |
+
+## Setup
+
+The server runs over **stdio** and is invoked via `npx`. No global install required.
+
+### Claude Desktop
+
+Add to your config file:
+
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "stoked-ds": {
+      "command": "npx",
+      "args": ["-y", "@stoked-ds/mcp-server"]
+    }
+  }
+}
+```
+
+Restart Claude Desktop. You should see the **stoked-ds** server appear in the tool icon.
+
+### Claude Code
+
+```bash
+claude mcp add stoked-ds -- npx -y @stoked-ds/mcp-server
+```
+
+Or commit a `.mcp.json` file to your repo so the team picks it up automatically:
+
+```json
+{
+  "mcpServers": {
+    "stoked-ds": {
+      "command": "npx",
+      "args": ["-y", "@stoked-ds/mcp-server"]
+    }
+  }
+}
+```
+
+### Cursor
+
+Add to `~/.cursor/mcp.json` (global) or `.cursor/mcp.json` (per project):
+
+```json
+{
+  "mcpServers": {
+    "stoked-ds": {
+      "command": "npx",
+      "args": ["-y", "@stoked-ds/mcp-server"]
+    }
+  }
+}
+```
+
+### VS Code (Copilot agent mode)
+
+```json
+{
+  "mcp.servers": {
+    "stoked-ds": {
+      "command": "npx",
+      "args": ["-y", "@stoked-ds/mcp-server"]
+    }
+  }
+}
+```
+
+## Usage examples
+
+Once configured, ask your assistant questions in natural language:
+
+> "What spacing tokens does stoked-ds expose?"
+
+> "How do I write tests for a stoked-ds component?"
+
+> "Show me the CSS Module pattern used by stoked-ds."
+
+> "Search the stoked-ds context for `forwardRef`."
+
+> "What's the file structure for a new stoked-ds component?"
+
+The agent will pick the right tool automatically and return only the relevant context.
+
+## How it works
+
+The server lives at [`packages/mcp-server/`](https://github.com/p4bloCabrol/stoked-ds/tree/main/packages/mcp-server) inside the stoked-ds monorepo.
+
+```
+packages/mcp-server/
+├── src/
+│   ├── index.ts          # entry: shebang + stdio transport + graceful shutdown
+│   ├── server.ts         # registers tools
+│   ├── lib/
+│   │   └── slices.ts     # reads & caches .context/*.md
+│   └── tools/
+│       ├── getComponent.ts
+│       ├── getTokens.ts
+│       ├── getPatterns.ts
+│       └── searchContext.ts
+└── scripts/
+    └── postbuild.mjs     # copies .context/ into dist/, chmod +x bin
+```
+
+The `.context/` directory at the repo root contains the **single source of truth**. Each slice (`tokens.md`, `patterns.md`, `components.md`, `a11y.md`, `testing.md`, `stories.md`, `roadmap.md`, plus `index.md`) maps to a domain. The server reads, caches, and slices them at runtime.
+
+When the package is published to npm, `.context/` gets bundled into `dist/`. Locally inside the monorepo, the server resolves the slices from the repo root.
+
+## Quality
+
+- **Tests**: 44 (29 unit + 15 in-process integration with the official MCP SDK Client and InMemoryTransport)
+- **Logging**: stderr only — stdout is reserved for JSON-RPC frames
+- **Error handling**: structured `isError: true` responses so agents can recover gracefully instead of crashing
+- **Graceful shutdown**: `SIGINT`/`SIGTERM` close the server cleanly
+
+## Source & feedback
+
+The server is open source and lives in the same repo as the design system: [github.com/p4bloCabrol/stoked-ds](https://github.com/p4bloCabrol/stoked-ds/tree/main/packages/mcp-server).
+
+Issues, ideas, and contributions are welcome.

@@ -34,6 +34,7 @@
       <a href="#hero" class="navbar-logo">stoked<span>-ds</span></a>
 
       <div class="navbar-links" id="navbar-links">
+        <a href="#ai">AI</a>
         <a href="#features">Features</a>
         <a href="#installation">Install</a>
         <a href="#components">Components</a>
@@ -61,6 +62,7 @@
 
   <!-- Mobile nav -->
   <div class="mobile-nav" id="mobile-nav">
+    <a href="#ai">AI</a>
     <a href="#features">Features</a>
     <a href="#installation">Install</a>
     <a href="#components">Components</a>
@@ -75,12 +77,13 @@
       <div class="hero-content">
         <div class="hero-badge">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          v0.5.0 &mdash; 30 components
+          v0.6.0 &mdash; 32 components &mdash; AI-ready
         </div>
         <h1>Build faster with stoked-ds</h1>
         <p class="hero-description">
-          A lightweight, accessible React design system with zero-runtime CSS.
-          Ship beautiful interfaces without the performance overhead.
+          A lightweight, accessible React design system with zero-runtime CSS &mdash;
+          designed to work seamlessly with AI assistants. Ship beautiful interfaces
+          without the performance overhead.
         </p>
         <div class="hero-actions">
           <a href="#installation" class="btn btn-primary">
@@ -95,6 +98,94 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             Storybook
           </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AI INTEGRATION ===== -->
+  <section class="ai-integration" id="ai">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Built for the AI era</span>
+        <h2 class="section-title">Designed for AI-assisted development</h2>
+        <p class="section-description">
+          stoked-ds ships with first-class support for AI assistants. Two layers let agents use the design system correctly,
+          without loading hundreds of lines of context.
+        </p>
+      </div>
+
+      <div class="ai-grid">
+        <!-- Context slicing -->
+        <div class="ai-card">
+          <div class="ai-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>Context slicing</h3>
+          <p>
+            A <code>.context/</code> directory in the repo splits the design system documentation into focused, domain-specific
+            slices: tokens, patterns, components, accessibility, testing, stories, roadmap. Tools load only the slice they need.
+          </p>
+          <div class="code-block" style="margin-top: var(--stoked-spacing-4)">
+            <pre><code class="language-bash">.context/
+├── index.md       # router: "for X, load Y"
+├── tokens.md      # all --stoked-* tokens (~120 lines)
+├── patterns.md    # component conventions (~150 lines)
+├── components.md  # 32-component inventory
+├── a11y.md        # accessibility checklist
+├── testing.md     # test patterns
+├── stories.md     # Storybook patterns
+└── roadmap.md     # phases &amp; pending work</code></pre>
+          </div>
+        </div>
+
+        <!-- MCP server -->
+        <div class="ai-card">
+          <div class="ai-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <h3>MCP server</h3>
+          <p>
+            <code>@stoked-ds/mcp-server</code> exposes the design system as <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a> tools.
+            Works with Claude Desktop, Claude Code, Cursor, VS Code (Copilot agent mode), and Windsurf.
+          </p>
+          <div class="code-block" style="margin-top: var(--stoked-spacing-4)">
+            <pre><code class="language-json">{
+  "mcpServers": {
+    "stoked-ds": {
+      "command": "npx",
+      "args": ["-y", "@stoked-ds/mcp-server"]
+    }
+  }
+}</code></pre>
+            <button class="copy-btn" data-copy='{"mcpServers":{"stoked-ds":{"command":"npx","args":["-y","@stoked-ds/mcp-server"]}}}' aria-label="Copy MCP config">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools list -->
+      <div class="ai-tools">
+        <h3 class="ai-tools-title">Tools the agent can call</h3>
+        <div class="ai-tools-grid">
+          <div class="ai-tool">
+            <code>get_component(name)</code>
+            <p>Component info by PascalCase name.</p>
+          </div>
+          <div class="ai-tool">
+            <code>get_tokens(category?)</code>
+            <p>Tokens for colors, spacing, typography, borders, shadows, transitions, z-index, sizes, or all.</p>
+          </div>
+          <div class="ai-tool">
+            <code>get_patterns(topic?)</code>
+            <p>Patterns for file-structure, types, implementation, css, compound, exit-animation, controlled, utilities.</p>
+          </div>
+          <div class="ai-tool">
+            <code>search_context(query)</code>
+            <p>Full-text search across every <code>.context/</code> slice.</p>
+          </div>
         </div>
       </div>
     </div>

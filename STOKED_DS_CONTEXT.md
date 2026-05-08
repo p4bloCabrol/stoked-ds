@@ -9,11 +9,12 @@
 ## 1. Project Identity
 
 - **Name**: stoked-ds
-- **Version**: 0.5.0
-- **Philosophy**: Lightweight, accessible React design system with zero-runtime CSS
+- **Version**: 0.6.0
+- **Philosophy**: Lightweight, accessible React design system with zero-runtime CSS, designed for the AI era
 - **License**: MIT
 - **Repo**: github.com/p4bloCabrol/stoked-ds
 - **npm**: npmjs.com/package/stoked-ds
+- **MCP server**: npmjs.com/package/@stoked-ds/mcp-server
 
 ---
 
