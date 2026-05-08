@@ -72,3 +72,9 @@ export async function readAllSlices(): Promise<Record<SliceName, string>> {
 export async function getContextDir(): Promise<string> {
   return resolveContextDir();
 }
+
+/** @internal Test-only: clears the slice cache and resolved dir. */
+export function _resetCache(): void {
+  cache.clear();
+  resolvedContextDir = null;
+}
