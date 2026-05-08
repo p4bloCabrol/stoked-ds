@@ -1,0 +1,57 @@
+{
+  "name": "@stoked-ds/mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for the stoked-ds design system. Exposes components, tokens, and patterns as agent tools.",
+  "type": "module",
+  "bin": {
+    "mcp-server-stoked-ds": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && node ./scripts/postbuild.mjs",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "node -e \"import('node:fs').then(fs => fs.rmSync('dist', { recursive: true, force: true }))\"",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "stoked-ds",
+    "design-system",
+    "ai",
+    "agent"
+  ],
+  "license": "MIT",
+  "author": "Pablo Cabrol",
+  "homepage": "https://github.com/p4bloCabrol/stoked-ds/tree/main/packages/mcp-server",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/p4bloCabrol/stoked-ds.git",
+    "directory": "packages/mcp-server"
+  },
+  "bugs": {
+    "url": "https://github.com/p4bloCabrol/stoked-ds/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "typescript": "^5.7.0",
+    "vitest": "^4.0.18"
+  }
+}

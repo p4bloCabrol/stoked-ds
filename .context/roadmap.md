@@ -24,8 +24,8 @@ Behavior-only primitives, dual export (styled + headless), custom theming.
 TipTap, AG Grid, React DnD Kit, Uppy.
 
 ## Phase 6: DX & Ecosystem (v1.0) — ACCELERATED
-- **Context slicing** (`/.context/` directory) — IN PROGRESS
-- **MCP Server** — expose design system as agent tools (`get_component_info`, `get_tokens`, `search_components`)
+- **Context slicing** (`.context/` directory) — DONE
+- **MCP Server** (`@stoked-ds/mcp-server`) — DONE. Tools: `get_component`, `get_tokens`, `get_patterns`, `search_context`. Lives at `packages/mcp-server/`.
 - CLI scaffolding
 - Figma token sync
 - React Flow integration
