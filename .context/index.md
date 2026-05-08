@@ -17,7 +17,7 @@
 
 ## Project identity
 
-- **Name**: stoked-ds | **Version**: 0.5.0 | **License**: MIT
+- **Name**: stoked-ds | **Version**: 0.6.0 | **License**: MIT
 - **Philosophy**: Lightweight, accessible React design system with zero-runtime CSS
 - **Stack**: React 18, TypeScript 5.7 (strict), CSS Modules, Vite 7, Storybook 10, Vitest 4, Playwright 1.58
 - **Only production dep**: clsx

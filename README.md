@@ -6,16 +6,17 @@
 [![install size](https://packagephobia.com/badge?p=stoked-ds)](https://packagephobia.com/result?p=stoked-ds)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue)](https://www.typescriptlang.org/)
 
-A lightweight, accessible React design system with zero-runtime CSS.
+A lightweight, accessible React design system with zero-runtime CSS — designed to work seamlessly with AI assistants.
 
 ## Features
 
-- **30 Components** - Full set of form controls, feedback, data display, layout, and navigation components
+- **32 Components** - Full set of form controls, feedback, data display, layout, and navigation components
 - **Zero-runtime CSS** - CSS Modules with CSS Variables, no JavaScript runtime overhead
 - **Accessible** - WAI-ARIA compliant with keyboard navigation support
 - **Dark Mode** - Built-in dark theme via `data-theme` attribute
 - **TypeScript** - Full type definitions included
 - **Tree-shakeable** - Import only what you need
+- **AI-ready** - Ships with `.context/` slicing and an [MCP server](https://www.npmjs.com/package/@stoked-ds/mcp-server) so AI assistants (Claude Desktop, Claude Code, Cursor, VS Code) can query the design system on demand
 
 ## Installation
 
@@ -48,6 +49,7 @@ function App() {
 - `Input` - Text input with label, helper text, and error states
 - `SearchInput` - Input with built-in search icon and Enter-to-search
 - `Select` - Dropdown selection
+- `HierarchicalSelect` - Nested dropdown with parent/child option levels (single/multi mode)
 - `Checkbox` - Single or multiple selection
 - `Radio` / `RadioGroup` - Single selection from options
 - `Switch` - Toggle on/off
@@ -71,6 +73,10 @@ function App() {
 - `Accordion` - Collapsible content sections
 - `Tabs` - Tabbed navigation
 - `Table` - Data tables
+- `MultiSelect` - Multi-select input with pill/chip tags
+
+### Workflow
+- `Stepper` - Step wizard with active/completed/error states, horizontal/vertical
 
 ### Layout
 - `Sidebar` - Collapsible sidebar navigation with sections and items
@@ -232,9 +238,36 @@ function Dashboard() {
 
 Run `npm run dev` to launch Storybook with:
 
-- All 30 component stories with controls and docs
+- All 32 component stories with controls and docs
 - **8 Page stories** — Full-screen inventory management pages showing how components compose into real UIs (Dashboard, Inventory List, Inventory Detail, Warehouses, Stock Entry, Reports, Settings, Loading States)
 - 5 Integration demos (React Hook Form, TanStack Table, react-day-picker, react-select, Recharts)
+
+## AI Integration
+
+stoked-ds is built for the AI era. Two layers let assistants use the design system correctly without loading hundreds of lines of context.
+
+### Context slicing
+
+The repo ships a [`.context/`](https://github.com/p4bloCabrol/stoked-ds/tree/main/.context) directory split into focused slices: `tokens.md`, `patterns.md`, `components.md`, `a11y.md`, `testing.md`, `stories.md`, `roadmap.md`, plus an `index.md` router. Tools load only the slice they need.
+
+### MCP server
+
+[`@stoked-ds/mcp-server`](https://www.npmjs.com/package/@stoked-ds/mcp-server) exposes the design system as [Model Context Protocol](https://modelcontextprotocol.io) tools.
+
+Configure your assistant with:
+
+```json
+{
+  "mcpServers": {
+    "stoked-ds": {
+      "command": "npx",
+      "args": ["-y", "@stoked-ds/mcp-server"]
+    }
+  }
+}
+```
+
+Tools exposed: `get_component(name)`, `get_tokens(category?)`, `get_patterns(topic?)`, `search_context(query)`. Works with Claude Desktop, Claude Code, Cursor, VS Code (Copilot agent mode), and Windsurf. See [packages/mcp-server/README.md](packages/mcp-server/README.md) for full setup instructions per client.
 
 ## Theming
 

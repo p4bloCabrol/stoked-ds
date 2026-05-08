@@ -2,12 +2,13 @@
 
 ## Descripción
 
-**stoked-ds** es un design system React ligero y accesible con CSS de zero-runtime.
+**stoked-ds** es un design system React ligero y accesible con CSS de zero-runtime, **diseñado para trabajar con asistentes de IA**.
 
-- **Versión**: 0.5.0
+- **Versión**: 0.6.0
 - **Licencia**: MIT
 - **Node requerido**: >=18.0.0
 - **React requerido**: >=18.0.0
+- **AI-ready**: incluye `.context/` (slicing) y `@stoked-ds/mcp-server` (MCP)
 
 ## Stack Tecnológico
 
