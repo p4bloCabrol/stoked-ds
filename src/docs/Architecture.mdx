@@ -240,13 +240,13 @@ This means every native attribute (`onClick`, `disabled`, `aria-label`) works ou
 Every pull request runs through:
 
 ```
-npm audit --omit=dev    → Dependency vulnerability scan
-npm run lint            → ESLint with React hooks rules
-npm run typecheck       → TypeScript strict mode
-npm run test            → 359 unit tests (Vitest)
-npm run test:e2e        → 352 E2E tests (Playwright, 3 browsers)
-npm run build           → Production build
-npm pack --dry-run      → Validate package contents
+pnpm audit --prod       → Dependency vulnerability scan
+pnpm lint               → ESLint with React hooks rules
+pnpm typecheck          → TypeScript strict mode
+pnpm test               → 408 unit tests (Vitest)
+pnpm test:e2e           → 352 E2E tests (Playwright, 3 browsers)
+pnpm build              → Production build
+pnpm pack --dry-run     → Validate package contents
 ```
 
 ### Secure Publishing

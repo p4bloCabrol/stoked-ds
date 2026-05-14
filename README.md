@@ -236,7 +236,7 @@ function Dashboard() {
 
 ## Storybook
 
-Run `npm run dev` to launch Storybook with:
+Run `pnpm dev` to launch Storybook with:
 
 - All 32 component stories with controls and docs
 - **8 Page stories** — Full-screen inventory management pages showing how components compose into real UIs (Dashboard, Inventory List, Inventory Detail, Warehouses, Stock Entry, Reports, Settings, Loading States)

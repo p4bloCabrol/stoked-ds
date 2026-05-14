@@ -61,5 +61,5 @@ export const Sizes: Story = {
 ## Commands
 
 ```bash
-npm run dev   # Storybook on port 6006
+pnpm dev   # Storybook on port 6006
 ```

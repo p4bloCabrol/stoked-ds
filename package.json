@@ -3,9 +3,7 @@
   "version": "0.6.0",
   "description": "A lightweight, accessible React design system with zero-runtime CSS",
   "type": "module",
-  "workspaces": [
-    "packages/*"
-  ],
+  "packageManager": "pnpm@11.1.1",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -64,9 +62,9 @@
     "lint:fix": "eslint src/ --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "typecheck": "tsc --noEmit",
-    "prepack": "npm run build",
-    "prepublishOnly": "npm run lint && npm run typecheck && npm run test",
-    "validate:pack": "npm pack --dry-run",
+    "prepack": "pnpm run build",
+    "prepublishOnly": "pnpm run lint && pnpm run typecheck && pnpm run test",
+    "validate:pack": "pnpm pack --dry-run",
     "clean": "rimraf dist"
   },
   "peerDependencies": {
