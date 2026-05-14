@@ -17,10 +17,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
+    "rootDir": "src",
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src"],

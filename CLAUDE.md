@@ -269,7 +269,7 @@ Package manager: **pnpm** (ver `packageManager` en `package.json`). Para instala
 - **Module**: ESNext
 - **JSX**: react-jsx
 - **Strict mode**: Habilitado
-- **Path alias**: `@/*` → `src/*`
+- **Imports**: relativos (`../../utils/cn`). Sin path aliases (`@/*` fue removido — no estaba en uso).
 
 ## Dependencias Clave
 
