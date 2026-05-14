@@ -22,7 +22,15 @@ A lightweight, accessible React design system with zero-runtime CSS — designed
 
 ```bash
 npm install stoked-ds
+# or
+pnpm add stoked-ds
+# or
+yarn add stoked-ds
+# or
+bun add stoked-ds
 ```
+
+> stoked-ds is built with pnpm internally, but it has no opinion about your project. Use the package manager you already use.
 
 ## Quick Start
 
@@ -236,7 +244,7 @@ function Dashboard() {
 
 ## Storybook
 
-Run `npm run dev` to launch Storybook with:
+Run `pnpm dev` to launch Storybook with:
 
 - All 32 component stories with controls and docs
 - **8 Page stories** — Full-screen inventory management pages showing how components compose into real UIs (Dashboard, Inventory List, Inventory Detail, Warehouses, Stock Entry, Reports, Settings, Loading States)
@@ -268,6 +276,37 @@ Configure your assistant with:
 ```
 
 Tools exposed: `get_component(name)`, `get_tokens(category?)`, `get_patterns(topic?)`, `search_context(query)`. Works with Claude Desktop, Claude Code, Cursor, VS Code (Copilot agent mode), and Windsurf. See [packages/mcp-server/README.md](packages/mcp-server/README.md) for full setup instructions per client.
+
+## Repository architecture
+
+stoked-ds is a [pnpm](https://pnpm.io) workspace that ships **two npm packages** from a single repo.
+
+```
+stoked-design-system/
+├── src/                          # stoked-ds (root package)
+│   ├── components/               # 30+ React components
+│   ├── integrations/             # Adapters for RHF, TanStack Table, etc.
+│   ├── tokens/                   # CSS design tokens
+│   ├── styles/                   # Reset + global styles
+│   └── utils/                    # Shared hooks & helpers
+├── packages/
+│   └── mcp-server/               # @stoked-ds/mcp-server (workspace package)
+│       └── src/                  # MCP tools: get_component, get_tokens, ...
+├── .context/                     # AI-readable slices (used by MCP server)
+├── e2e/                          # Playwright tests
+├── docs/                         # Landing page + whitepaper (GitHub Pages)
+├── pnpm-workspace.yaml           # Workspace declaration
+└── package.json                  # Root: design system + scripts
+```
+
+| Package | Published as | Lives at |
+|---------|--------------|----------|
+| Design system | [`stoked-ds`](https://www.npmjs.com/package/stoked-ds) | `./` (repo root) |
+| MCP server | `@stoked-ds/mcp-server` | `./packages/mcp-server/` |
+
+**For consumers:** install only what you need — `npm install stoked-ds` for the design system, or `npx -y @stoked-ds/mcp-server` (configured in your AI client) for the MCP server. Both are independent.
+
+**For contributors:** clone the repo and run `pnpm install` once at the root — pnpm links the workspace package automatically. See [CLAUDE.md](CLAUDE.md) for the developer guide.
 
 ## Theming
 

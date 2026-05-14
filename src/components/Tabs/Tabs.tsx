@@ -79,7 +79,7 @@ const TabList = forwardRef<HTMLDivElement, TabListProps>(function TabList(
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent, currentIndex: number, totalTabs: number) => {
-      let newIndex = currentIndex;
+      let newIndex: number;
 
       switch (e.key) {
         case 'ArrowLeft':

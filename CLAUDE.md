@@ -23,6 +23,7 @@
 | Playwright 1.58 | E2E testing |
 | ESLint 9 | Linting |
 | Prettier 3.4 | Formateo |
+| pnpm 11 | Gestor de paquetes y workspaces |
 
 ## Estructura del Proyecto
 
@@ -247,17 +248,20 @@ export { Button };
 
 ## Scripts Disponibles
 
+Package manager: **pnpm** (ver `packageManager` en `package.json`). Para instalar dependencias: `pnpm install`.
+
 | Comando | Descripción |
 |---------|-------------|
-| `npm run dev` | Storybook en puerto 6006 |
-| `npm run build` | Build de producción |
-| `npm run test` | Ejecutar tests unitarios |
-| `npm run test:watch` | Tests en modo watch |
-| `npm run test:e2e` | Tests E2E con Playwright (30 specs × 3 browsers = 352 tests) |
-| `npm run lint` | Ejecutar ESLint |
-| `npm run lint:fix` | Auto-fix con ESLint |
-| `npm run format` | Formatear con Prettier |
-| `npm run typecheck` | Verificar tipos TypeScript |
+| `pnpm dev` | Storybook en puerto 6006 |
+| `pnpm build` | Build de producción |
+| `pnpm test` | Ejecutar tests unitarios |
+| `pnpm test:watch` | Tests en modo watch |
+| `pnpm test:e2e` | Tests E2E con Playwright |
+| `pnpm lint` | Ejecutar ESLint |
+| `pnpm lint:fix` | Auto-fix con ESLint |
+| `pnpm format` | Formatear con Prettier |
+| `pnpm typecheck` | Verificar tipos TypeScript |
+| `pnpm --filter @stoked-ds/mcp-server <script>` | Correr script en el workspace mcp-server |
 
 ## Configuración TypeScript
 
@@ -265,7 +269,7 @@ export { Button };
 - **Module**: ESNext
 - **JSX**: react-jsx
 - **Strict mode**: Habilitado
-- **Path alias**: `@/*` → `src/*`
+- **Imports**: relativos (`../../utils/cn`). Sin path aliases (`@/*` fue removido — no estaba en uso).
 
 ## Dependencias Clave
 

@@ -60,13 +60,13 @@ describe('ComponentName', () => {
 
 - Live in `e2e/`, one file per component
 - Story IDs follow the format: `{title-kebab}--{story-kebab}`
-- Run with `npm run test:e2e` (requires Storybook running on port 6006)
+- Run with `pnpm test:e2e` (requires Storybook running on port 6006)
 - If failing with `importers[path] is not a function`, clear cache: `rm -rf node_modules/.cache/storybook`
 
 ## Commands
 
 ```bash
-npm run test          # run all unit tests
-npm run test:watch    # watch mode
-npm run test:e2e      # Playwright E2E
+pnpm test          # run all unit tests
+pnpm test:watch    # watch mode
+pnpm test:e2e      # Playwright E2E
 ```

@@ -104,17 +104,18 @@ This package is part of the [stoked-ds monorepo](https://github.com/p4bloCabrol/
 ```bash
 git clone https://github.com/p4bloCabrol/stoked-ds.git
 cd stoked-ds
-npm install
-npm run build --workspace=@stoked-ds/mcp-server
+pnpm install
+pnpm --filter @stoked-ds/mcp-server build
 ```
+
+> Uses [pnpm](https://pnpm.io) workspaces. Install pnpm globally with `npm install -g pnpm` or via Corepack: `corepack enable`.
 
 ### MCP Inspector
 
 The fastest dev loop is the official [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
 
 ```bash
-cd packages/mcp-server
-npm run inspector
+pnpm --filter @stoked-ds/mcp-server inspector
 ```
 
 Opens a localhost UI where you can list/call tools and inspect every JSON-RPC frame.

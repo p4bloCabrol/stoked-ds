@@ -637,10 +637,10 @@ MCP Server, CLI scaffolding, Figma token sync, React Flow integration, stable AP
 
 ## 13. Security & Quality Pipeline
 
-- `npm run lint` — ESLint 9
-- `npm run typecheck` — TypeScript strict mode
-- `npm run test` — Vitest (332+ unit tests)
-- `npm run build` — tsc + Vite build
+- `pnpm lint` — ESLint 9
+- `pnpm typecheck` — TypeScript strict mode
+- `pnpm test` — Vitest (332+ unit tests)
+- `pnpm build` — tsc + Vite build
 - CI: lint → typecheck → test → build on every PR
 - Publish: quality checks → validate tarball → generate SBOM → publish with `--provenance`
 - Dependabot: weekly grouped PRs
